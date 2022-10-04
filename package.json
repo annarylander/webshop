@@ -1,0 +1,23 @@
+{
+  "name": "webshop",
+  "version": "1.0.0",
+  "description": "Webshop created with React and Typescript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/annarylander/webshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "./packages/*"
+  ],
+  "bugs": {
+    "url": "https://github.com/annarylander/webshop/issues"
+  },
+  "homepage": "https://github.com/annarylander/webshop#readme"
+}
