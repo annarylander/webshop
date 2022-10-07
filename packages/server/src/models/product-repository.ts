@@ -16,7 +16,16 @@ const ProductSchema = new Schema(
 const ProductModel = model<ProductItem>("ProductItem", ProductSchema);
 
 const loadAllProducts = async (): Promise<ProductItem[]> => {
-return await ProductModel.find({}).exec();
+  return await ProductModel.find({}).exec();
 };
 
-export {loadAllProducts}
+const loadSingleProduct = async (productsId: string): Promise<ProductItem | null> => {
+  return await ProductModel.findById(productsId).exec();
+};
+
+const saveProduct = async (product: ProductItem): Promise<ProductItem> => {
+  const newProduct = new ProductModel(product);
+  return await newProduct.save();
+};
+
+export { loadAllProducts, loadSingleProduct, saveProduct };
