@@ -9,6 +9,8 @@ const ProductSchema = new Schema(
     category: [String],
     weight: String,
     manufacturer: String,
+    mainImage: {url: String, alt: String},
+    moreImages: [{url: String, alt: String}]
   },
   { collection: "products" }
 );

@@ -20,7 +20,7 @@ app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World!");
 });
 
-const MONGO_URL: string = process.env.MONGO_URL || "mongodb://localhost:27017/Products";  
+const MONGO_URL: string = process.env.MONGO_URL || "mongodb://localhost:27017/plantshop";  
 
 async function connectToMongo() {
   try {
