@@ -23,9 +23,9 @@ const loadSingleProduct = async (productsId: string): Promise<ProductItem | null
   return await ProductModel.findById(productsId).exec();
 };
 
-const saveProduct = async (product: ProductItem): Promise<ProductItem> => {
+const saveProductItem = async (product: ProductItem): Promise<ProductItem> => {
   const newProduct = new ProductModel(product);
   return await newProduct.save();
 };
 
-export { loadAllProducts, loadSingleProduct, saveProduct };
+export { loadAllProducts, loadSingleProduct, saveProductItem };

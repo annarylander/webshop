@@ -11,7 +11,7 @@ const app: Application = express();
 app.use(cors());
 app.use(json());
 
-const port: number = parseInt(process.env.SERVER_PORT || "3001");
+const port: number = parseInt(process.env.SERVER_PORT || "3002");
 
 app.use("/user", user);
 app.use("/product", product);
