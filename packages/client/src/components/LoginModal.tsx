@@ -12,18 +12,18 @@ import {
   Input,
   useDisclosure,
   InputGroup,
-  InputRightElement
-} from '@chakra-ui/react'
-import React, { useState } from 'react'
+  InputRightElement,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
 
-export default function LoginModal() { 
-  const [email, setEmail] = useState<string>("")
-  const [password, setPassword] = useState<string>("")
-  const [errorText, setErrorText] = useState<string>("")
+export default function LoginModal() {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [errorText, setErrorText] = useState<string>("");
 
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const [show, setShow] = React.useState(false)
-  const handleClick = () => setShow(!show)
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
 
   // const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
   //   e.preventDefault()
@@ -41,45 +41,52 @@ export default function LoginModal() {
   //   });
   // }
 
-
   return (
     <>
-      <Button onClick={onOpen} colorScheme='green'>Login</Button>
+      <Button onClick={onOpen} colorScheme="green">
+        Login
+      </Button>
 
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-      >
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent color="white" bgGradient='linear(to-bl, gray.400, gray.500)'>
-          <ModalHeader fontSize='30px' textAlign="center">Welcome back!</ModalHeader>
-          <ModalHeader fontSize='25px' textAlign="center">Login</ModalHeader>
+        <ModalContent color="white" bgGradient="linear(to-bl, #447761, #000)">
+          <ModalHeader fontSize="30px" textAlign="center">
+            Welcome back!
+          </ModalHeader>
+          <ModalHeader fontSize="25px" textAlign="center">
+            Login
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-          <FormControl mt={4}>
-            <FormLabel>Email</FormLabel>
-            <Input 
-                focusBorderColor='white' 
-                placeholder='Email' 
+            <FormControl mt={4}>
+              <FormLabel>Email</FormLabel>
+              <Input
+                focusBorderColor="white"
+                placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-          </FormControl>
+            </FormControl>
 
-          <FormControl mt={4}>
+            <FormControl mt={4}>
               <FormLabel>Password</FormLabel>
-              <InputGroup size='md'>
+              <InputGroup size="md">
                 <Input
-                  pr='4.5rem'
-                  type={show ? 'text' : 'password'}
-                  placeholder='Enter password'
-                  focusBorderColor='white'
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  placeholder="Enter password"
+                  focusBorderColor="white"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
                 />
-                <InputRightElement width='4.5rem'>
-                  <Button colorScheme="white" h='1.75rem' size='sm' onClick={handleClick}>
-                    {show ? 'Hide' : 'Show'}
+                <InputRightElement width="4.5rem">
+                  <Button
+                    colorScheme="white"
+                    h="1.75rem"
+                    size="sm"
+                    onClick={handleClick}
+                  >
+                    {show ? "Hide" : "Show"}
                   </Button>
                 </InputRightElement>
               </InputGroup>
@@ -87,13 +94,15 @@ export default function LoginModal() {
           </ModalBody>
 
           <ModalFooter color="black">
-            <Button colorScheme='green' mr={3}>
+            <Button bgColor="gray.200" color="#447761" mr={3}>
               Login
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button bgColor="gray.400" color="white" onClick={onClose}>
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
     </>
-  )
+  );
 }
