@@ -28,8 +28,8 @@ export default function StartPage() {
     } else if (products) {
       return (
         <div className="products">
-          {products.map((item) => {
-            return <Card _id={item._id} title={item.title} price={item.price} mainImage={item.mainImage}/>;
+          {products.map((product) => {
+            return <Card _id={product._id} title={product.title} price={product.price} mainImage={product.mainImage}/>;
           })}
         </div>
       );
