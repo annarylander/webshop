@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Image } from "@chakra-ui/react";
 import { ProductItem } from "@my-webshop/shared";
 
 export default function Card({_id, title, price, mainImage}: ProductItem) {
@@ -13,7 +13,8 @@ export default function Card({_id, title, price, mainImage}: ProductItem) {
       </div>
 
       <div>
-        <img src={mainImage === undefined ? ifNoImg : mainImage.url} alt={mainImage === undefined ? 'Fikus' : mainImage.alt} />
+        <Image src={mainImage === undefined ? ifNoImg : mainImage.url} alt={mainImage === undefined ? 'Fikus' : mainImage.alt} 
+        boxSize='300px' objectFit='cover'/>
       </div>
 
       <div className="buy-button">
