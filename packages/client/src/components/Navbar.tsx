@@ -6,6 +6,8 @@ import {
   Button,
   ButtonGroup,
 } from "@chakra-ui/react";
+import LoginModal from "./LoginModal";
+import RegisterModal from "./RegisterModal";
 
 export default function Navbar() {
   return (
@@ -17,12 +19,8 @@ export default function Navbar() {
         <Spacer />
 
         <ButtonGroup gap="2">
-          <Button size="sm" bgColor="#447761" color="white">
-            Sign Up
-          </Button>
-          <Button size="sm" bgColor="#447761" color="white">
-            Log in
-          </Button>
+          <LoginModal />
+          <RegisterModal />
         </ButtonGroup>
       </Flex>
     </Box>
