@@ -14,7 +14,7 @@ export default function Navbar() {
     <Box>
       <Flex minWidth="max-content" alignItems="center" gap="2" p="2">
         <Box p="2">
-          <Heading size="lg">PLANT SHOP 🌱</Heading>
+          <Heading size="lg"><a href="/">PLANT SHOP 🌱</a></Heading>
         </Box>
         <Spacer />
 

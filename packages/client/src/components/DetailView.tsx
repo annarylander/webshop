@@ -1,6 +1,6 @@
 import { ProductItem } from "@my-webshop/shared";
 import React from "react";
-import Card from "./Card";
+import DetailCard from "./DetailCard";
 
 export default function DetailView({
   product,
@@ -14,15 +14,18 @@ export default function DetailView({
       return <div>{error}</div>;
     } else if (product) {
       return (
-        <div className="products">
-          <Card
+        
+          <DetailCard
             _id={product._id}
             title={product.title}
             price={product.price}
+            manufacturer={product.manufacturer}
+            description={product.description}
             mainImage={product.mainImage}
+            weight={product.weight}
           />
-          ;
-        </div>
+          
+        
       );
     } else {
       return <div>'Waiting for products'</div>;
