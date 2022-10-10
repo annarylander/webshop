@@ -1,23 +1,37 @@
 import React, {useEffect} from "react";
 import { ProductItem } from "@my-webshop/shared";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import DetailView from "../components/DetailView";
 
 export default function ProductDetailPage() {
-/*   const [product, setProduct] = React.useState<ProductItem| undefined>();
+ const [product, setProduct] = React.useState<ProductItem| undefined>();
+ const [error, setError] = React.useState<string | undefined>();
 
-  const baseURL: string = process.env.BA
+  const baseURL: string = process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
+  const {id} = useParams<{id: string}>();
 
   useEffect(() => {
     axios
-      .get(URL, { params: { page: currentPage } })
+      .get(`${baseURL}/product/${id}`)
       .then((response) => {
-        setEmployees(response.data.data);
-        setTotalPages(response.data.total_pages);
+        setProduct(response.data);
       })
       .catch((error) => {
-        setEmployees([]);
-        setError("Something went wrong");
+        setProduct(undefined);
+        setError("Cannot find product");
       });
-  }, [currentPage]); */
+  }, []); 
   
-  return <div>ProductDetailPage</div>;
+  return <div>ProductDetailPage
+    {product && 
+    <div>
+      <DetailView product={product} error={error}/>
+      
+
+    </div>
+    }
+    
+  </div>;
 }
