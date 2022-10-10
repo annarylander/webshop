@@ -3,7 +3,7 @@ import cors from "cors";
 import product from "./routes/product";
 import user from "./routes/user";
 import dotenv from "dotenv";
-import mongoose from "mongoose";
+import { setupMongoDb } from "./models/common";
 
 dotenv.config();
 
@@ -20,19 +20,10 @@ app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello, World!");
 });
 
-const MONGO_URL: string = process.env.MONGO_URL || "mongodb://localhost:27017/plantshop";  
-
-async function connectToMongo() {
-  try {
-    await mongoose.connect(MONGO_URL, {
-    });
-    console.log("Connected to MongoDB");
-  } catch (error) {
-    console.log("Error connecting to MongoDB", error);
-  }
-} 
+const MONGO_URL: string =
+  process.env.MONGO_URL || "mongodb://localhost:27017/plantshop";
 
 app.listen(port, async function () {
-  await connectToMongo()
+  await setupMongoDb(MONGO_URL);
   console.log(`App is listening on port ${port} !`);
 });
