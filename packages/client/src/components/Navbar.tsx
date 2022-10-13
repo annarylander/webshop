@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import LoginModal from "./LoginModal";
 import RegisterModal from "./RegisterModal";
+import ShoppingCart from "./ShoppingCart";
 
 export default function Navbar() {
   return (
@@ -21,6 +22,7 @@ export default function Navbar() {
         <ButtonGroup gap="2">
           <LoginModal />
           <RegisterModal />
+          <ShoppingCart />
         </ButtonGroup>
       </Flex>
     </Box>
