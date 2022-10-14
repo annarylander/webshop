@@ -10,3 +10,8 @@ export interface ProductItem {
     moreImages?: [{url: string, alt: string}]
     
 }
+
+export interface CartItem extends ProductItem {
+    amount: number;
+}
+

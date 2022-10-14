@@ -188,3 +188,8 @@
 .product-price-btn button:hover {
   background-color: #79b0a1;
 } */
+
+.cart-amount{
+  margin-bottom: -15px;
+  margin-left: -25px;
+}

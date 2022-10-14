@@ -22,14 +22,14 @@ export default function StartPage() {
       });
   }, []);
 
-  const ProductList = ({ products, error }: { products: ProductItem[]; error?: string }) => {
+  const ProductList = ({ products, error }: { products: ProductItem[]; error?: string;}) => {
     if (error) {
       return <div>{error}</div>;
     } else if (products) {
       return (
         <div className="products">
           {products.map((product) => {
-            return <Card _id={product._id} title={product.title} price={product.price} mainImage={product.mainImage}/>;
+            return <Card key={product._id} _id={product._id} title={product.title} price={product.price} mainImage={product.mainImage}/>;
           })}
         </div>
       );

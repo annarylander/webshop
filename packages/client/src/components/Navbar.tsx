@@ -3,7 +3,6 @@ import {
   Flex,
   Spacer,
   Heading,
-  Button,
   ButtonGroup,
 } from "@chakra-ui/react";
 import LoginModal from "./LoginModal";
@@ -19,11 +18,19 @@ export default function Navbar() {
         </Box>
         <Spacer />
 
-        <ButtonGroup gap="2">
-          <LoginModal />
-          <RegisterModal />
-          <ShoppingCart />
-        </ButtonGroup>
+        <Flex alignItems='flex-end' gap="2">
+         
+            <div>
+              <LoginModal />
+            </div>
+            <div>
+              <RegisterModal />
+            </div>
+            <div>
+              <ShoppingCart />
+            </div>
+       
+        </Flex>
       </Flex>
     </Box>
   );
