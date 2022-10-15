@@ -13,7 +13,7 @@ export default function BuyButton(props: {product: ProductItem}) {
     console.log(`adding ${product.title} to cart`);
     
     const cartItem: CartItem = { 
-      products: product.title,
+      product: product._id || '',
       user: '634a838cee3d87d39de76e34',
       totalPrice: product.price,
       quantity: 1,
