@@ -1,38 +1,32 @@
 import { Button, Image } from "@chakra-ui/react";
-import { ProductItem, } from "@my-webshop/shared";
+import { ProductItem } from "@my-webshop/shared";
+import BuyButton from "./BuyButton";
 
-export default function Card(
-  product: ProductItem) {
-  const ifNoImg =
-    "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHBsYW50c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=20";
-
+export default function Card(props: {product: ProductItem}) {
+ 
   return (
-    <div className="product-card" key={product._id}>
+    <div className="product-card">
       <div>
         <h3>
-          <a href={`/product/${product._id}`}>{product.title}</a>
+          <a href={`/product/${props.product._id}`}>{props.product.title}</a>
         </h3>
-        <p>{product.price} kr</p>
+        <p>{props.product.price} kr</p>
       </div>
 
       <div>
         <Image
-          src={product.mainImage === undefined ? ifNoImg : product.mainImage.url}
-          alt={product.mainImage === undefined ? "Fikus" : product.mainImage.alt}
+          src={props.product.mainImage === undefined ? "" : props.product.mainImage.url}
+          alt={props.product.mainImage === undefined ? "" : props.product.mainImage.alt}
           boxSize="300px"
           objectFit="cover"
         />
       </div>
 
       <div className="buy-button">
-        <Button
-          size="sm"
-          bgColor="#98b8a5"
-          color="white"
-
-        >
+    {/*     <Button size="sm" bgColor="#98b8a5" color="white" onClick={() => props.handleAddToCart(props.product)}>
           Add to cart
-        </Button>
+        </Button> */}
+                <BuyButton product={props.product}/>
       </div>
     </div>
   );

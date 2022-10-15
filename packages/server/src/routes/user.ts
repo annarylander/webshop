@@ -25,7 +25,7 @@ userRouter.post("/create", async (req: Request, res: Response) => {
         res.sendStatus(400).send(`Error: ${e}`)
       }
     }    
-})
+}) 
 
 userRouter.post("/login", async (req: Request, res: Response) => {
   const {email, password} = req.body

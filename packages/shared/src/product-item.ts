@@ -11,7 +11,8 @@ export interface ProductItem {
     
 }
 
-export interface CartItem extends ProductItem {
+export interface CartItemExtended extends ProductItem {
     amount: number;
+    checkedOut: boolean;
 }
 

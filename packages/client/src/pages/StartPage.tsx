@@ -22,19 +22,35 @@ export default function StartPage() {
       });
   }, []);
 
-  const ProductList = ({ products, error }: { products: ProductItem[]; error?: string;}) => {
+  const handleAddToCart = (product: ProductItem) => {
+    console.log(`adding ${product.title} to cart`);
+
+  };
+
+  const ProductList = ({
+    products,
+    error,
+  }: {
+    products: ProductItem[];
+    error?: string;
+  }) => {
     if (error) {
       return <div>{error}</div>;
     } else if (products) {
       return (
         <div className="products">
-          {products.map((product) => {
-            return <Card key={product._id} _id={product._id} title={product.title} price={product.price} mainImage={product.mainImage}/>;
+          {products?.map((product, index) => {
+            return (<Card
+                key={index}
+                product={product}
+                /* handleAddToCart={() => handleAddToCart(product)} */
+              />
+            );
           })}
         </div>
       );
     } else {
-      return <div>'Waiting for products'</div>;
+      return <div>Waiting for products</div>;
     }
   };
 
@@ -45,9 +61,8 @@ export default function StartPage() {
           <h2>Green vibes only</h2>
         </div>
       </div>
-   
-        <ProductList products={products} error={error} />
-    
+
+      <ProductList products={products} error={error} />
     </div>
   );
 }

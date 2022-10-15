@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   email: {type: String, require: true, unique: true},
   phone_number: String,
   address: String,
-  password: String
+  password: String,
 });
 
 const UserModel = model<UserItem>("User", UserSchema);

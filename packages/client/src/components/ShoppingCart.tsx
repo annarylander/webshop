@@ -13,13 +13,15 @@ import {
   Tag,
   TagLabel,
 } from "@chakra-ui/react";
+
 import { BsCart3 } from "react-icons/bs";
 import CartTable from "./CartTable";
+
 
 export default function ShoppingCart() {
   return (
     <div>
-      <Popover>
+      <Popover >
         <PopoverTrigger>
           <div className="cart-button">
           <div className="cart-amount">
@@ -53,6 +55,10 @@ export default function ShoppingCart() {
           </PopoverFooter>
         </PopoverContent>
       </Popover>
+
+
+
+
     </div>
   );
 }
