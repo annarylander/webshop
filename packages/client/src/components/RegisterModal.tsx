@@ -13,7 +13,7 @@ import {
   useDisclosure,
   InputRightElement,
   InputGroup,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
@@ -30,26 +30,26 @@ export default function RegisterModal() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
-  const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault()
+  const handleOnSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
-
-    await axios.post('http://localhost:3002/user/create', {
-      full_name: name,
-      password: password,
-      email: email,
-      number: number,
-      address: address
-    })
-    .then((data:any) => {
-      const token = data.data.token
-      localStorage.setItem("plantshop", token)
-      onClose()
-    })
-    .catch((e:any) => {
-      setErrorText(e.response.data)
-    });
-  }
+    await axios
+      .post(`${process.env.REACT_APP_PRODUCTS_URL}/user/login`, {
+        full_name: name,
+        password: password,
+        email: email,
+        number: number,
+        address: address,
+      })
+      .then((data: any) => {
+        const token = data.data.token;
+        localStorage.setItem("plantshop", token);
+        onClose();
+      })
+      .catch((e: any) => {
+        setErrorText(e.response.data);
+      });
+  };
 
   return (
     <>
@@ -83,7 +83,11 @@ export default function RegisterModal() {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-            {errorText && <Text fontSize='19px' color='red'>{errorText}</Text>}
+              {errorText && (
+                <Text fontSize="19px" color="red">
+                  {errorText}
+                </Text>
+              )}
             </FormControl>
 
             <FormControl mt={4}>
@@ -133,7 +137,12 @@ export default function RegisterModal() {
           </ModalBody>
 
           <ModalFooter color="black">
-            <Button bgColor="gray.200" color="#447761" mr={3} onClick={handleOnSubmit}>
+            <Button
+              bgColor="gray.200"
+              color="#447761"
+              mr={3}
+              onClick={handleOnSubmit}
+            >
               Create account
             </Button>
             <Button bgColor="gray.400" color="white" onClick={onClose}>
