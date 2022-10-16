@@ -190,3 +190,9 @@
 .detailcontainer {
   height: 100vh;
 }
+
+.search input {
+  color: #447761;
+  border: 1px solid;
+  border-radius: 5px;
+}
