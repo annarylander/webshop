@@ -30,11 +30,14 @@ export default function RegisterModal() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
+  const baseURL: string =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
   const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
 
-    await axios.post('http://localhost:3002/user/create', {
+    await axios.post(`${baseURL}/user/create`, {
       full_name: name,
       password: password,
       email: email,

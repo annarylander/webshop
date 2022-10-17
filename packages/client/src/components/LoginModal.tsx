@@ -26,11 +26,14 @@ export default function LoginModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  
+  const baseURL: string =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
   const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
-  await axios.post('http://localhost:3002/user/login', {
+  await axios.post(`${baseURL}/user/login`, {
     password: password,
     email: email,
   })
