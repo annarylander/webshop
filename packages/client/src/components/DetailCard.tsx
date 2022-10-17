@@ -33,11 +33,20 @@ export default function DetailCard({
           </div>
           <div className="product-price-btn">
             <div>
-                <p>
-                 <span className="price">{price}</span>sek
-                </p>
+              <p>
+                <span className="price">{price}</span>sek
+              </p>
             </div>
-            <div><Button size="lg" bgColor="#447761" color="white" className="buy-button2">buy now</Button></div>
+            <div>
+              <Button
+                size="lg"
+                bgColor="#447761"
+                color="white"
+                className="buy-button2"
+              >
+                buy now
+              </Button>
+            </div>
           </div>
         </div>
       </div>
