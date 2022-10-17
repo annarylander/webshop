@@ -6,9 +6,12 @@ import { ProductItem } from "@my-webshop/shared";
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
   const [error, setError] = React.useState<string | undefined>();
+  const [search, setSearch]: [string, (search: string) => void] =
+    React.useState("");
 
   const productsURL: string =
-    process.env.REACT_APP_PRODUCTS_URL || "http://localhost:3002/product";
+    `${process.env.REACT_APP_PRODUCTS_URL}/product` ||
+    "http://localhost:3002/product";
 
   useEffect(() => {
     axios
@@ -22,10 +25,6 @@ export default function StartPage() {
       });
   }, []);
 
-  const handleAddToCart = (product: ProductItem) => {
-    console.log(`adding ${product.title} to cart`);
-
-  };
 
   const ProductList = ({
     products,
@@ -39,13 +38,18 @@ export default function StartPage() {
     } else if (products) {
       return (
         <div className="products">
-          {products?.map((product, index) => {
-            return (<Card
-                key={index}
+          {products.map((product) => {
+            if (
+              search === "" ||
+              product.title.toLowerCase().includes(search.toLowerCase())
+            ) {
+              return (
+                <Card
+                key={product._id}
                 product={product}
-                /* handleAddToCart={() => handleAddToCart(product)} */
-              />
-            );
+                />
+              );
+            }
           })}
         </div>
       );
@@ -61,7 +65,14 @@ export default function StartPage() {
           <h2>Green vibes only</h2>
         </div>
       </div>
-
+      <div className="search">
+        <p>Search product 🔍</p>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        ></input>
+      </div>
       <ProductList products={products} error={error} />
     </div>
   );
