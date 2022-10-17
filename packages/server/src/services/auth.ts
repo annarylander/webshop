@@ -14,7 +14,7 @@ export const authUser = (req: Request, res: Response, next: any) => {
     
     if (token == null) return res.status(401).send("No token exist.")
     
-    jwt.verify(token, process.env.REACT_APP_TOKEN_SECRET as string, (err: any, user: any) => {
+    jwt.verify(token, process.env.TOKEN_SECRET as string, (err: any, user: any) => {
       console.log(err, "error verify")
     
       if (err) return res.status(403).send("Token not verifiable")
