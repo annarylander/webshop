@@ -31,7 +31,7 @@ export default function LoginModal() {
     e.preventDefault();
 
     await axios
-      .post(`${process.env.REACT_APP_PRODUCTS_URL}/user/login`, {
+      .post(`${process.env.REACT_APP_BASE_URL}/user/login`, {
         password: password,
         email: email,
       })
