@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { ProductItem } from "@my-webshop/shared";
-import { Input } from "@chakra-ui/react";
 
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
@@ -25,35 +24,6 @@ export default function StartPage() {
         setError("Something went wrong fetching products");
       });
   }, []);
-
-  // const ProductList = ({
-  //   products,
-  //   error,
-  // }: {
-  //   products: ProductItem[];
-  //   error?: string;
-  // }) => {
-  //   if (error) {
-  //     return <div>{error}</div>;
-  //   } else if (products) {
-  //     return (
-  //       <div className="products">
-  //         {products.map((product) => {
-  //           return (
-  //             <Card
-  //               _id={product._id}
-  //               title={product.title}
-  //               price={product.price}
-  //               mainImage={product.mainImage}
-  //             />
-  //           );
-  //         })}
-  //       </div>
-  //     );
-  //   } else {
-  //     return <div>'Waiting for products'</div>;
-  //   }
-  // };
 
   const ProductList = ({
     products,
