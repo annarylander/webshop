@@ -30,26 +30,29 @@ export default function RegisterModal() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
-  const handleOnSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const baseURL: string =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
-    await axios
-      .post(`${process.env.REACT_APP_PRODUCTS_URL}/user/login`, {
-        full_name: name,
-        password: password,
-        email: email,
-        number: number,
-        address: address,
-      })
-      .then((data: any) => {
-        const token = data.data.token;
-        localStorage.setItem("plantshop", token);
-        onClose();
-      })
-      .catch((e: any) => {
-        setErrorText(e.response.data);
-      });
-  };
+  const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+
+
+    await axios.post(`${baseURL}/user/create`, {
+      full_name: name,
+      password: password,
+      email: email,
+      number: number,
+      address: address
+    })
+    .then((data:any) => {
+      const token = data.data.token
+      localStorage.setItem("plantshop", token)
+      onClose()
+    })
+    .catch((e:any) => {
+      setErrorText(e.response.data)
+    });
+  }
 
   return (
     <>
