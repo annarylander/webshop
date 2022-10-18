@@ -1,7 +1,7 @@
 export interface CartItem {
-  product: string,
-  user: string;
-  totalPrice: number;
-  quantity: number;
-  status: string;
+  userId: string;
+  products: [{ productId: string; quantity: number }];
+  price: number;
+  bill: number;
+  isCheckedOut: boolean;
 }

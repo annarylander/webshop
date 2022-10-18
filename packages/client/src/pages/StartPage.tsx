@@ -24,7 +24,7 @@ export default function StartPage() {
         setError("Something went wrong fetching products");
       });
   }, []);
-
+  
 
   const ProductList = ({
     products,

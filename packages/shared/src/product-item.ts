@@ -10,9 +10,3 @@ export interface ProductItem {
     moreImages?: [{url: string, alt: string}]
     
 }
-
-export interface CartItemExtended extends ProductItem {
-    amount: number;
-    checkedOut: boolean;
-}
-

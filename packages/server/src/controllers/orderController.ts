@@ -3,10 +3,15 @@ import { loadAllOrders, loadSingleOrder, saveOrderItem } from "../models/orders-
 
 
 
-const saveOrder = async(orderitem: CartItem): Promise<CartItem[]> => { 
-    await saveOrderItem(orderitem);
+const saveOrder = async(orderItem: CartItem): Promise<CartItem[]> => {
+    
+
+
+    await saveOrderItem(orderItem);
 
     return loadAllOrders();
+
+  
 }
 
 const loadOrderbyId = async(orderId : string): Promise<CartItem> => { 
