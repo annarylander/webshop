@@ -6,11 +6,14 @@ import { ProductItem } from "@my-webshop/shared";
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
   const [error, setError] = React.useState<string | undefined>();
-  const [search, setSearch]: [string, (search: string) => void] =
-    React.useState("");
+  const [query, setQuery] = React.useState<string | undefined>();
 
   const productsURL: string =
     `${process.env.REACT_APP_BASE_URL}/product` ||
+    "http://localhost:3002/product";
+
+  const searchURL: string =
+    `${process.env.REACT_APP_BASE_URL}/product/search/${query}` ||
     "http://localhost:3002/product";
 
   useEffect(() => {
@@ -25,6 +28,19 @@ export default function StartPage() {
       });
   }, []);
 
+  const handleSearch = async (): Promise<ProductItem[]> => {
+    console.log("hej");
+    const response = await axios.get<ProductItem[]>(searchURL);
+    setProducts(response.data);
+    console.log(response.data);
+    return products;
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
   const ProductList = ({
     products,
     error,
@@ -38,10 +54,7 @@ export default function StartPage() {
       return (
         <div className="products">
           {products.map((product) => {
-            if (
-              search === "" ||
-              product.title.toLowerCase().includes(search.toLowerCase())
-            ) {
+            {
               return (
                 <Card
                   _id={product._id}
@@ -68,11 +81,9 @@ export default function StartPage() {
       </div>
       <div className="search">
         <p>Search product 🔍</p>
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        ></input>
+        <form onSubmit={handleSubmit}>
+          <input type="text" onChange={(e) => setQuery(e.target.value)}></input>
+        </form>
       </div>
       <ProductList products={products} error={error} />
     </div>
