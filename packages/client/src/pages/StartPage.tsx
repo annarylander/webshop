@@ -10,7 +10,7 @@ export default function StartPage() {
     React.useState("");
 
   const productsURL: string =
-    `${process.env.REACT_APP_PRODUCTS_URL}/product` ||
+    `${process.env.REACT_APP_BASE_URL}/product` ||
     "http://localhost:3002/product";
 
   useEffect(() => {
