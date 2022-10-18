@@ -13,7 +13,7 @@ import {
   useDisclosure,
   InputRightElement,
   InputGroup,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
@@ -86,7 +86,11 @@ export default function RegisterModal() {
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
               />
-            {errorText && <Text fontSize='19px' color='red'>{errorText}</Text>}
+              {errorText && (
+                <Text fontSize="19px" color="red">
+                  {errorText}
+                </Text>
+              )}
             </FormControl>
 
             <FormControl mt={4}>
@@ -136,7 +140,12 @@ export default function RegisterModal() {
           </ModalBody>
 
           <ModalFooter color="black">
-            <Button bgColor="gray.200" color="#447761" mr={3} onClick={handleOnSubmit}>
+            <Button
+              bgColor="gray.200"
+              color="#447761"
+              mr={3}
+              onClick={handleOnSubmit}
+            >
               Create account
             </Button>
             <Button bgColor="gray.400" color="white" onClick={onClose}>

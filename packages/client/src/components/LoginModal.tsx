@@ -13,7 +13,7 @@ import {
   useDisclosure,
   InputGroup,
   InputRightElement,
-  Text
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
@@ -64,7 +64,11 @@ export default function LoginModal() {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
-            {errorText && <Text fontSize='19px' color='red'>{errorText}</Text>}
+            {errorText && (
+              <Text fontSize="19px" color="red">
+                {errorText}
+              </Text>
+            )}
             <FormControl mt={4}>
               <FormLabel>Email</FormLabel>
               <Input
@@ -101,7 +105,12 @@ export default function LoginModal() {
           </ModalBody>
 
           <ModalFooter color="black">
-            <Button bgColor="gray.200" color="#447761" mr={3} onClick={handleOnSubmit}>
+            <Button
+              bgColor="gray.200"
+              color="#447761"
+              mr={3}
+              onClick={handleOnSubmit}
+            >
               Login
             </Button>
             <Button bgColor="gray.400" color="white" onClick={onClose}>

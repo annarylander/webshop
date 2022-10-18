@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import saveUser from "../services/user-service";
 import { generateToken } from "../services/auth"
+import { UserItem } from "@my-webshop/shared";
 const { UserModel } = require("../models/user-repository")
 const bcrypt = require("bcrypt");
 
@@ -9,7 +10,7 @@ const userRouter = express.Router();
 export default userRouter;
 
 
-userRouter.post("/create", async (req: Request, res: Response) => {
+userRouter.post("/create", async (req: Request<UserItem>, res: Response<any>) => {
     const {email} = req.body
 
     const userExists = await UserModel.findOne({ email });
@@ -27,7 +28,7 @@ userRouter.post("/create", async (req: Request, res: Response) => {
     }    
 })
 
-userRouter.post("/login", async (req: Request, res: Response) => {
+userRouter.post("/login", async (req: Request<UserItem>, res: Response<any>) => {
   const {email, password} = req.body
 
   const userExists = await UserModel.findOne({ email });
