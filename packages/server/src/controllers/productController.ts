@@ -1,23 +1,38 @@
 import { ProductItem } from "@my-webshop/shared";
-import { loadAllProducts, saveProductItem, loadSingleProduct } from "../models/product-repository";
+import {
+  loadAllProducts,
+  saveProductItem,
+  loadSingleProduct,
+  searchProduct,
+} from "../models/product-repository";
 
-const saveProduct = async (productitem: ProductItem): Promise<ProductItem[]> => { 
-    await saveProductItem(productitem);
+const saveProduct = async (
+  productitem: ProductItem
+): Promise<ProductItem[]> => {
+  await saveProductItem(productitem);
 
-    return loadAllProducts();   
-}
+  return loadAllProducts();
+};
 
 const loadProducts = async (): Promise<ProductItem[]> => {
-    return await loadAllProducts();
-}
+  return await loadAllProducts();
+};
 
-const loadProductbyId = async(productId : string): Promise<ProductItem> => { 
-    const product = await loadSingleProduct(productId);
+const loadProductbyId = async (productId: string): Promise<ProductItem> => {
+  const product = await loadSingleProduct(productId);
 
-    if (!product) {
-        throw new Error("Product not found");
-    }
-    return product;
-}
+  if (!product) {
+    throw new Error("Product not found");
+  }
+  return product;
+};
 
-export {saveProduct, loadProducts, loadProductbyId};
+const getSearchResult = async (query: string): Promise<ProductItem[]> => {
+  const searchResult = await searchProduct(query);
+  if (!searchResult) {
+    throw new Error("Product not found");
+  }
+  return searchResult;
+};
+
+export { saveProduct, loadProducts, loadProductbyId, getSearchResult };
