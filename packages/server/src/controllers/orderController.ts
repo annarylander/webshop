@@ -8,15 +8,6 @@ import {
 } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
-/* const checkCart = async (userId: string): Promise<CartItem> => {
-  const cart = await loadCartbyUser(userId);
-
-  if (!cart) {
-    throw new Error("Cart not found");
-  }
-  return cart;
-}; */
-
 const saveOrder = async (
   order: CartItem,
   userId: string,

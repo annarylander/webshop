@@ -10,21 +10,6 @@ orderRouter.post(
   "/:id",
   async (req: Request, res: Response) => {
     
- /*    const user = req.params.user
-    const {productId, quantity} = req.body
-
-   
-
-    try {
-    let cart = await loadOrderbyId(user)
-    let product = await loadProductbyId({_id: productId})
-    if(!product){
-      res.status(404).send('Item not found!')
-  }
-    }
-    const price = product.price
-    const  
- */
     const user = '634a838cee3d87d39de76e34'
     const payload: CartItem = {
       user: user,
