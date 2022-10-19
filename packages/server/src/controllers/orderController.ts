@@ -8,19 +8,19 @@ import {
 } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
-const checkCart = async (userId: string): Promise<CartItem> => {
+/* const checkCart = async (userId: string): Promise<CartItem> => {
   const cart = await loadCartbyUser(userId);
 
   if (!cart) {
     throw new Error("Cart not found");
   }
   return cart;
-};
+}; */
 
 const saveOrder = async (
   order: CartItem,
   userId: string,
-  productId: string
+  productId: string,
 ): Promise<void> => {
   try {
     const cart = await loadCartbyUser(userId);
@@ -28,13 +28,14 @@ const saveOrder = async (
     if (!product) {
       throw new Error("Product not found");
     }
-    const price: number = product.price;
+    const price = product.price;
     const title = product.title;
 
     if (cart) {
       let itemIndex = cart.products.findIndex((p) => p.productId == productId);
       if (itemIndex > -1) {
         cart.products[itemIndex].quantity++;
+        cart.products[itemIndex].price += cart.products[itemIndex].price;
         cart.bill += price;
       } else {
         cart.products.push({ productId, title, price, quantity: 1 });
@@ -42,7 +43,7 @@ const saveOrder = async (
       }
       saveOrderItem(cart);
     } else {
-      const newCart = order;
+      const newCart = order
       newCart.bill += price;
       saveOrderItem(newCart);
     }

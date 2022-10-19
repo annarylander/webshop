@@ -25,11 +25,11 @@ orderRouter.post(
     const price = product.price
     const  
  */
+    const user = '634a838cee3d87d39de76e34'
     const payload: CartItem = {
-      user: req.body.userId,
-      products: req.body.products,
-      price: req.body.price,
-      bill: req.body.bill,
+      user: user,
+      products: req.body,
+      bill: 0,
       isCheckedOut: false,
     }
 

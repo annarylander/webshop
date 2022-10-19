@@ -17,9 +17,9 @@ const OrderSchema = new Schema(
           min: [1, "Quantity must be at least 1"],
           default: 1,
         },
+        price: Number,
       },
     ],
-    price: Number,
     bill: {
       type: Number,
       required: true,
@@ -55,6 +55,8 @@ const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
   let itemIndex = cart.products.findIndex(p => p.productId == productId);
  }
   } */
+
+
 
   const newOrder = new OrderModel(order);
   return await newOrder.save();
