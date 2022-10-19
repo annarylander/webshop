@@ -1,4 +1,5 @@
 import { CartItem } from "@my-webshop/shared";
+import { createWriteStream } from "fs";
 import { model, Schema } from "mongoose";
 import { loadProductbyId } from "../controllers/productController";
 import { loadSingleProduct } from "./product-repository";
@@ -9,6 +10,7 @@ const OrderSchema = new Schema(
     products: [
       {
         productId: { type: Schema.Types.ObjectId, ref: "ProductItem" },
+        title: String,
         quantity: {
           type: Number,
           required: true,
@@ -23,7 +25,7 @@ const OrderSchema = new Schema(
       required: true,
       default: 0,
     },
-    status: String,
+    isCheckedOut: {type: Boolean, default: false},
   },
   {
     timestamps: true,
@@ -41,9 +43,21 @@ const loadSingleOrder = async (orderId: string): Promise<CartItem | null> => {
   return await OrderModel.findById(orderId).exec();
 };
 
+const loadCartbyUser = async (userId: string): Promise<CartItem | null> => { 
+  return await OrderModel.findOne({user: userId, isCheckedOut: false}).exec();
+}
+
 const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
+
+/*   try {
+    const cart = await OrderModel.find({ user: userId, isCheckedOut: false }).populate('ProductItem')
+ if (cart) {
+  let itemIndex = cart.products.findIndex(p => p.productId == productId);
+ }
+  } */
+
   const newOrder = new OrderModel(order);
   return await newOrder.save();
 };
 
-export { loadAllOrders, loadSingleOrder, saveOrderItem };
+export { loadAllOrders, loadSingleOrder, loadCartbyUser , saveOrderItem };

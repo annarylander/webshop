@@ -15,18 +15,19 @@ export default function BuyButton(props: {product: ProductItem}) {
   const handleAddToCart = async (product: ProductItem) : Promise<void> => {
     console.log(`adding ${product.title} to cart`);
     
-/*     const cartItem: CartItem = { 
+     const cartItem: CartItem = { 
       user: '634a838cee3d87d39de76e34',
-      products: {productId: product._id, quantity: 1},
+      products: [{productId: product._id || '', title: product.title, price: product.price, quantity: 1}],
       price: product.price,
-      bill: 
-      status: 'cart'
+      bill: 0,
+      isCheckedOut: false
     }
+
     try {
       await axios.post(cartURL, cartItem)
     } catch (error) {
       setError('Something went wrong adding to cart')
-    } */
+    } 
   };
 
   return (
