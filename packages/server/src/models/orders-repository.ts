@@ -48,16 +48,6 @@ const loadCartbyUser = async (userId: string): Promise<CartItem | null> => {
 }
 
 const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
-
-/*   try {
-    const cart = await OrderModel.find({ user: userId, isCheckedOut: false }).populate('ProductItem')
- if (cart) {
-  let itemIndex = cart.products.findIndex(p => p.productId == productId);
- }
-  } */
-
-
-
   const newOrder = new OrderModel(order);
   return await newOrder.save();
 };
