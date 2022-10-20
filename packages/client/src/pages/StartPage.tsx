@@ -14,7 +14,7 @@ export default function StartPage() {
 
   const searchURL: string =
     `${process.env.REACT_APP_BASE_URL}/product/search/${query}` ||
-    "http://localhost:3002/product";
+    `http://localhost:3002/product/search/${query}`;
 
   useEffect(() => {
     axios
