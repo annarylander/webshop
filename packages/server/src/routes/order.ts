@@ -1,6 +1,6 @@
 import { CartItem, UserItem } from "@my-webshop/shared";
 import express, { Request, Response } from "express";
-import { loadOrderbyId, saveOrder } from "../controllers/orderController";
+import { loadCartbyUser, saveOrder } from "../controllers/orderController";
 import { loadProductbyId } from "../controllers/productController";
 import { authUser } from "../services/auth";
 
@@ -28,9 +28,9 @@ orderRouter.post(
 
 orderRouter.get("/:id", authUser, async (req: Request, res: Response) => {
   try {
-    res.send(await loadOrderbyId(req.params.user));
-  } catch (error) {
-    res.status(500).send("Something went went wrong getting order");
+    res.send(await loadCartbyUser(req.params.user))
+  } catch {
+    res.status(204).send("No Cart found");
   }
 });
 

@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import {
   IconButton,
   Popover,
@@ -17,14 +19,31 @@ import {
 import { BsCart3 } from "react-icons/bs";
 import CartTable from "./CartTable";
 
-
 export default function ShoppingCart() {
+ 
+  const baseURL: string =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
+  const { id } = useParams<{ id: string }>();
+
+/*   useEffect(() => {
+    axios
+      .get(`${baseURL}/order/${id}`)
+      .then((response) => {
+        setProduct(response.data);
+      })
+      .catch((error) => {
+        setProduct(undefined);
+        setError("Cannot find product");
+      });
+  }, []); */
+
   return (
     <div>
-      <Popover >
+      <Popover>
         <PopoverTrigger>
           <div className="cart-button">
-          <div className="cart-amount">
+            <div className="cart-amount">
               <Tag
                 size="sm"
                 borderRadius="full"
@@ -40,7 +59,6 @@ export default function ShoppingCart() {
               variant="outline"
               icon={<BsCart3 />}
             />
-          
           </div>
         </PopoverTrigger>
         <PopoverContent>
@@ -55,10 +73,6 @@ export default function ShoppingCart() {
           </PopoverFooter>
         </PopoverContent>
       </Popover>
-
-
-
-
     </div>
   );
 }

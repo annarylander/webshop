@@ -55,6 +55,7 @@ export default function StartPage() {
       return (
         <div className="products">
           {products.map((product) => {
+            // eslint-disable-next-line no-lone-blocks
             {
               return (
                 <Card
