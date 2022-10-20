@@ -9,8 +9,8 @@ const ProductSchema = new Schema(
     category: [String],
     weight: String,
     manufacturer: String,
-    mainImage: {url: String, alt: String},
-    moreImages: [{url: String, alt: String}]
+    mainImage: { url: String, alt: String },
+    moreImages: [{ url: String, alt: String }],
   },
   { collection: "products" }
 );
@@ -21,7 +21,9 @@ const loadAllProducts = async (): Promise<ProductItem[]> => {
   return await ProductModel.find({}).exec();
 };
 
-const loadSingleProduct = async (productsId: string): Promise<ProductItem | null> => {
+const loadSingleProduct = async (
+  productsId: string
+): Promise<ProductItem | null> => {
   return await ProductModel.findById(productsId).exec();
 };
 
@@ -30,4 +32,8 @@ const saveProductItem = async (product: ProductItem): Promise<ProductItem> => {
   return await newProduct.save();
 };
 
-export { loadAllProducts, loadSingleProduct, saveProductItem };
+const searchProduct = async (query: string): Promise<ProductItem[]> => {
+  return await ProductModel.find({ title: RegExp(query, "i") }).exec();
+};
+
+export { loadAllProducts, loadSingleProduct, saveProductItem, searchProduct };

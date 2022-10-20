@@ -4,7 +4,9 @@ import {
   saveProduct,
   loadProducts,
   loadProductbyId,
+  getSearchResult,
 } from "../controllers/productController";
+import { searchProduct } from "../models/product-repository";
 
 const productRouter = express.Router();
 
@@ -32,6 +34,14 @@ productRouter.get("/:productId", async (req: Request, res: Response) => {
     res.send(await loadProductbyId(req.params.productId));
   } catch (error) {
     res.status(500).send("Something went went wrong getting product");
+  }
+});
+
+productRouter.get("/search/:query", async (req: Request, res: Response) => {
+  try {
+    res.send(await getSearchResult(req.params.query));
+  } catch (e) {
+    res.sendStatus(400);
   }
 });
 
