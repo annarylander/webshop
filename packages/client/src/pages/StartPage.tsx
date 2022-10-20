@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { ProductItem } from "@my-webshop/shared";
+import { Icon } from "@chakra-ui/react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
@@ -27,7 +29,6 @@ export default function StartPage() {
         setError("Something went wrong fetching products");
       });
   }, []);
-  
 
   const handleSearch = async (): Promise<ProductItem[]> => {
     console.log("hej");
@@ -56,12 +57,7 @@ export default function StartPage() {
         <div className="products">
           {products.map((product) => {
             {
-              return (
-                <Card
-                key={product._id}
-                product={product}
-                />
-              );
+              return <Card key={product._id} product={product} />;
             }
           })}
         </div>
@@ -78,13 +74,26 @@ export default function StartPage() {
           <h2>Green vibes only</h2>
         </div>
       </div>
-      <div className="search">
-        <p>Search product 🔍</p>
-        <form onSubmit={handleSubmit}>
-          <input type="text" onChange={(e) => setQuery(e.target.value)}></input>
-        </form>
+
+      <div className="search-wrapper">
+        <div className="search-container">
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search for a product"
+              onChange={(e) => setQuery(e.target.value)}
+            ></input>
+            <button className="search-button">
+              <Icon as={AiOutlineSearch} boxSize={7} />
+            </button>
+          </form>
+        </div>
       </div>
-      <ProductList products={products} error={error} />
+
+      <div>
+        <ProductList products={products} error={error} />
+      </div>
     </div>
   );
 }
