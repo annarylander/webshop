@@ -41,6 +41,7 @@ export default function LoginModal() {
     const token = data.data.token
     localStorage.setItem("plantshop", token)
     onClose()
+    window.location.reload()
   })
   .catch((e:any) => {
     setErrorText(e.response.data)

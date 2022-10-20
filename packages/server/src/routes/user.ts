@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import saveUser from "../services/user-service";
-import { generateToken } from "../services/auth"
+import { saveUser, getUserById } from "../services/user-service";
+import { authUser, generateToken } from "../services/auth"
 import { UserItem } from "@my-webshop/shared";
 const { UserModel } = require("../models/user-repository")
 const bcrypt = require("bcrypt");
@@ -48,4 +48,17 @@ userRouter.post("/login", async (req: Request<UserItem>, res: Response<any>) => 
   }else {
     res.status(403).send("No user found with this email")
   }    
+})
+
+userRouter.get("/getuser", authUser, async (req: Request, res: Response<any>) => {
+  const username = req.body
+
+  try {
+    const userInfo = await getUserById(username.username)
+    if(userInfo){
+      res.status(200).send(userInfo)
+    }
+  } catch (error) {
+    res.status(403).send(error)
+  }
 })
