@@ -16,15 +16,17 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { UserContext } from "../App"
 
 export default function RegisterModal() {
-  const [name, setName] = useState<string>("");
+  const {name, setName} = useContext(UserContext)
   const [email, setEmail] = useState<string>("");
   const [number, setNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorText, setErrorText] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = React.useState(false);
@@ -32,6 +34,23 @@ export default function RegisterModal() {
 
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
+  const token = localStorage.getItem("plantshop")
+
+    useEffect(() => {
+      axios
+        .get(`${baseURL}/user/getuser`, {
+          headers: { 
+            "Content-Type": "application/json", 
+            "Authorization": `Bearer ${token}` }})
+        .then((_response) => {
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.log(error)
+          setIsLoggedIn(false)
+        });
+    }, []);
 
   const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
@@ -48,6 +67,7 @@ export default function RegisterModal() {
       const token = data.data.token
       localStorage.setItem("plantshop", token)
       onClose()
+      window.location.reload()
     })
     .catch((e:any) => {
       setErrorText(e.response.data)
@@ -55,10 +75,11 @@ export default function RegisterModal() {
   }
 
   return (
-    <>
+    <> 
+    {!isLoggedIn && 
       <Button onClick={onOpen} colorScheme="green">
         Sign Up
-      </Button>
+      </Button> }
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -154,6 +175,6 @@ export default function RegisterModal() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+  </>
   );
 }

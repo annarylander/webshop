@@ -20,5 +20,10 @@ export const saveNewUser = async (user: UserItem): Promise<void> => {
   newModel.save();
 };
 
+export const getUser = async (username: string): Promise<UserItem | null> => {
+  const userInfo = await UserModel.findOne({ full_name: username });
+  return userInfo
+};
+
 
 exports.UserModel = UserModel
