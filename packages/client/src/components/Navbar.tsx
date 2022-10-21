@@ -4,7 +4,9 @@ import {
   Spacer,
   Heading,
 } from "@chakra-ui/react";
+import AccountButton from "./AccountButton";
 import LoginModal from "./LoginModal";
+import LogoutButton from "./LogoutButton";
 import RegisterModal from "./RegisterModal";
 import ShoppingCart from "./ShoppingCart";
 
@@ -21,16 +23,24 @@ export default function Navbar() {
 
         <Spacer />
 
-        <Flex alignItems="flex-end" gap="2">
-          <div>
-            <LoginModal />
-          </div>
-          <div>
-            <RegisterModal />
-          </div>
-          <div>
-            <ShoppingCart />
-          </div>
+        <Flex alignItems='flex-end' gap="2">
+         
+            <div>
+              <LoginModal />
+            </div>
+            <div>
+              <RegisterModal />
+            </div>
+            <div>
+              <AccountButton/>
+            </div>
+            <div>
+              <LogoutButton />
+            </div>
+            <div>
+              <ShoppingCart />
+            </div>
+       
         </Flex>
       </Flex>
     </Box>

@@ -10,11 +10,11 @@ import { loadSingleProduct } from "../models/product-repository";
 
 const saveOrder = async (
   order: CartItem,
-  userId: string,
+  email: string,
   productId: string
 ): Promise<CartItem | null> => {
   try {
-    const cart = await findCartbyUser(userId);
+    const cart = await findCartbyUser(email);
     const product = await loadSingleProduct(productId);
     if (!product) {
       throw new Error("Product not found");
@@ -42,7 +42,7 @@ const saveOrder = async (
     throw new Error("Error saving order");
   }
 
-  return await loadCartbyUser(userId);
+  return await loadCartbyUser(email);
 };
 
 const loadCartbyUser = async (userId: string): Promise<CartItem> => {

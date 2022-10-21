@@ -16,13 +16,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function LoginModal() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorText, setErrorText] = useState<string>("");
-  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = React.useState(false);
@@ -36,8 +36,24 @@ export default function LoginModal() {
       }
     } */
 
-  const handleLogin = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
+  const token = localStorage.getItem("plantshop")
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/user/getuser`, {
+        headers: { 
+          "Authorization": `Bearer ${token}` }})
+      .then((_response) => {
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        // console.log(error)
+        setIsLoggedIn(false)
+      });
+  }, []);
+
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
 
 /*     const loginResponse = await axios.post(`${baseURL}/user/login`, {
       email: email,
@@ -74,9 +90,9 @@ export default function LoginModal() {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="green">
+      {!isLoggedIn && <Button onClick={onOpen} colorScheme="green">
         Login
-      </Button>
+      </Button> }
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

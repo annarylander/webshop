@@ -18,5 +18,8 @@
   ],
   "bugs": {
     "url": "https://github.com/annarylander/webshop/issues"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.11"
   }
 }
