@@ -12,7 +12,7 @@ const saveOrder = async (
   order: CartItem,
   userId: string,
   productId: string
-): Promise<void> => {
+): Promise<CartItem | null> => {
   try {
     const cart = await findCartbyUser(userId);
     const product = await loadSingleProduct(productId);
@@ -32,15 +32,17 @@ const saveOrder = async (
         cart.products.push({ productId, title, price, quantity: 1 });
         cart.bill += price;
       }
-      saveOrderItem(cart);
+      await saveOrderItem(cart);
     } else {
       const newCart = order;
       newCart.bill += price;
-      saveOrderItem(newCart);
+      await saveOrderItem(newCart);
     }
   } catch {
     throw new Error("Error saving order");
   }
+
+  return await loadCartbyUser(userId);
 };
 
 const loadCartbyUser = async (userId: string): Promise<CartItem> => {
