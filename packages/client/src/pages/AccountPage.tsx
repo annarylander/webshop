@@ -4,10 +4,15 @@ import {
   GridItem,
   Image,
   Text,
-  Box
+  Box,
+  Button
 } from "@chakra-ui/react";
+import { 
+  EditIcon 
+} from '@chakra-ui/icons'
 import axios from "axios";
 import { UserItem } from "@my-webshop/shared";
+import CartTable from "../components/CartTable";
 
 export default function AccountPage() {
   const [user, setUser] = useState<UserItem>();
@@ -33,39 +38,51 @@ const token = localStorage.getItem("plantshop")
 
   
   return <>
-    <Text fontSize='5xl' color='black'>AccountPage</Text>
     <Grid
       h='100vh'
-      templateRows='repeat(2, 1fr)'
+      templateRows='repeat(6, 1fr)'
       templateColumns='repeat(5, 1fr)'
       gap={4}
     >
-      <GridItem rowSpan={2} colSpan={1} bg='lightgreen'>
-        <Text fontSize='2xl' color='white'>{user && user.full_name}</Text>
+      <GridItem rowSpan={6} colSpan={1} bgColor='gray.100' borderRadius='lg' display='flex' flexDirection='column' alignItems='center'>
         
         <Image
+          boxShadow='dark-lg'
           borderRadius='full'
           boxSize='150px'
-          ml='110px'
-          mt='10px'
+          mt='25px'
           src='https://images.unsplash.com/photo-1597848212624-a19eb35e2651?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1935&q=80'
           alt='Sunflower'
         />
-        <Box maxW='sm' borderWidth='5px' borderRadius='lg' overflow='hidden' mt='10px' ml='10px' mr='10px'>
-          <Text>{user && user.full_name}</Text>
-          <Text>{user && user.email}</Text>
-          <Text>{user && user.address}</Text>
-          <Text>{user && user.phone_number}</Text>
+        <Text fontSize='2xl' color='black' mt="25px">{user && user.full_name}</Text>
+        <Box display='flex' flexDirection='column' alignItems='flex-start' boxShadow='2xl' maxW='sm' borderWidth='5px' borderRadius='lg' overflow='hidden' p='30px' m='10px' >
+          <Text as='b'>Name:</Text>
+          <Text mb='10px'> {user && user.full_name} </Text>
+          <Text as='b'>Email:</Text>
+          <Text mb='10px'>{user && user.email}</Text>
+          <Text as='b'>Address:</Text> 
+          <Text mb='10px'> {user && user.address}</Text>
+          <Text as='b'>Mobile phone:</Text>
+          <Text> {user && user.phone_number}</Text>
+
+          <Button alignSelf='end' size='xs' ><EditIcon w={5} h={5} /></Button>
+          
         </Box>
 
       </GridItem>
-      <GridItem colSpan={2} bg='lightgray'>
-        <Text as='u' fontSize='2xl' color='white'>Shopping cart</Text>
+      
+      <GridItem boxShadow='2xl' colSpan={4} rowSpan={2} borderRadius='lg' className='accountPageBanner'>
+        <Text fontSize='5xl'>Account page</Text>
       </GridItem>
-      <GridItem colSpan={2} bg='lightgray'>
-        <Text as='u' fontSize='2xl' color='white'>Previous orders</Text>
+
+      <GridItem boxShadow='2xl' colSpan={2} rowSpan={4} borderRadius='lg' borderColor='green' bgColor='gray.300'>
+        <Text as='u' fontSize='2xl' color='black'>Shopping cart</Text>
+        <CartTable/>
       </GridItem>
-      <GridItem colSpan={4} bg='lightgreen'></GridItem>
+
+      <GridItem boxShadow='2xl' colSpan={2} rowSpan={4} borderRadius='lg' borderColor='green' bgColor='gray.300'>
+        <Text as='u' fontSize='2xl' color='black'>Previous orders</Text>
+      </GridItem >
     </Grid>
   </>
 }

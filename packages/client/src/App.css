@@ -31,6 +31,18 @@
   justify-content: center;
 }
 
+.accountPageBanner {
+  background-image: url(".././src/assets/leaves.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: rgb(255, 255, 255);
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .products {
   display: grid;
   justify-items: center;

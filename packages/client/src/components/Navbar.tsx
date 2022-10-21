@@ -5,7 +5,9 @@ import {
   Heading,
   ButtonGroup,
 } from "@chakra-ui/react";
+import AccountButton from "./AccountButton";
 import LoginModal from "./LoginModal";
+import LogoutButton from "./LogoutButton";
 import RegisterModal from "./RegisterModal";
 import ShoppingCart from "./ShoppingCart";
 
@@ -25,6 +27,12 @@ export default function Navbar() {
             </div>
             <div>
               <RegisterModal />
+            </div>
+            <div>
+              <AccountButton/>
+            </div>
+            <div>
+              <LogoutButton />
             </div>
             <div>
               <ShoppingCart />
