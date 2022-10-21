@@ -16,12 +16,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function LoginModal() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorText, setErrorText] = useState<string>("");
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = React.useState(false);
@@ -29,6 +30,23 @@ export default function LoginModal() {
   
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
+  const token = localStorage.getItem("plantshop")
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/user/getuser`, {
+        headers: { 
+          "Content-Type": "application/json", 
+          "Authorization": `Bearer ${token}` }})
+      .then((_response) => {
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        // console.log(error)
+        setIsLoggedIn(false)
+      });
+  }, []);
 
   const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
@@ -50,9 +68,9 @@ export default function LoginModal() {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="green">
+      {!isLoggedIn && <Button onClick={onOpen} colorScheme="green">
         Login
-      </Button>
+      </Button> }
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

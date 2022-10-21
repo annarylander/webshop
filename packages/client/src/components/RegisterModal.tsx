@@ -47,7 +47,7 @@ export default function RegisterModal() {
           setIsLoggedIn(true);
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
           setIsLoggedIn(false)
         });
     }, []);
