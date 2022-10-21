@@ -11,8 +11,8 @@ import { loadSingleProduct } from "../models/product-repository";
 const saveOrder = async (
   order: CartItem,
   userId: string,
-  productId: string,
-): Promise<void> => {
+  productId: string
+): Promise<CartItem | null> => {
   try {
     const cart = await loadCartbyUser(userId);
     const product = await loadSingleProduct(productId);
@@ -32,15 +32,17 @@ const saveOrder = async (
         cart.products.push({ productId, title, price, quantity: 1 });
         cart.bill += price;
       }
-      saveOrderItem(cart);
+      await saveOrderItem(cart);
     } else {
-      const newCart = order
+      const newCart = order;
       newCart.bill += price;
-      saveOrderItem(newCart);
+      await saveOrderItem(newCart);
     }
   } catch {
     throw new Error("Error saving order");
   }
+
+  return await loadCartbyUser(userId);
 };
 
 const loadOrderbyId = async (orderId: string): Promise<CartItem> => {

@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
-import { saveUser, getUserById } from "../services/user-service";
-import { authUser, generateToken } from "../services/auth"
+import { saveUser, getUserByEmail } from "../services/user-service";
+import { authUser, generateToken, JwtRequest } from "../services/auth"
 import { UserItem } from "@my-webshop/shared";
 const { UserModel } = require("../models/user-repository")
 const bcrypt = require("bcrypt");
@@ -20,25 +20,28 @@ userRouter.post("/create", async (req: Request<UserItem>, res: Response<any>) =>
     } else {
       try {
         await saveUser(req.body)
-        const token = generateToken(req.body.full_name)
-        res.status(200).json({ token })
+        const token = generateToken(req.body.email)
+        res.status(200).send(token)
       } catch (e) {
         res.sendStatus(400).send(`Error: ${e}`)
       }
     }    
 }) 
 
-userRouter.post("/login", async (req: Request<UserItem>, res: Response<any>) => {
-  const {email, password} = req.body
+userRouter.post("/login", async (req: JwtRequest<UserItem>, res: Response<string>) => {
+  //const {email, password} = req.body
+ 
+  const credentials = req.body
 
-  const userExists = await UserModel.findOne({ email });
+  const userExists = await getUserByEmail(credentials.email)
   
   if(userExists){
-    const validPassword = await bcrypt.compare(password, userExists.password)
+    const validPassword = await bcrypt.compare(credentials.password, userExists.password)
     if(validPassword){
       try {
-        const token = generateToken(userExists.full_name)
-        res.status(200).json({token})
+       const token = generateToken(userExists.email)
+      
+        res.status(200).send(token)
       } catch (e) {
         res.sendStatus(400).send(`Error: ${e}`)
       }
@@ -50,13 +53,13 @@ userRouter.post("/login", async (req: Request<UserItem>, res: Response<any>) => 
   }    
 })
 
-userRouter.get("/getuser", authUser, async (req: Request, res: Response<any>) => {
-  const username = req.body
-
+userRouter.get("/getuser", authUser, async (req: JwtRequest<UserItem>, res: Response<any>) => {
+  console.log('get user', req, 'req jwt', req.jwt)
+  const user = req.jwt
   try {
-    const userInfo = await getUserById(username.username)
-    if(userInfo){
-      res.status(200).send(userInfo)
+    const userEmail = await getUserByEmail(user?.email)
+    if(userEmail){
+      res.status(200).send(userEmail)
     }
   } catch (error) {
     res.status(403).send(error)
