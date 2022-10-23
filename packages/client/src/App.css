@@ -18,7 +18,7 @@
   color: white;
 }
 
-.hero {
+.header {
   background-image: url(".././src/assets/leaves.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -215,4 +215,8 @@
   top: 10px;
   right: 50px;
   color: #666565;
+}
+
+.bt-group {
+  padding: 10px;
 }
