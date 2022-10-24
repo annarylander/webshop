@@ -31,7 +31,7 @@ orderRouter.post(
 
 orderRouter.get("/getcart", authUser, async (req: Request, res: Response) => {
   try {
-    //res.send(await loadCartbyUser(req.params.user))
+    // res.send(await findCartbyUser(req.jwt?.email))
   } catch {
     res.status(204).send("No Cart found");
   }
