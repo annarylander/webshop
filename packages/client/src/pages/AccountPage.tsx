@@ -13,6 +13,7 @@ import {
 import axios from "axios";
 import { UserItem } from "@my-webshop/shared";
 import CartTable from "../components/CartTable";
+import ListCartItems from "../components/ListCartItems";
 
 export default function AccountPage() {
   const [user, setUser] = useState<UserItem>();
@@ -76,7 +77,8 @@ const token = localStorage.getItem("jwt")
 
       <GridItem boxShadow='2xl' colSpan={2} rowSpan={4} borderRadius='lg' borderColor='green' bgColor='gray.300'>
         <Text as='u' fontSize='2xl' color='black'>Shopping cart</Text>
-        <CartTable/>
+         <ListCartItems />
+  
       </GridItem>
 
       <GridItem boxShadow='2xl' colSpan={2} rowSpan={4} borderRadius='lg' borderColor='green' bgColor='gray.300'>

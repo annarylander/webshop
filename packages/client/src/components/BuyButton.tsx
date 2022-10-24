@@ -8,7 +8,6 @@ export default function BuyButton(props: { product: ProductItem }) {
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
   const [error, setError] = React.useState<string | undefined>();
 
-  const { id } = useParams<{ id: string }>();
   const token = localStorage.getItem("jwt")
 
   const cartURL: string =

@@ -25,7 +25,7 @@ const OrderSchema = new Schema(
       required: true,
       default: 0,
     },
-    isCheckedOut: {type: Boolean, default: false},
+    isCheckedOut: { type: Boolean, default: false },
   },
   {
     timestamps: true,
@@ -34,22 +34,24 @@ const OrderSchema = new Schema(
 );
 
 const OrderModel = model<CartItem>("Order", OrderSchema);
-
+/* 
 const loadAllOrders = async (): Promise<CartItem[]> => {
   return await OrderModel.find({}).exec();
-};
+}; */
 
-const loadSingleOrder = async (orderId: string): Promise<CartItem | null> => {
+/* const loadSingleOrder = async (orderId: string): Promise<CartItem | null> => {
   return await OrderModel.findById(orderId).exec();
 };
-
-const findCartbyUser = async (email: string | undefined): Promise<CartItem | null> => { 
-  return await OrderModel.findOne({user: email, isCheckedOut: false}).exec();
-}
+ */
+const findCartbyUser = async (
+  email: string
+): Promise<CartItem | null> => {
+  return await OrderModel.findOne({ user: email, isCheckedOut: false });
+};
 
 const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
   const newOrder = new OrderModel(order);
   return await newOrder.save();
 };
 
-export { loadAllOrders, loadSingleOrder, findCartbyUser , saveOrderItem };
+export {  findCartbyUser, saveOrderItem };

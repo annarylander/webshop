@@ -1,18 +1,13 @@
 import { CartItem, ProductItem } from "@my-webshop/shared";
 import { Request, Response } from "express";
-import {
-  loadAllOrders,
-  findCartbyUser,
-  loadSingleOrder,
-  saveOrderItem,
-} from "../models/orders-repository";
+import { findCartbyUser, saveOrderItem } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
 const saveOrder = async (
   order: CartItem,
   email: string,
   productId: string
-): Promise<CartItem | null> => {
+): Promise<void> => {
   try {
     const cart = await findCartbyUser(email);
     const product = await loadSingleProduct(productId);
@@ -41,13 +36,10 @@ const saveOrder = async (
   } catch {
     throw new Error("Error saving order");
   }
-
-  return await loadCartbyUser(email);
 };
 
-const loadCartbyUser = async (userId: string): Promise<CartItem> => {
-
-  const cart = await loadSingleOrder(userId);
+const loadCartbyUser = async (email: string): Promise<CartItem> => {
+  const cart = await findCartbyUser(email);
 
   if (!cart) {
     throw new Error("No cart found");

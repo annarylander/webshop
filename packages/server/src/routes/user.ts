@@ -29,8 +29,7 @@ userRouter.post("/create", async (req: Request<UserItem>, res: Response<any>) =>
 }) 
 
 userRouter.post("/login", async (req: JwtRequest<UserItem>, res: Response<string>) => {
-  //const {email, password} = req.body
- 
+
   const credentials = req.body
 
   const userExists = await getUserByEmail(credentials.email)
@@ -54,7 +53,6 @@ userRouter.post("/login", async (req: JwtRequest<UserItem>, res: Response<string
 })
 
 userRouter.get("/getuser", authUser, async (req: JwtRequest<UserItem>, res: Response<any>) => {
-  console.log('get user', req, 'req jwt', req.jwt)
   const user = req.jwt
   try {
     const userEmail = await getUserByEmail(user?.email)

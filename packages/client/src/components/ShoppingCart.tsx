@@ -17,29 +17,10 @@ import {
 } from "@chakra-ui/react";
 
 import { BsCart3 } from "react-icons/bs";
-import CartTable from "./CartTable";
-import { CartItem } from "@my-webshop/shared";
+import ListCartItems from "./ListCartItems";
+
 
 export default function ShoppingCart() {
-  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
-  const [error, setError] = React.useState<string | undefined>();
-
-  const baseURL: string =
-    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
-
-  const token = localStorage.getItem("jwt");
-
-  useEffect(() => {
-    axios
-      .get(`${baseURL}/order/getcart`)
-      .then((response) => {
-        setCartItems(response.data);
-      })
-      .catch((error) => {
-        setCartItems([]);
-        setError("Cannot find product");
-      });
-  }, []);
 
   return (
     <div>
@@ -69,7 +50,7 @@ export default function ShoppingCart() {
           <PopoverCloseButton />
           <PopoverHeader>Your Shoppingcart</PopoverHeader>
           <PopoverBody>
-            <CartTable />
+            <ListCartItems />
           </PopoverBody>
           <PopoverFooter>
             <Button colorScheme="green">To checkout</Button>
