@@ -8,17 +8,17 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Link,
 } from "@chakra-ui/react";
 import { CartItem, ProductItem } from "@my-webshop/shared";
 
 import React from "react";
 
-export default function CartTable(props : {cartItem: CartItem}) {
+export default function CartTable(props: { cartItem: CartItem }) {
   return (
     <div>
       <TableContainer>
-        <Table variant="simple" size='sm'>
-    
+        <Table variant="simple" size="sm">
           <Thead>
             <Tr>
               <Th>Item</Th>
@@ -28,20 +28,22 @@ export default function CartTable(props : {cartItem: CartItem}) {
             </Tr>
           </Thead>
           <Tbody>
-            {props.cartItem.products.map((item : any) => (
-            <Tr key={item._id}>
-              <Td>{item.title}</Td>
-              <Td>{item.quantity}</Td>
-              <Td >{item.price}sek</Td>
-              <Td >x</Td>
-            </Tr>
+            {props.cartItem.products.map((item: any) => (
+              <Tr key={item._id}>
+                <Td>
+                  <Link href={`/product/${item.productId}`}>{item.title}</Link>
+                </Td>
+                <Td>{item.quantity}</Td>
+                <Td>{item.price}sek</Td>
+                <Td>x</Td>
+              </Tr>
             ))}
           </Tbody>
           <Tfoot>
             <Tr>
               <Th>Total:</Th>
               <Th>{props.cartItem.bill}</Th>
-              <Th ></Th>
+              <Th></Th>
             </Tr>
           </Tfoot>
         </Table>
