@@ -27,17 +27,21 @@ export default function LoginModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  
+
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+  /*    axios.interceptors.request.use((config) => {
+      if(!config?.headers) {
 
-  const token = localStorage.getItem("plantshop")
+      }
+    } */
+
+  const token = localStorage.getItem("jwt")
 
   useEffect(() => {
     axios
       .get(`${baseURL}/user/getuser`, {
         headers: { 
-          "Content-Type": "application/json", 
           "Authorization": `Bearer ${token}` }})
       .then((_response) => {
         setIsLoggedIn(true);
@@ -48,23 +52,41 @@ export default function LoginModal() {
       });
   }, []);
 
-  const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
+  const handleLogin = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
 
+/*     const loginResponse = await axios.post(`${baseURL}/user/login`, {
+      email: email,
+      password: password,     
+    });
+    console.log(loginResponse);
+
+    if (loginResponse && loginResponse.status === 200) {
+      localStorage.setItem("jwt", loginResponse.data.token);
+      setLoggedIn(true);
+      setErrorText("");
+      onClose();
+      window.location.reload();
+    } else {
+      setErrorText(loginResponse.data);
+    }
+  };
+ */
   await axios.post(`${baseURL}/user/login`, {
     password: password,
     email: email,
   })
-  .then((data:any) => {
-    const token = data.data.token
-    localStorage.setItem("plantshop", token)
+  .then((response : any) => {
+    const token = response.data
+    localStorage.setItem("jwt", token)
     onClose()
     window.location.reload()
   })
   .catch((e:any) => {
     setErrorText(e.response.data)
-  });
+  }); 
 }
+
 
   return (
     <>
@@ -128,7 +150,7 @@ export default function LoginModal() {
               bgColor="gray.200"
               color="#447761"
               mr={3}
-              onClick={handleOnSubmit}
+              onClick={handleLogin}
             >
               Login
             </Button>

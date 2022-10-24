@@ -20,19 +20,18 @@ export default function AccountPage() {
   const baseURL: string =
   process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
-const token = localStorage.getItem("plantshop")
+const token = localStorage.getItem("jwt")
 
   useEffect(() => {
     axios
       .get(`${baseURL}/user/getuser`, {
         headers: { 
-          "Content-Type": "application/json", 
-          "Authorization": `Bearer ${token}` }})
+          "authorization": `Bearer ${token}` }})
       .then((response) => {
         setUser(response.data);
       })
       .catch((error) => {
-        console.log(error)
+        setUser(undefined);
       });
   }, []);
 

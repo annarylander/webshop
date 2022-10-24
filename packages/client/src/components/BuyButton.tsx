@@ -9,10 +9,11 @@ export default function BuyButton(props: { product: ProductItem }) {
   const [error, setError] = React.useState<string | undefined>();
 
   const { id } = useParams<{ id: string }>();
+  const token = localStorage.getItem("jwt")
 
   const cartURL: string =
-    `${process.env.REACT_APP_BASE_URL}/order/${id}` ||
-    `http://localhost:3002/order/${id}`;
+    `${process.env.REACT_APP_BASE_URL}/order/addtocart` ||
+    `http://localhost:3002/order/addtocart`;
 
   const handleAddToCart = async (product: ProductItem): Promise<void> => {
     console.log(`adding ${product.title} to cart`);
@@ -27,7 +28,11 @@ export default function BuyButton(props: { product: ProductItem }) {
     ];
 
     try {
-      await axios.post(cartURL, payload);
+      await axios.post(cartURL, payload, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
     } catch (error) {
       setError("Something went wrong adding to cart");
     }
@@ -36,7 +41,7 @@ export default function BuyButton(props: { product: ProductItem }) {
   return (
     <div>
       <Button
-       colorScheme='green'
+        colorScheme="green"
         onClick={(e) => handleAddToCart(props.product)}
       >
         Add to cart

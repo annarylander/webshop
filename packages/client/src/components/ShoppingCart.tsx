@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 import {
   IconButton,
   Popover,
@@ -16,15 +18,35 @@ import {
 
 import { BsCart3 } from "react-icons/bs";
 import CartTable from "./CartTable";
-
+import { CartItem } from "@my-webshop/shared";
 
 export default function ShoppingCart() {
+  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
+  const [error, setError] = React.useState<string | undefined>();
+
+  const baseURL: string =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
+  const token = localStorage.getItem("jwt");
+
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/order/getcart`)
+      .then((response) => {
+        setCartItems(response.data);
+      })
+      .catch((error) => {
+        setCartItems([]);
+        setError("Cannot find product");
+      });
+  }, []);
+
   return (
     <div>
-      <Popover >
+      <Popover>
         <PopoverTrigger>
           <div className="cart-button">
-          <div className="cart-amount">
+            <div className="cart-amount">
               <Tag
                 size="sm"
                 borderRadius="full"
@@ -40,7 +62,6 @@ export default function ShoppingCart() {
               variant="outline"
               icon={<BsCart3 />}
             />
-          
           </div>
         </PopoverTrigger>
         <PopoverContent>
@@ -55,10 +76,6 @@ export default function ShoppingCart() {
           </PopoverFooter>
         </PopoverContent>
       </Popover>
-
-
-
-
     </div>
   );
 }
