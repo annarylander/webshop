@@ -46,7 +46,7 @@ const loadAllOrders = async (): Promise<CartItem[]> => {
 const findCartbyUser = async (
   email: string
 ): Promise<CartItem | null> => {
-  return await OrderModel.findOne({ user: email, isCheckedOut: false });
+  return await OrderModel.findOne({ user: email, isCheckedOut: false }).exec();
 };
 
 const saveOrderItem = async (order: CartItem): Promise<CartItem> => {

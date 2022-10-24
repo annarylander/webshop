@@ -7,7 +7,7 @@ const saveOrder = async (
   order: CartItem,
   email: string,
   productId: string
-): Promise<void> => {
+): Promise<CartItem | null> => {
   try {
     const cart = await findCartbyUser(email);
     const product = await loadSingleProduct(productId);
@@ -36,6 +36,43 @@ const saveOrder = async (
   } catch {
     throw new Error("Error saving order");
   }
+  return await loadCartbyUser(email);
+};
+
+const deleteCartItem = async (
+  email: string,
+  productId: string
+): Promise<void> => {
+  try {
+    const cart = await findCartbyUser(email);
+    const product = await loadSingleProduct(productId);
+    console.log("see email", email, "see product", product);
+    if (!product) {
+      throw new Error("Product not found");
+    }
+    const price = product.price;
+    //const title = product.title;
+
+    if (cart) {
+      let itemIndex = cart.products.findIndex((p) => p.productId == productId);
+      console.log("see itemIndex", itemIndex);
+      if (itemIndex > -1) {
+        let productItem = cart.products[itemIndex];
+        if (productItem.quantity > 1) {
+          productItem.quantity--;
+          productItem.price -= cart.products[itemIndex].price;
+          cart.bill -= price;
+        } else {
+          productItem.price -= cart.products[itemIndex].price;
+          cart.bill -= price;
+          cart.products.splice(itemIndex, 1);
+        }
+      }
+      await saveOrderItem(cart);
+    }
+  } catch {
+    throw new Error("Error deleting cart item");
+  }
 };
 
 const loadCartbyUser = async (email: string): Promise<CartItem> => {
@@ -47,4 +84,4 @@ const loadCartbyUser = async (email: string): Promise<CartItem> => {
   return cart;
 };
 
-export { saveOrder, loadCartbyUser };
+export { saveOrder, deleteCartItem, loadCartbyUser };
