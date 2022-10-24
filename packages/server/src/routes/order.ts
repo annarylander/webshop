@@ -10,7 +10,6 @@ const orderRouter = express.Router();
 
 orderRouter.post(
   "/addtocart", authUser, async (req: JwtRequest<CartItem>, res: Response<CartItem | null>) => {
-    console.log('req body', req.body, req)
     const user = req.jwt
     const payload: CartItem = {
       user: user?.email as string,

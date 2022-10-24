@@ -36,7 +36,7 @@ export default function LoginModal() {
       }
     } */
 
-  const token = localStorage.getItem("plantshop")
+  const token = localStorage.getItem("jwt")
 
   useEffect(() => {
     axios

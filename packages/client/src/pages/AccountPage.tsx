@@ -31,7 +31,7 @@ const token = localStorage.getItem("jwt")
         setUser(response.data);
       })
       .catch((error) => {
-        console.log(error)
+        setUser(undefined);
       });
   }, []);
 

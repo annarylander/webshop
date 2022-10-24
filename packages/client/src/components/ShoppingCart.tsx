@@ -18,25 +18,28 @@ import {
 
 import { BsCart3 } from "react-icons/bs";
 import CartTable from "./CartTable";
+import { CartItem } from "@my-webshop/shared";
 
 export default function ShoppingCart() {
- 
+  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
+  const [error, setError] = React.useState<string | undefined>();
+
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
-  const { id } = useParams<{ id: string }>();
+  const token = localStorage.getItem("jwt");
 
-/*   useEffect(() => {
+  useEffect(() => {
     axios
-      .get(`${baseURL}/order/${id}`)
+      .get(`${baseURL}/order/getcart`)
       .then((response) => {
-        setProduct(response.data);
+        setCartItems(response.data);
       })
       .catch((error) => {
-        setProduct(undefined);
+        setCartItems([]);
         setError("Cannot find product");
       });
-  }, []); */
+  }, []);
 
   return (
     <div>
