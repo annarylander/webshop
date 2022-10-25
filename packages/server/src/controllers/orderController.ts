@@ -51,7 +51,6 @@ const deleteCartItem = async (
       throw new Error("Product not found");
     }
     const price = product.price;
-    //const title = product.title;
 
     if (cart) {
       let itemIndex = cart.products.findIndex((p) => p.productId == productId);
@@ -60,7 +59,7 @@ const deleteCartItem = async (
         let productItem = cart.products[itemIndex];
         if (productItem.quantity > 1) {
           productItem.quantity--;
-          productItem.price -= cart.products[itemIndex].price;
+          productItem.price -= product.price;
           cart.bill -= price;
         } else {
           productItem.price -= cart.products[itemIndex].price;
