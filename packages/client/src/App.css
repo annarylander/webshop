@@ -18,7 +18,7 @@
   color: white;
 }
 
-.hero {
+.header {
   background-image: url(".././src/assets/leaves.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -200,7 +200,7 @@
   background-color: #79b0a1;
 } */
 
-.cart-amount{
+.cart-amount {
   margin-bottom: -15px;
   margin-left: -25px;
 }
@@ -208,8 +208,27 @@
   height: 100vh;
 }
 
-.search input {
+.search-container {
+  padding: 20px 50px;
+  position: relative;
+}
+.search-input {
+  width: 300px;
+  padding: 10px 20px;
   color: #447761;
   border: 1px solid;
-  border-radius: 5px;
+  border-radius: 10px;
+  outline: none;
+  font-size: 18px;
+}
+
+.search-button {
+  position: relative;
+  top: 10px;
+  right: 50px;
+  color: #666565;
+}
+
+.bt-group {
+  padding: 10px;
 }
