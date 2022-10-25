@@ -43,8 +43,8 @@ const loadSingleOrder = async (orderId: string): Promise<CartItem | null> => {
   return await OrderModel.findById(orderId).exec();
 };
 
-const loadCartbyUser = async (userId: string): Promise<CartItem | null> => { 
-  return await OrderModel.findOne({user: userId, isCheckedOut: false}).exec();
+const findCartbyUser = async (email: string | undefined): Promise<CartItem | null> => { 
+  return await OrderModel.findOne({user: email, isCheckedOut: false}).exec();
 }
 
 const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
@@ -52,4 +52,4 @@ const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
   return await newOrder.save();
 };
 
-export { loadAllOrders, loadSingleOrder, loadCartbyUser , saveOrderItem };
+export { loadAllOrders, loadSingleOrder, findCartbyUser , saveOrderItem };

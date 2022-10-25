@@ -2,7 +2,7 @@ import { CartItem, ProductItem } from "@my-webshop/shared";
 import { Request, Response } from "express";
 import {
   loadAllOrders,
-  loadCartbyUser,
+  findCartbyUser,
   loadSingleOrder,
   saveOrderItem,
 } from "../models/orders-repository";
@@ -10,11 +10,11 @@ import { loadSingleProduct } from "../models/product-repository";
 
 const saveOrder = async (
   order: CartItem,
-  userId: string,
-  productId: string,
-): Promise<void> => {
+  email: string,
+  productId: string
+): Promise<CartItem | null> => {
   try {
-    const cart = await loadCartbyUser(userId);
+    const cart = await findCartbyUser(email);
     const product = await loadSingleProduct(productId);
     if (!product) {
       throw new Error("Product not found");
@@ -32,24 +32,27 @@ const saveOrder = async (
         cart.products.push({ productId, title, price, quantity: 1 });
         cart.bill += price;
       }
-      saveOrderItem(cart);
+      await saveOrderItem(cart);
     } else {
-      const newCart = order
+      const newCart = order;
       newCart.bill += price;
-      saveOrderItem(newCart);
+      await saveOrderItem(newCart);
     }
   } catch {
     throw new Error("Error saving order");
   }
+
+  return await loadCartbyUser(email);
 };
 
-const loadOrderbyId = async (orderId: string): Promise<CartItem> => {
-  const order = await loadSingleOrder(orderId);
+const loadCartbyUser = async (userId: string): Promise<CartItem> => {
 
-  if (!order) {
-    throw new Error("Order not found");
+  const cart = await loadSingleOrder(userId);
+
+  if (!cart) {
+    throw new Error("No cart found");
   }
-  return order;
+  return cart;
 };
 
-export { saveOrder, loadOrderbyId };
+export { saveOrder, loadCartbyUser };

@@ -35,7 +35,7 @@ export default function RegisterModal() {
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
-  const token = localStorage.getItem("plantshop")
+  const token = localStorage.getItem("jwt")
 
     useEffect(() => {
       axios
@@ -47,7 +47,7 @@ export default function RegisterModal() {
           setIsLoggedIn(true);
         })
         .catch((error) => {
-          console.log(error)
+          // console.log(error)
           setIsLoggedIn(false)
         });
     }, []);
@@ -63,9 +63,9 @@ export default function RegisterModal() {
       number: number,
       address: address
     })
-    .then((data:any) => {
-      const token = data.data.token
-      localStorage.setItem("plantshop", token)
+    .then((response:any) => {
+      const token = response.data
+      localStorage.setItem("jwt", token)
       onClose()
       window.location.reload()
     })

@@ -1,36 +1,39 @@
 import { CartItem, UserItem } from "@my-webshop/shared";
 import express, { Request, Response } from "express";
-import { loadOrderbyId, saveOrder } from "../controllers/orderController";
+import { resolve } from "path";
+import { stringify } from "querystring";
+import { saveOrder } from "../controllers/orderController";
 import { loadProductbyId } from "../controllers/productController";
-import { authUser } from "../services/auth";
+import { authUser, JwtRequest } from "../services/auth";
 
 const orderRouter = express.Router();
 
 orderRouter.post(
-  "/:id",
-  async (req: Request, res: Response) => {
-    
-    const user = '634a838cee3d87d39de76e34'
+  "/addtocart", authUser, async (req: JwtRequest<CartItem>, res: Response<CartItem | null>) => {
+    const user = req.jwt
     const payload: CartItem = {
-      user: user,
+      user: user?.email as string,
       products: req.body,
       bill: 0,
       isCheckedOut: false,
     }
-
     try {
-      res.send(await saveOrder(payload, payload.user, payload.products[0].productId));
-    } catch (e) {
+      const token =  req.jwt
+      console.log('token', token)
+      if (!token) throw new Error("No token provided");
+     // res.send(await saveOrder(payload, token?.email, payload.products[0].productId));
+     res.send(await saveOrder(payload, token?.email, payload.products[0].productId));
+    } catch {
       res.sendStatus(400);
-    }
-  }
-);
+    }   
+  } );
 
-orderRouter.get("/:id", authUser, async (req: Request, res: Response) => {
+
+orderRouter.get("/getcart", authUser, async (req: Request, res: Response) => {
   try {
-    res.send(await loadOrderbyId(req.params.user));
-  } catch (error) {
-    res.status(500).send("Something went went wrong getting order");
+    // res.send(await findCartbyUser(req.jwt?.email))
+  } catch {
+    res.status(204).send("No Cart found");
   }
 });
 
