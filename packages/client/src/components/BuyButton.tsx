@@ -2,13 +2,12 @@ import { Button } from "@chakra-ui/react";
 import { CartItem, ProductItem } from "@my-webshop/shared";
 import axios from "axios";
 import React from "react";
-import { useParams } from "react-router-dom";
 
 export default function BuyButton(props: { product: ProductItem }) {
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
   const [error, setError] = React.useState<string | undefined>();
 
-  const token = localStorage.getItem("jwt")
+ const token = localStorage.getItem("jwt")
 
   const cartURL: string =
     `${process.env.REACT_APP_BASE_URL}/order/addtocart` ||
@@ -35,7 +34,7 @@ export default function BuyButton(props: { product: ProductItem }) {
     } catch (error) {
       setError("Something went wrong adding to cart");
     }
-  };
+  }; 
 
   return (
     <div>
@@ -48,3 +47,4 @@ export default function BuyButton(props: { product: ProductItem }) {
     </div>
   );
 }
+

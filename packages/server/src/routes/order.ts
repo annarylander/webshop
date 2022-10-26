@@ -1,7 +1,5 @@
 import { CartItem, UserItem } from "@my-webshop/shared";
 import express, { Request, Response } from "express";
-import { resolve } from "path";
-import { stringify } from "querystring";
 import {
   deleteCartItem,
   loadCartbyUser,
@@ -51,12 +49,12 @@ orderRouter.get(
 );
 
 orderRouter.delete(
-  "/deleteItem",
+  "/deleteitem",
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
     const email = req.jwt?.email;
     const productID = req.body.product;
-    console.log('delete item', productID, 'email', email);
+    console.log("delete item", productID, "email", email);
     try {
       res.status(201).send(await deleteCartItem(email as string, productID));
     } catch (err) {

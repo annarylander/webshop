@@ -5,6 +5,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import AccountButton from "./AccountButton";
+import { DrawerExample } from "./CartDrawer";
 import LoginModal from "./LoginModal";
 import LogoutButton from "./LogoutButton";
 import RegisterModal from "./RegisterModal";
@@ -40,7 +41,9 @@ export default function Navbar() {
             <div>
               <ShoppingCart />
             </div>
-       
+            <div>
+              <DrawerExample />
+            </div>
         </Flex>
       </Flex>
     </Box>

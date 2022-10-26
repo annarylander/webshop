@@ -9,12 +9,18 @@ import {
   TableCaption,
   TableContainer,
   Link,
+  Button,
 } from "@chakra-ui/react";
+import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { CartItem, ProductItem } from "@my-webshop/shared";
-
-import React from "react";
+import React, { useReducer } from "react";
+import {cartReducer, initialState} from './context/cartReducer'
 
 export default function CartTable(props: { cartItem: CartItem }) {
+
+
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+
   return (
     <div>
       <TableContainer>
@@ -33,9 +39,29 @@ export default function CartTable(props: { cartItem: CartItem }) {
                 <Td>
                   <Link href={`/product/${item.productId}`}>{item.title}</Link>
                 </Td>
-                <Td>{item.quantity}</Td>
+                <Td>
+                  <Button
+                    alignSelf="end"
+                    size="xs"
+                    onClick={() => dispatch({type: 'DELETE_PRODUCT', payload: -1})}
+                  >
+                    <MinusIcon w={3} h={3} />
+                  </Button>
+                  {item.quantity}
+                  <Button
+                    alignSelf="end"
+                    size="xs"
+                    onClick={() => dispatch({type: 'ADD_PRODUCT', payload: 1})}
+                  >
+                    <AddIcon />
+                  </Button>
+                </Td>
                 <Td>{item.price}sek</Td>
-                <Td>x</Td>
+                <Td>
+             {/*      <Button alignSelf="end" size="xs">
+                    <DeleteIcon w={3} h={3} />
+                  </Button> */}
+                </Td>
               </Tr>
             ))}
           </Tbody>

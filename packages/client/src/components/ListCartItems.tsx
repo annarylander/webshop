@@ -1,44 +1,84 @@
-import { CartItem } from "@my-webshop/shared";
+import { CartItem, ProductItem } from "@my-webshop/shared";
+import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import React, { useEffect } from "react";
 import CartTable from "./CartTable";
 
+
+
 export default function ListCartItems() {
+
   const [cartItems, setCartItems] = React.useState<CartItem>();
   const [error, setError] = React.useState<string | undefined>();
+
+
+
+/*   function increase() {
+    dispatch({type: ACTIONS.INCREASE})
+  }	
+
+  function decrease() {
+    dispatch({type: ACTIONS.DECREASE})
+  } */
 
   const token = localStorage.getItem("jwt");
 
   axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
-  /*     axios.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${localStorage.getItem("jwt")}`; */
 
-  //const token = localStorage.getItem("jwt");
-useEffect(() => {
-  axios
-  .get("/order/getcart",{
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    })
-  .then((response) => {
-    setCartItems(response.data);
-  })
-  .catch((error) => {
-    setCartItems(undefined);
-    setError("No products in cart");
-  });
+  useEffect(() => {
+    axios
+      .get("/order/getcart", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCartItems(response.data);
+      })
+      .catch((error) => {
+        setCartItems(undefined);
+        setError("No products in cart");
+      });
+  }, [cartItems]);
 
-}, [])
+/*   const handleAddOne = async (product: ProductItem): Promise<void> => {
+    console.log(`adding ${product.title} to cart`);
+    try {
+      await axios.post("order/addtocart", product._id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      setError("Something went wrong adding to cart");
+    }
+  };
 
-  
+  const handleDeleteOne = async (product: ProductItem): Promise<void> => {
+    console.log(`adding ${product.title} to cart`);
+    try {
+      await axios.post("order/deleteitem", product._id, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      setError("Something went wrong adding to cart");
+    }
+  };
+ */
   const RenderCart = ({ cart, error }: { cart: any; error?: string }) => {
     if (error) {
       return <div>{error}</div>;
     } else if (cart) {
-      return <CartTable cartItem={cart} />;
+      return (
+        <CartTable
+          cartItem={cart}
+         /*  deleteOne={dispatch({type: ACTIONS.DECREASE})}
+          addOne={increase} */
+        />
+      );
     } else {
       return <div>Cart is empty</div>;
     }
