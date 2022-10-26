@@ -2,23 +2,22 @@ import React, { useEffect } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { ProductItem } from "@my-webshop/shared";
+import { Icon, Button } from "@chakra-ui/react";
+import { AiOutlineSearch } from "react-icons/ai";
 
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
   const [error, setError] = React.useState<string | undefined>();
-  const [query, setQuery] = React.useState<string | undefined>();
-
-  const productsURL: string =
-    `${process.env.REACT_APP_BASE_URL}/product` ||
-    "http://localhost:3002/product";
+  const [query, setQuery] = React.useState<string | undefined>("");
+  const [searchInput, setSearchInput] = React.useState<string | undefined>();
 
   const searchURL: string =
-    `${process.env.REACT_APP_BASE_URL}/product/search/${query}` ||
-    `http://localhost:3002/product/search/${query}`;
+    `${process.env.REACT_APP_BASE_URL}/product/${query}` ||
+    `http://localhost:3002/product/${query}`;
 
   useEffect(() => {
     axios
-      .get(productsURL)
+      .get(searchURL)
       .then((response) => {
         setProducts(response.data);
       })
@@ -26,21 +25,7 @@ export default function StartPage() {
         setProducts([]);
         setError("Something went wrong fetching products");
       });
-  }, []);
-  
-
-  const handleSearch = async (): Promise<ProductItem[]> => {
-    console.log("hej");
-    const response = await axios.get<ProductItem[]>(searchURL);
-    setProducts(response.data);
-    console.log(response.data);
-    return products;
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleSearch();
-  };
+  }, [query]);
 
   const ProductList = ({
     products,
@@ -55,15 +40,7 @@ export default function StartPage() {
       return (
         <div className="products">
           {products.map((product) => {
-            // eslint-disable-next-line no-lone-blocks
-            {
-              return (
-                <Card
-                key={product._id}
-                product={product}
-                />
-              );
-            }
+            return <Card key={product._id} product={product} />;
           })}
         </div>
       );
@@ -72,20 +49,64 @@ export default function StartPage() {
     }
   };
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setQuery(`search/${searchInput}`);
+  };
+
   return (
     <div className="start-page">
-      <div className="hero">
+      <div className="header">
         <div>
           <h2>Green vibes only</h2>
+          <div className="search-container">
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                className="search-input"
+                placeholder="Search for a product"
+                onChange={(e) => setSearchInput(e.target.value)}
+              ></input>
+              <button className="search-button">
+                <Icon as={AiOutlineSearch} boxSize={7} />
+              </button>
+            </form>
+          </div>
+          <div className="btn-group">
+            <Button
+              bgColor="#447761"
+              size="sm"
+              m={2}
+              value="seeds"
+              onClick={() => setQuery("search/seeds")}
+            >
+              Seeds
+            </Button>
+            <Button
+              bgColor="#447761"
+              size="sm"
+              m={2}
+              value="pot"
+              onClick={() => setQuery("search/pot")}
+            >
+              Pots
+            </Button>
+            <Button
+              bgColor="#447761"
+              size="sm"
+              m={2}
+              value="plant"
+              onClick={() => setQuery("search/plant")}
+            >
+              Plants
+            </Button>
+          </div>
         </div>
       </div>
-      <div className="search">
-        <p>Search product 🔍</p>
-        <form onSubmit={handleSubmit}>
-          <input type="text" onChange={(e) => setQuery(e.target.value)}></input>
-        </form>
+
+      <div>
+        <ProductList products={products} error={error} />
       </div>
-      <ProductList products={products} error={error} />
     </div>
   );
 }

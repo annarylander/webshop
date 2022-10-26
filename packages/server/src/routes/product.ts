@@ -5,6 +5,7 @@ import {
   loadProducts,
   loadProductbyId,
   getSearchResult,
+  getResultByTag,
 } from "../controllers/productController";
 import { searchProduct } from "../models/product-repository";
 
@@ -41,7 +42,15 @@ productRouter.get("/search/:query", async (req: Request, res: Response) => {
   try {
     res.send(await getSearchResult(req.params.query));
   } catch (e) {
-    res.sendStatus(400);
+    res.sendStatus(500);
+  }
+});
+
+productRouter.get("/tag/:tag", async (req: Request, res: Response) => {
+  try {
+    res.send(await getResultByTag(req.params.tag));
+  } catch (e) {
+    res.sendStatus(500);
   }
 });
 

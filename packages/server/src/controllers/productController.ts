@@ -4,6 +4,7 @@ import {
   saveProductItem,
   loadSingleProduct,
   searchProduct,
+  searchTag,
 } from "../models/product-repository";
 
 const saveProduct = async (
@@ -35,4 +36,18 @@ const getSearchResult = async (query: string): Promise<ProductItem[]> => {
   return searchResult;
 };
 
-export { saveProduct, loadProducts, loadProductbyId, getSearchResult };
+const getResultByTag = async (tag: string): Promise<ProductItem[]> => {
+  const resultByTag = await searchTag(tag);
+  if (!resultByTag) {
+    throw new Error("Product not found");
+  }
+  return resultByTag;
+};
+
+export {
+  saveProduct,
+  loadProducts,
+  loadProductbyId,
+  getSearchResult,
+  getResultByTag,
+};
