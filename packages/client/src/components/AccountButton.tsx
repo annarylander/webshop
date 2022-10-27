@@ -6,7 +6,7 @@ export default function LogoutButton() {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [name, setName] = useState<any>("")
     
-    const token = localStorage.getItem("plantshop")
+    const token = localStorage.getItem("jwt")
     const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 

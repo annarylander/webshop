@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import Card from "../components/Card";
 import axios from "axios";
 import { ProductItem } from "@my-webshop/shared";
-import { Icon, Button } from "@chakra-ui/react";
-import { AiOutlineSearch } from "react-icons/ai";
+import Header from "../components/Header";
 
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
@@ -56,52 +55,13 @@ export default function StartPage() {
 
   return (
     <div className="start-page">
-      <div className="header">
-        <div>
-          <h2>Green vibes only</h2>
-          <div className="search-container">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search for a product"
-                onChange={(e) => setSearchInput(e.target.value)}
-              ></input>
-              <button className="search-button">
-                <Icon as={AiOutlineSearch} boxSize={7} />
-              </button>
-            </form>
-          </div>
-          <div className="btn-group">
-            <Button
-              bgColor="#447761"
-              size="sm"
-              m={2}
-              value="seeds"
-              onClick={() => setQuery("search/seeds")}
-            >
-              Seeds
-            </Button>
-            <Button
-              bgColor="#447761"
-              size="sm"
-              m={2}
-              value="pot"
-              onClick={() => setQuery("search/pot")}
-            >
-              Pots
-            </Button>
-            <Button
-              bgColor="#447761"
-              size="sm"
-              m={2}
-              value="plant"
-              onClick={() => setQuery("search/plant")}
-            >
-              Plants
-            </Button>
-          </div>
-        </div>
+      <div>
+        <Header
+          searchInput={searchInput}
+          handleSubmit={handleSubmit}
+          setSearchInput={setSearchInput}
+          setQuery={setQuery}
+        />
       </div>
 
       <div>

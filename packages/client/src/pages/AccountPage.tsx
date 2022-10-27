@@ -4,16 +4,13 @@ import {
   GridItem,
   Image,
   Text,
-  Box,
-  Button
+  Box
 } from "@chakra-ui/react";
-import { 
-  EditIcon 
-} from '@chakra-ui/icons'
 import axios from "axios";
 import { UserItem } from "@my-webshop/shared";
 import CartTable from "../components/CartTable";
 import ListCartItems from "../components/ListCartItems";
+import UpdateUserModal from "../components/UpdateUserModal";
 
 export default function AccountPage() {
   const [user, setUser] = useState<UserItem>();
@@ -65,8 +62,7 @@ const token = localStorage.getItem("jwt")
           <Text as='b'>Mobile phone:</Text>
           <Text> {user && user.phone_number}</Text>
 
-          <Button alignSelf='end' size='xs' ><EditIcon w={5} h={5} /></Button>
-          
+          <UpdateUserModal/>        
         </Box>
 
       </GridItem>

@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import { UserItem } from "@my-webshop/shared";
+import { userInfo } from "os";
 const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema({
@@ -25,5 +26,18 @@ export const getUser = async (email: string | undefined): Promise<UserItem | nul
   return userInfo
 };
 
+export const updatedUser = async (userEmail: string | undefined, newUserInfo: UserItem): Promise<UserItem | null> => {
+  const userId = await UserModel.findOne({ email: userEmail });
+
+  return await UserModel.findByIdAndUpdate(userId?._id, 
+    {
+      full_name: newUserInfo.full_name, 
+      email: newUserInfo.email, 
+      phone_number: newUserInfo.phone_number,
+      address: newUserInfo.address
+    }, 
+      {new: true})
+
+}
 
 exports.UserModel = UserModel

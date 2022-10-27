@@ -33,19 +33,14 @@ const saveProductItem = async (product: ProductItem): Promise<ProductItem> => {
 };
 
 const searchProduct = async (query: string): Promise<ProductItem[]> => {
-  return await ProductModel.find({ title: RegExp(query, "i") }).exec();
-};
-
-const searchTag = async (tag: string): Promise<ProductItem[]> => {
   return await ProductModel.find({
-    category: { $elemMatch: { $eq: tag } },
+    $or: [
+      { title: RegExp(query, "i") },
+      {
+        category: { $elemMatch: { $eq: query } },
+      },
+    ],
   }).exec();
 };
 
-export {
-  loadAllProducts,
-  loadSingleProduct,
-  saveProductItem,
-  searchProduct,
-  searchTag,
-};
+export { loadAllProducts, loadSingleProduct, saveProductItem, searchProduct };
