@@ -8,16 +8,72 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  Link,
+  Button,
 } from "@chakra-ui/react";
-
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { CartItem } from "@my-webshop/shared";
+import axios from "axios";
 import React from "react";
 
-export default function CartTable() {
+export default function CartTable(props: {
+  cartItem: CartItem | undefined;
+  cartIsUpdated: () => void;
+}) {
+  const [cartItems, setCartItems] = React.useState<CartItem>();
+  const [error, setError] = React.useState<string | undefined>();
+  axios.defaults.baseURL =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+
+  const token = localStorage.getItem("jwt");
+
+  const handleAddOne = async (product: CartItem): Promise<void> => {
+    console.log(`adding ${product} to cart`);
+
+    const payload = product;
+    try {
+      await axios
+        .post("order/addtocart", payload, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          //setCartItems(response.data)
+          setCartItems(response.data);
+          props.cartIsUpdated();
+          // console.log('see data', response.data)
+        });
+    } catch (error) {
+      setError("Something went wrong");
+    }
+  };
+
+  const handleDeleteOne = async (product: CartItem): Promise<void> => {
+    const payload = {product : product};
+    console.log(`deleting ${product} from cart`);
+    try {
+      await axios
+        .patch("order/delete-item", payload, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          //setCartItems(response.data)
+          setCartItems(response.data);
+          props.cartIsUpdated();
+          // console.log('see data', response.data)
+        });
+    } catch (error) {
+      setError("Something went wrong");
+    }
+  };
+
   return (
     <div>
       <TableContainer>
-        <Table variant="simple" size='sm'>
-    
+        <Table variant="simple" size="sm">
           <Thead>
             <Tr>
               <Th>Item</Th>
@@ -27,19 +83,40 @@ export default function CartTable() {
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>Product 1</Td>
-              <Td>1</Td>
-              <Td >199 sek</Td>
-              <Td >x</Td>
-            </Tr>
-           
+            {props.cartItem?.products.map((item: any) => (
+              <Tr key={item._id}>
+                <Td>
+                  <Link href={`/product/${item.productId}`}>{item.title}</Link>
+                </Td>
+                <Td>
+                  <Button
+                    alignSelf="end"
+                    size="xs"
+                    onClick={(e) => handleDeleteOne(item.productId)}
+                  >
+                    <MinusIcon w={2} h={2} />
+                  </Button>
+                  {item.quantity}
+                  <Button
+                    alignSelf="end"
+                    size="xs"
+                    onClick={(e) => handleAddOne(item)}
+                  >
+                    <AddIcon w={2} h={2} />
+                  </Button>
+                </Td>
+                <Td>{item.price}sek</Td>
+                <Td>
+  
+                </Td>
+              </Tr>
+            ))}
           </Tbody>
           <Tfoot>
             <Tr>
               <Th>Total:</Th>
-              <Th>199</Th>
-              <Th ></Th>
+              <Th>{props.cartItem?.bill}</Th>
+              <Th></Th>
             </Tr>
           </Tfoot>
         </Table>
