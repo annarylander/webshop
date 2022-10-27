@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { saveUser, getUserByEmail } from "../services/user-service";
+import { saveUser, getUserByEmail, updateUser } from "../services/user-service";
 import { authUser, generateToken, JwtRequest } from "../services/auth"
 import { UserItem } from "@my-webshop/shared";
 const { UserModel } = require("../models/user-repository")
@@ -54,13 +54,28 @@ userRouter.post("/login", async (req: JwtRequest<UserItem>, res: Response<string
 })
 
 userRouter.get("/getuser", authUser, async (req: JwtRequest<UserItem>, res: Response<any>) => {
-  console.log('get user', req, 'req jwt', req.jwt)
+  // console.log('get user', req, 'req jwt', req.jwt)
   const user = req.jwt
   try {
     const userEmail = await getUserByEmail(user?.email)
     if(userEmail){
       res.status(200).send(userEmail)
     }
+  } catch (error) {
+    res.status(403).send(error)
+  }
+})
+
+userRouter.put("/update", authUser, async (req: JwtRequest<any>, res: Response) => {
+  const userEmail = req.jwt?.email
+  const newUserInfo = req.body
+
+  try {
+    const newUser = await updateUser(userEmail, newUserInfo)
+    const token = generateToken(newUser?.email)
+    console.log(token, "token")
+    res.status(200).send(token)
+
   } catch (error) {
     res.status(403).send(error)
   }
