@@ -18,7 +18,7 @@ export interface JwtRequest<T> extends Request<T> {
   jwt?: TokenPayload;
 }
 
-export const generateToken = (email: string) => {
+export const generateToken = (email: string | undefined) => {
   const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET, {
     expiresIn: "1800s",
   });

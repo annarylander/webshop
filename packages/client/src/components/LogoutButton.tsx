@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 export default function LogoutButton() {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     
-    const token = localStorage.getItem("plantshop")
+    const token = localStorage.getItem("jwt")
     const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
