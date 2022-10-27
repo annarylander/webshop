@@ -17,25 +17,26 @@ import ListCartItems from "./ListCartItems";
 
 export function DrawerExample() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+  const btnRef = React.useRef<HTMLButtonElement>(null);
 
   return (
     <div>
       <>
-      <IconButton
-              aria-label="Search database"
+      <IconButton            
+      aria-label="Search database"
               colorScheme="green"
               variant="outline"
               icon={<BsCart3 />}
               onClick={onOpen}
+              ref={btnRef} 
             />
-       
         <Drawer
           isOpen={isOpen}
           placement="right"
           onClose={onClose}
           size="sm"
-        >
+          finalFocusRef={btnRef} 
+          >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
@@ -46,7 +47,7 @@ export function DrawerExample() {
             </DrawerBody>
 
             <DrawerFooter>
-              <Button variant="outline" mr={3} onClick={onClose}>
+              <Button variant="outline" mr={3}>
                 Delete all items
               </Button>
               <Button colorScheme="green">Go to checkout</Button>

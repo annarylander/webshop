@@ -15,12 +15,16 @@ orderRouter.post(
   authUser,
   async (req: JwtRequest<CartItem>, res: Response<CartItem | null>) => {
     const user = req.jwt;
+    const products = req.body
     const payload: CartItem = {
       user: user?.email as string,
-      products: req.body,
+      products: products,
       bill: 0,
       isCheckedOut: false,
     };
+
+    const productId = products.productId
+    console.log('user:', user, 'payload:', payload, 'productID:', productId)
 
     const token = req.jwt;
     if (!token) {
@@ -29,14 +33,14 @@ orderRouter.post(
       res
         .status(201)
         .send(
-          await saveOrder(payload, token?.email, payload.products[0].productId)
+          await saveOrder(payload, token?.email, productId)
         );
     }
   }
 );
 
 orderRouter.get(
-  "/getcart",
+  "/getcart", 
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
     const email = req.jwt?.email;
@@ -53,7 +57,7 @@ orderRouter.delete(
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
     const email = req.jwt?.email;
-    const productID = req.body.product;
+    const productID = req.body;
     console.log("delete item", productID, "email", email);
     try {
       res.status(201).send(await deleteCartItem(email as string, productID));

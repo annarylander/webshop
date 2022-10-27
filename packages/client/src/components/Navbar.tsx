@@ -37,10 +37,10 @@ export default function Navbar() {
               <LogoutButton />
             </div>
             <div>
-              <ShoppingCart />
+              <DrawerExample />
             </div>
             <div>
-              <DrawerExample />
+              <ShoppingCart />
             </div>
         </Flex>
       </Flex>
