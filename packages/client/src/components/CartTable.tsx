@@ -11,64 +11,64 @@ import {
   Link,
   Button,
 } from "@chakra-ui/react";
-import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { CartItem, ProductItem } from "@my-webshop/shared";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
-import React, { useReducer } from "react";
+import React from "react";
 
-
-export default function CartTable(props: { cartItem: CartItem | undefined, cartIsUpdated: () => void }) {
+export default function CartTable(props: {
+  cartItem: CartItem | undefined;
+  cartIsUpdated: () => void;
+}) {
   const [cartItems, setCartItems] = React.useState<CartItem>();
   const [error, setError] = React.useState<string | undefined>();
   axios.defaults.baseURL =
-  process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
-
-   const token = localStorage.getItem("jwt");
+  const token = localStorage.getItem("jwt");
 
   const handleAddOne = async (product: CartItem): Promise<void> => {
-    console.log(`adding ${product} to cart`); 
+    console.log(`adding ${product} to cart`);
 
-    const payload = product
+    const payload = product;
     try {
-      await axios.post("order/addtocart", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        //setCartItems(response.data)
-        setCartItems(response.data)
-        props.cartIsUpdated()
-       // console.log('see data', response.data)
-      });
-    } catch (error) { 
-      setError('Something went wrong')
+      await axios
+        .post("order/addtocart", payload, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          //setCartItems(response.data)
+          setCartItems(response.data);
+          props.cartIsUpdated();
+          // console.log('see data', response.data)
+        });
+    } catch (error) {
+      setError("Something went wrong");
     }
-    
-  }; 
+  };
 
-  const handleDeleteOne = async (productId: string): Promise<void> => {
-    console.log(`deleteing ${productId} to cart`); 
-
-   // const payload = productId
+  const handleDeleteOne = async (product: CartItem): Promise<void> => {
+    const payload = {product : product};
+    console.log(`deleting ${product} from cart`);
     try {
-      await axios.post("order/deleteitem", productId, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        //setCartItems(response.data)
-        setCartItems(response.data)
-        props.cartIsUpdated()
-       // console.log('see data', response.data)
-      });
-    } catch (error) { 
-      setError('Something went wrong')
+      await axios
+        .patch("order/delete-item", payload, {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          //setCartItems(response.data)
+          setCartItems(response.data);
+          props.cartIsUpdated();
+          // console.log('see data', response.data)
+        });
+    } catch (error) {
+      setError("Something went wrong");
     }
-    
-  }; 
+  };
 
   return (
     <div>
@@ -102,14 +102,12 @@ export default function CartTable(props: { cartItem: CartItem | undefined, cartI
                     size="xs"
                     onClick={(e) => handleAddOne(item)}
                   >
-                    <AddIcon w={2} h={2}/>
+                    <AddIcon w={2} h={2} />
                   </Button>
                 </Td>
                 <Td>{item.price}sek</Td>
                 <Td>
-             {/*      <Button alignSelf="end" size="xs">
-                    <DeleteIcon w={3} h={3} />
-                  </Button> */}
+  
                 </Td>
               </Tr>
             ))}

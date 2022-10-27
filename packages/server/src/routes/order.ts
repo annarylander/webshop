@@ -52,12 +52,13 @@ orderRouter.get(
   }
 );
 
-orderRouter.delete(
-  "/deleteitem",
+orderRouter.patch(
+  "/delete-item",
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
+    console.log('delete req', req.body)
     const email = req.jwt?.email;
-    const productID = req.body;
+    const productID = req.body.product;
     console.log("delete item", productID, "email", email);
     try {
       res.status(201).send(await deleteCartItem(email as string, productID));

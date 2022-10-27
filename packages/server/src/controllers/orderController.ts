@@ -21,7 +21,7 @@ const saveOrder = async (
       let itemIndex = cart.products.findIndex((p) => p.productId == productId);
       if (itemIndex > -1) {
         cart.products[itemIndex].quantity++;
-        cart.products[itemIndex].price += cart.products[itemIndex].price;
+        cart.products[itemIndex].price += product.price;
         cart.bill += price;
       } else {
         cart.products.push({ productId, title, price, quantity: 1 });
@@ -59,10 +59,10 @@ const deleteCartItem = async (
         let productItem = cart.products[itemIndex];
         if (productItem.quantity > 1) {
           productItem.quantity--;
-          productItem.price -= product.price;
+          productItem.price -= price;
           cart.bill -= price;
         } else {
-          productItem.price -= cart.products[itemIndex].price;
+          productItem.price -= price;
           cart.bill -= price;
           cart.products.splice(itemIndex, 1);
         }

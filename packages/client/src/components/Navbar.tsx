@@ -5,7 +5,6 @@ import { RiPlantLine } from "react-icons/ri";
 import LoginModal from "./LoginModal";
 import LogoutButton from "./LogoutButton";
 import RegisterModal from "./RegisterModal";
-import ShoppingCart from "./ShoppingCart";
 
 export default function Navbar() {
   return (
@@ -38,9 +37,6 @@ export default function Navbar() {
             </div>
             <div>
               <DrawerExample />
-            </div>
-            <div>
-              <ShoppingCart />
             </div>
         </Flex>
       </Flex>
