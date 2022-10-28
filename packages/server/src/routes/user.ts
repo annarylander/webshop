@@ -9,26 +9,30 @@ const userRouter = express.Router();
 
 export default userRouter;
 
-userRouter.post(
-  "/create",
-  async (req: Request<UserItem>, res: Response<any>) => {
-    const { email } = req.body;
+userRouter.post("/create", async (req: Request<UserItem>, res: Response<any>) => {
+  const {email} = req.body
 
-    const userExists = await UserModel.findOne({ email });
-
-    if (userExists) {
-      res.status(409).send("An account with this email already exist.");
-    } else {
-      try {
-        await saveUser(req.body);
-        const token = generateToken(req.body.email);
-        res.status(200).send(token);
-      } catch (e) {
-        res.sendStatus(400).send(`Error: ${e}`);
+  const userExists = await UserModel.findOne({ email });
+  
+  if(userExists){
+    res.status(409).send("An account with this email already exist.")
+  } else {
+    try {
+      const newUser = await saveUser(req.body)
+      if(newUser){
+        console.log(newUser)
+        const userInfo = await getUserByEmail(newUser.email)
+        console.log(userInfo)
+        const token = await generateToken(newUser.email)
+        res.status(200).send({token, userInfo})
+      } else {
+        res.status(400).send("Something went wrong. Please try again.")
       }
+    } catch (e) {
+      res.sendStatus(400).send(`Error: ${e}`)
     }
-  }
-);
+  }    
+}) 
 
 userRouter.post(
   "/login",

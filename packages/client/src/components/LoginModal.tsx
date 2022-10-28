@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
-import { setSourceMapRange } from "typescript";
 import UserContext from "../context/UserContext";
 
 export default function LoginModal() {
@@ -34,11 +33,6 @@ export default function LoginModal() {
 
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
-  /*    axios.interceptors.request.use((config) => {
-      if(!config?.headers) {
-
-      }
-    } */
 
   const token = localStorage.getItem("jwt");
 
@@ -63,23 +57,6 @@ export default function LoginModal() {
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    /*     const loginResponse = await axios.post(`${baseURL}/user/login`, {
-      email: email,
-      password: password,     
-    });
-    console.log(loginResponse);
-
-    if (loginResponse && loginResponse.status === 200) {
-      localStorage.setItem("jwt", loginResponse.data.token);
-      setLoggedIn(true);
-      setErrorText("");
-      onClose();
-      window.location.reload();
-    } else {
-      setErrorText(loginResponse.data);
-    }
-  };
- */
     await axios
       .post(`${baseURL}/user/login`, {
         password: password,
