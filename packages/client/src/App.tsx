@@ -2,7 +2,6 @@ import React, { createContext, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import StartPage from "./pages/StartPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
 import AccountPage from "./pages/AccountPage";
 import CheckOutPage from "./pages/CheckOutPage";
 import Navbar from "./components/Navbar";
@@ -21,7 +20,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<StartPage />} />
-        <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/account" element={<AccountPage />} />
         <Route path="/checkout" element={<CheckOutPage />} />
       </Routes>
