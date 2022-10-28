@@ -17,17 +17,19 @@ export default function Header({
         <div>
           <h2>Green vibes only</h2>
           <div className="search-container">
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                className="search-input"
-                placeholder="Search for a product"
-                onChange={(e) => setSearchInput(e.target.value)}
-              ></input>
-              <button className="search-button">
-                <Icon as={AiOutlineSearch} boxSize={7} />
-              </button>
-            </form>
+            <div>
+              <form onSubmit={handleSubmit}>
+                <input
+                  type="text"
+                  className="search-input"
+                  placeholder="Search for a product"
+                  onChange={(e) => setSearchInput(e.target.value)}
+                ></input>
+                <button className="search-button">
+                  <Icon as={AiOutlineSearch} boxSize={7} />
+                </button>
+              </form>
+            </div>
           </div>
           <div className="btn-group">
             <Button
