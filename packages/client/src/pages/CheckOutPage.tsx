@@ -1,7 +1,18 @@
 import React, { useContext } from "react";
 import ListCartItems from "../components/ListCartItems";
 import UserContext from "../context/UserContext";
-import { Button, Box, Icon } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  Icon,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+} from "@chakra-ui/react";
 import { FaCcMastercard, FaCcPaypal, FaCcVisa } from "react-icons/fa";
 
 export default function CheckOutPage() {
@@ -18,9 +29,20 @@ export default function CheckOutPage() {
       </Box>
 
       {user ? (
-        <Button colorScheme="green" mt={4}>
-          Proceed to checkout
-        </Button>
+        <Popover>
+          <PopoverTrigger>
+            <Button colorScheme="green" mt={4}>
+              Proceed to checkout
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>Confirmation!</PopoverHeader>
+
+            <PopoverBody>You receipt will be sent to: {user.email}</PopoverBody>
+          </PopoverContent>
+        </Popover>
       ) : (
         <div> Log in to see products</div>
       )}
