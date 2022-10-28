@@ -16,7 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function RegisterModal() {
   const [name, setName] = useState<string>("");
