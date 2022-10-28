@@ -17,10 +17,9 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../App"
 
 export default function RegisterModal() {
-  const {name, setName} = useContext(UserContext)
+  const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [number, setNumber] = useState<string>("");
   const [address, setAddress] = useState<string>("");
@@ -35,51 +34,54 @@ export default function RegisterModal() {
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
-  const token = localStorage.getItem("jwt")
+  const token = localStorage.getItem("jwt");
 
-    useEffect(() => {
-      axios
-        .get(`${baseURL}/user/getuser`, {
-          headers: { 
-            "Content-Type": "application/json", 
-            "Authorization": `Bearer ${token}` }})
-        .then((_response) => {
-          setIsLoggedIn(true);
-        })
-        .catch((error) => {
-          // console.log(error)
-          setIsLoggedIn(false)
-        });
-    }, []);
+  useEffect(() => {
+    axios
+      .get(`${baseURL}/user/getuser`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((_response) => {
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        // console.log(error)
+        setIsLoggedIn(false);
+      });
+  }, []);
 
-  const handleOnSubmit = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault()
+  const handleOnSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
-
-    await axios.post(`${baseURL}/user/create`, {
-      full_name: name,
-      password: password,
-      email: email,
-      number: number,
-      address: address
-    })
-    .then((response:any) => {
-      const token = response.data
-      localStorage.setItem("jwt", token)
-      onClose()
-      window.location.reload()
-    })
-    .catch((e:any) => {
-      setErrorText(e.response.data)
-    });
-  }
+    await axios
+      .post(`${baseURL}/user/create`, {
+        full_name: name,
+        password: password,
+        email: email,
+        number: number,
+        address: address,
+      })
+      .then((response: any) => {
+        const token = response.data;
+        localStorage.setItem("jwt", token);
+        onClose();
+        window.location.reload();
+      })
+      .catch((e: any) => {
+        setErrorText(e.response.data);
+      });
+  };
 
   return (
-    <> 
-    {!isLoggedIn && 
-      <Button onClick={onOpen} colorScheme="green">
-        Sign Up
-      </Button> }
+    <>
+      {!isLoggedIn && (
+        <Button onClick={onOpen} colorScheme="green">
+          Sign Up
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -175,6 +177,6 @@ export default function RegisterModal() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-  </>
+    </>
   );
 }
