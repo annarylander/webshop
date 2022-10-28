@@ -55,7 +55,7 @@ export default function LoginModal() {
         console.log(_response.data);
       })
       .catch((error) => {
-        // console.log(error)
+        console.log(error);
         setIsLoggedIn(false);
       });
   }, []);
