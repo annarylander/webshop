@@ -232,3 +232,15 @@
 .bt-group {
   padding: 10px;
 }
+
+.checkout-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+.checkout-page h1 {
+  margin-top: 50px;
+  font-size: 20px;
+}
