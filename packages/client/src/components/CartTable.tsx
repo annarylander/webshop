@@ -39,10 +39,8 @@ export default function CartTable(props: {
           },
         })
         .then((response) => {
-          //setCartItems(response.data)
           setCartItems(response.data);
           props.cartIsUpdated();
-          // console.log('see data', response.data)
         });
     } catch (error) {
       setError("Something went wrong");
@@ -60,10 +58,8 @@ export default function CartTable(props: {
           },
         })
         .then((response) => {
-          //setCartItems(response.data)
           setCartItems(response.data);
           props.cartIsUpdated();
-          // console.log('see data', response.data)
         });
     } catch (error) {
       setError("Something went wrong");

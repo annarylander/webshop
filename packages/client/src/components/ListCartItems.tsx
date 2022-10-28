@@ -31,19 +31,6 @@ export default function ListCartItems() {
       setError("No products in cart");
     });
   }
-
-  const handleDeleteOne = async (product: ProductItem): Promise<void> => {
-    console.log(`adding ${product.title} to cart`);
-    try {
-      await axios.post("order/deleteitem", product._id, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      setError("Something went wrong adding to cart");
-    }
-  };
  
   const RenderCart = ({ cart, error }: { cart?: CartItem; error?: string }) => {
     if (error) {

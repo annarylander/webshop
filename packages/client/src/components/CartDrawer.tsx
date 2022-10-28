@@ -10,33 +10,62 @@ import {
   Button,
   useDisclosure,
   Input,
-  IconButton
+  IconButton,
 } from "@chakra-ui/react";
 import { BsCart3 } from "react-icons/bs";
 import ListCartItems from "./ListCartItems";
+import DeleteCartButton from "./DeleteCartButton";
+import axios from "axios";
+import { CartItem } from "@my-webshop/shared";
 
-export function DrawerExample() {
+export function CartDrawer() {
+  const [cartItems, setCartItems] = React.useState<CartItem | undefined>();
+  const [error, setError] = React.useState<string | undefined>();
+  const token = localStorage.getItem("jwt");
+
+  axios.defaults.baseURL =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    getCart()
+   }, []);
+ 
+  function getCart() {
+    axios
+      .get("/order/getcart", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCartItems(response.data);
+      })
+      .catch((error) => {
+        setCartItems(undefined);
+        setError("No products in cart");
+      });
+  }
 
   return (
     <div>
       <>
-      <IconButton            
-      aria-label="Search database"
-              colorScheme="green"
-              variant="outline"
-              icon={<BsCart3 />}
-              onClick={onOpen}
-              ref={btnRef} 
-            />
+        <IconButton
+          aria-label="Search database"
+          colorScheme="green"
+          variant="outline"
+          icon={<BsCart3 />}
+          onClick={onOpen}
+          ref={btnRef}
+        />
         <Drawer
           isOpen={isOpen}
           placement="right"
           onClose={onClose}
           size="sm"
-          finalFocusRef={btnRef} 
-          >
+          finalFocusRef={btnRef}
+        >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
@@ -47,9 +76,7 @@ export function DrawerExample() {
             </DrawerBody>
 
             <DrawerFooter>
-              <Button variant="outline" mr={3}>
-                Delete all items
-              </Button>
+              <DeleteCartButton cartIsUpdated={getCart} />
               <Button colorScheme="green">Go to checkout</Button>
             </DrawerFooter>
           </DrawerContent>

@@ -1,6 +1,6 @@
 import { Box, Flex, Spacer, Heading, Icon } from "@chakra-ui/react";
 import AccountButton from "./AccountButton";
-import { DrawerExample } from "./CartDrawer";
+import { CartDrawer } from "./CartDrawer";
 import { RiPlantLine } from "react-icons/ri";
 import LoginModal from "./LoginModal";
 import LogoutButton from "./LogoutButton";
@@ -36,7 +36,7 @@ export default function Navbar() {
               <LogoutButton />
             </div>
             <div>
-              <DrawerExample />
+              <CartDrawer />
             </div>
         </Flex>
       </Flex>
