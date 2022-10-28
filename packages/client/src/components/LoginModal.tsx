@@ -16,7 +16,9 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { setSourceMapRange } from "typescript";
+import UserContext from "../context/UserContext";
 
 export default function LoginModal() {
   const [email, setEmail] = useState<string>("");
@@ -28,6 +30,8 @@ export default function LoginModal() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
+  const { user, setUser } = useContext(UserContext);
+
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
   /*    axios.interceptors.request.use((config) => {
@@ -36,26 +40,30 @@ export default function LoginModal() {
       }
     } */
 
-  const token = localStorage.getItem("jwt")
+  const token = localStorage.getItem("jwt");
 
   useEffect(() => {
     axios
       .get(`${baseURL}/user/getuser`, {
-        headers: { 
-          "Authorization": `Bearer ${token}` }})
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((_response) => {
         setIsLoggedIn(true);
+        setUser(_response.data);
+        console.log(_response.data);
       })
       .catch((error) => {
-        // console.log(error)
-        setIsLoggedIn(false)
+        console.log(error);
+        setIsLoggedIn(false);
       });
   }, []);
 
-  const handleLogin = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault()
+  const handleLogin = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
 
-/*     const loginResponse = await axios.post(`${baseURL}/user/login`, {
+    /*     const loginResponse = await axios.post(`${baseURL}/user/login`, {
       email: email,
       password: password,     
     });
@@ -72,27 +80,29 @@ export default function LoginModal() {
     }
   };
  */
-  await axios.post(`${baseURL}/user/login`, {
-    password: password,
-    email: email,
-  })
-  .then((response : any) => {
-    const token = response.data
-    localStorage.setItem("jwt", token)
-    onClose()
-    window.location.reload()
-  })
-  .catch((e:any) => {
-    setErrorText(e.response.data)
-  }); 
-}
-
+    await axios
+      .post(`${baseURL}/user/login`, {
+        password: password,
+        email: email,
+      })
+      .then((response: any) => {
+        const token = response.data;
+        localStorage.setItem("jwt", token);
+        onClose();
+        window.location.reload();
+      })
+      .catch((e: any) => {
+        setErrorText(e.response.data);
+      });
+  };
 
   return (
     <>
-      {!isLoggedIn && <Button onClick={onOpen} colorScheme="green">
-        Login
-      </Button> }
+      {!isLoggedIn && (
+        <Button onClick={onOpen} colorScheme="green">
+          Login
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

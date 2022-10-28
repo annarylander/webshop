@@ -10,7 +10,7 @@ import {
   Button,
   useDisclosure,
   Input,
-  IconButton
+  IconButton,
 } from "@chakra-ui/react";
 import { BsCart3 } from "react-icons/bs";
 import ListCartItems from "./ListCartItems";
@@ -22,21 +22,21 @@ export function DrawerExample() {
   return (
     <div>
       <>
-      <IconButton            
-      aria-label="Search database"
-              colorScheme="green"
-              variant="outline"
-              icon={<BsCart3 />}
-              onClick={onOpen}
-              ref={btnRef} 
-            />
+        <IconButton
+          aria-label="Search database"
+          colorScheme="green"
+          variant="outline"
+          icon={<BsCart3 />}
+          onClick={onOpen}
+          ref={btnRef}
+        />
         <Drawer
           isOpen={isOpen}
           placement="right"
           onClose={onClose}
           size="sm"
-          finalFocusRef={btnRef} 
-          >
+          finalFocusRef={btnRef}
+        >
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
@@ -50,7 +50,10 @@ export function DrawerExample() {
               <Button variant="outline" mr={3}>
                 Delete all items
               </Button>
-              <Button colorScheme="green">Go to checkout</Button>
+              <Button colorScheme="green">
+                {" "}
+                <a href="/checkout">Go to checkout</a>
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
