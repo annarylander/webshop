@@ -23,9 +23,6 @@ export const UserContextProvider: React.FC<Props> = ({
 }) => {
   const [user, setUser] = useState<UserItem | null>(null);
 
-  console.log("UserContextProvider");
-  console.log(user);
-
   return (
     <UserContext.Provider
       value={{
