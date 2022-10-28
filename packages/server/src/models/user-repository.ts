@@ -8,23 +8,27 @@ const UserSchema = new Schema({
   email: {type: String, require: true, unique: true},
   phone_number: String,
   address: String,
-  password: String,
+  password: { type: String, select: false }
 });
 
 const UserModel = model<UserItem>("User", UserSchema);
 
-export const saveNewUser = async (user: UserItem): Promise<void> => {
+export const saveNewUser = async (user: UserItem): Promise<UserItem | null> => {
   const salt = await bcrypt.genSalt();
   user.password = await bcrypt.hash(user.password, salt)
 
   const newModel = new UserModel(user);
   newModel.save();
+  return newModel;
 };
 
 export const getUser = async (email: string | undefined): Promise<UserItem | null> => {
-  const userInfo = await UserModel.findOne({ email: email });
+  console.log(email, "email repo")
+  const userInfo = await UserModel.findOne({ email: email }).select("-password");
+  console.log(userInfo, "repo")
   return userInfo
 };
+
 
 export const updatedUser = async (userEmail: string | undefined, newUserInfo: UserItem): Promise<UserItem | null> => {
   const userId = await UserModel.findOne({ email: userEmail });
