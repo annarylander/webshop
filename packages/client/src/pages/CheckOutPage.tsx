@@ -17,9 +17,14 @@ export default function CheckOutPage() {
         <ListCartItems />
       </Box>
 
-      <Button colorScheme="green" mt={4}>
-        Proceed to checkout
-      </Button>
+      {user ? (
+        <Button colorScheme="green" mt={4}>
+          Proceed to checkout
+        </Button>
+      ) : (
+        <div> Log in to see products</div>
+      )}
+
       <Box mt={4} fontSize="md" color="gray.600">
         We accept: <Icon as={FaCcPaypal} /> <Icon as={FaCcVisa} />{" "}
         <Icon as={FaCcMastercard} />
