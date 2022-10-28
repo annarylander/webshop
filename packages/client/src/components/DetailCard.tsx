@@ -19,10 +19,15 @@ export default function DetailCard(props: {product: ProductItem}) {
         </div>
         <div className="product-info">
           <div className="product-text">
-            <h1>{props.product.title}</h1>
-            <h2>by {props.product.manufacturer}</h2>
-            <p>{props.product.description}</p>
-            <h2>Weight: {props.product.weight}</h2>
+            
+              <h1>{props.product.title}</h1>
+              <h2>by {props.product.manufacturer}</h2>
+            
+            <br />
+              <p>{props.product.description}</p>
+              <br />
+              <h2>Weight: {props.product.weight}</h2>
+            
           </div>
           <div className="product-price-btn">
             <div>
@@ -31,14 +36,6 @@ export default function DetailCard(props: {product: ProductItem}) {
               </p>
             </div>
             <div>
-              {/* <Button
-                size="lg"
-                bgColor="#447761"
-                color="white"
-                className="buy-button2"
-              >
-                buy now
-              </Button> */}
               <BuyButton product={props.product}/>
             </div>
           </div>

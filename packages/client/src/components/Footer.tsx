@@ -24,7 +24,7 @@ export default function Footer() {
           <Box>
             <Breadcrumb separator="-">
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
               </BreadcrumbItem>
 
               <BreadcrumbItem>

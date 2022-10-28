@@ -21,7 +21,7 @@ export default function DetailView({
     } else if (product) {
       return <DetailCard key={product._id} product={product} />;
     } else {
-      return <div>'Waiting for products'</div>;
+      return <div>'Nothing to show'</div>;
     }
   };
 

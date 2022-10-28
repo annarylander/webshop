@@ -1,14 +1,15 @@
 import { Button, Image } from "@chakra-ui/react";
 import { ProductItem } from "@my-webshop/shared";
 import BuyButton from "./BuyButton";
+import ProductDetailModal from "./ProductDetailModal";
 
-export default function Card(props: {product: ProductItem}) {
+export default function Card(props: {product: ProductItem, error?: string}) {
  
   return (
     <div className="product-card">
       <div>
         <h3>
-          <a href={`/product/${props.product._id}`}>{props.product.title}</a>
+          <ProductDetailModal product={props.product} error={props.error}/>
         </h3>
         <p>{props.product.price} kr</p>
       </div>
@@ -23,9 +24,6 @@ export default function Card(props: {product: ProductItem}) {
       </div>
 
       <div className="buy-button">
-    {/*     <Button size="sm" bgColor="#98b8a5" color="white" onClick={() => props.handleAddToCart(props.product)}>
-          Add to cart
-        </Button> */}
                 <BuyButton product={props.product}/>
       </div>
     </div>

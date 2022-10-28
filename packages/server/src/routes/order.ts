@@ -1,6 +1,7 @@
 import { CartItem, UserItem } from "@my-webshop/shared";
 import express, { Request, Response } from "express";
 import {
+  deleteAllInCart,
   deleteCartItem,
   loadCartbyUser,
   saveOrder,
@@ -62,6 +63,21 @@ orderRouter.patch(
     console.log("delete item", productID, "email", email);
     try {
       res.status(201).send(await deleteCartItem(email as string, productID));
+    } catch (err) {
+      res.status(400).send("Error deleting item");
+    }
+  }
+);
+
+orderRouter.delete(
+  "/delete-cart",
+  authUser,
+  async (req: JwtRequest<CartItem>, res: Response) => {
+    console.log('delete req', req.body, 'see jwt', req.jwt)
+    const email = req.jwt?.email;
+    console.log( "email", email);
+    try {
+      res.status(201).send(await deleteAllInCart(email as string));
     } catch (err) {
       res.status(400).send("Error deleting item");
     }

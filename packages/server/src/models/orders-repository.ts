@@ -54,4 +54,8 @@ const saveOrderItem = async (order: CartItem): Promise<CartItem> => {
   return await newOrder.save();
 };
 
-export {  findCartbyUser, saveOrderItem };
+const deleteCart = async (email:string) => {
+  return await OrderModel.deleteOne({ user: email, isCheckedOut: false });
+}
+
+export {  findCartbyUser, saveOrderItem, deleteCart };
