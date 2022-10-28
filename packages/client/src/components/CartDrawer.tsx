@@ -77,7 +77,7 @@ export function CartDrawer() {
 
             <DrawerFooter>
               <DeleteCartButton cartIsUpdated={getCart} />
-              <Button colorScheme="green">Go to checkout</Button>
+              <Button colorScheme="green"> <a href="/checkout">Go to checkout</a></Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

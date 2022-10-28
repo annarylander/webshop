@@ -1,40 +1,23 @@
-import { Button } from '@chakra-ui/react'
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-
+import { Button } from "@chakra-ui/react";
+import React from "react";
+import UserContext from "../context/UserContext";
 
 export default function LogoutButton() {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    
-    const token = localStorage.getItem("jwt")
-    const baseURL: string =
-    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+  const { user } = React.useContext(UserContext);
 
-
-    useEffect(() => {
-      axios
-        .get(`${baseURL}/user/getuser`, {
-          headers: { 
-            "Content-Type": "application/json", 
-            "Authorization": `Bearer ${token}` }})
-        .then((_response) => {
-          setIsLoggedIn(true);
-        })
-        .catch((error) => {
-        //   console.log(error)
-          setIsLoggedIn(false)
-        });
-    }, []);
-
-    const logout=()=>{
-        localStorage.clear()
-        window.location.reload()
-    }
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload();
+    console.log("user logged out");
+  };
 
   return (
     <>
-    {isLoggedIn && 
-        <Button onClick={logout} colorScheme="green">Logout</Button> }
-  </>  
-  )
+      {user && (
+        <Button onClick={logout} colorScheme="green">
+          Logout
+        </Button>
+      )}
+    </>
+  );
 }
