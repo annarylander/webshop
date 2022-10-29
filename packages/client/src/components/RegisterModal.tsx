@@ -16,7 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function RegisterModal() {
   const [name, setName] = useState<string>("");
@@ -48,7 +48,6 @@ export default function RegisterModal() {
         setIsLoggedIn(true);
       })
       .catch((error) => {
-        // console.log(error)
         setIsLoggedIn(false);
       });
   }, []);
@@ -78,7 +77,7 @@ export default function RegisterModal() {
   return (
     <>
       {!isLoggedIn && (
-        <Button onClick={onOpen} colorScheme="green">
+        <Button onClick={onOpen} bgColor="#447761" color="#fff">
           Sign Up
         </Button>
       )}

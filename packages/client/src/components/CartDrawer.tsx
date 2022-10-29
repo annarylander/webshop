@@ -14,10 +14,39 @@ import {
 } from "@chakra-ui/react";
 import { BsCart3 } from "react-icons/bs";
 import ListCartItems from "./ListCartItems";
+import DeleteCartButton from "./DeleteCartButton";
+import axios from "axios";
+import { CartItem } from "@my-webshop/shared";
 
-export function DrawerExample() {
+export function CartDrawer() {
+  const [cartItems, setCartItems] = React.useState<CartItem | undefined>();
+  const [error, setError] = React.useState<string | undefined>();
+  const token = localStorage.getItem("jwt");
+
+  axios.defaults.baseURL =
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement>(null);
+
+  React.useEffect(() => {
+    getCart();
+  }, []);
+
+  function getCart() {
+    axios
+      .get("/order/getcart", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCartItems(response.data);
+      })
+      .catch((error) => {
+        setCartItems(undefined);
+        setError("No products in cart");
+      });
+  }
 
   return (
     <div>
@@ -47,10 +76,8 @@ export function DrawerExample() {
             </DrawerBody>
 
             <DrawerFooter>
-              <Button variant="outline" mr={3}>
-                Delete all items
-              </Button>
-              <Button colorScheme="green">
+              <DeleteCartButton cartIsUpdated={getCart} />
+              <Button bgColor="#447761" color="#fff">
                 {" "}
                 <a href="/checkout">Go to checkout</a>
               </Button>

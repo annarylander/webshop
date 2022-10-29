@@ -1,7 +1,5 @@
 import React from "react";
 import { Grid, GridItem, Image, Text, Box } from "@chakra-ui/react";
-import { UserItem } from "@my-webshop/shared";
-import CartTable from "../components/CartTable";
 import ListCartItems from "../components/ListCartItems";
 import UpdateUserModal from "../components/UpdateUserModal";
 import UserContext from "../context/UserContext";

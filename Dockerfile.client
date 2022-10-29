@@ -1,0 +1,17 @@
+FROM node:16-alpine
+
+WORKDIR /usr/src/app
+
+COPY ./package*.json ./
+COPY ./packages/client/package*.json ./client/
+COPY ./packages/shared/package*.json ./shared/
+
+RUN npm ci -w packages/client
+
+COPY ./packages/client ./client
+COPY ./packages/shared ./shared
+
+RUN npm run build -w packages/client
+EXPOSE 3000
+
+CMD [ "npx", "serve", "packages/client/build" ]

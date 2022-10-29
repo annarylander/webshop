@@ -4,7 +4,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Heading,
 } from "@chakra-ui/react";
 
 export default function Footer() {
@@ -24,7 +23,7 @@ export default function Footer() {
           <Box>
             <Breadcrumb separator="-">
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">Home</BreadcrumbLink>
+                <BreadcrumbLink href="/">Home</BreadcrumbLink>
               </BreadcrumbItem>
 
               <BreadcrumbItem>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import ListCartItems from "../components/ListCartItems";
 import UserContext from "../context/UserContext";
 import {
@@ -31,7 +31,7 @@ export default function CheckOutPage() {
       {user ? (
         <Popover>
           <PopoverTrigger>
-            <Button colorScheme="green" mt={4}>
+            <Button bgColor="#447761" color="#fff" mt={4}>
               Proceed to checkout
             </Button>
           </PopoverTrigger>
