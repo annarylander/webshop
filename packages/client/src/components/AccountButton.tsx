@@ -9,7 +9,7 @@ export default function LogoutButton() {
     <>
       {user && (
         <Button colorScheme="green">
-          <a href="/account">My page</a>
+          <a href="/account">{user.full_name}</a>
         </Button>
       )}
     </>
