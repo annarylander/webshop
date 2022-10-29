@@ -39,7 +39,7 @@ userRouter.post(
   async (req: JwtRequest<UserItem>, res: Response<string>) => {
     const credentials = req.body;
 
-    const userExists = await getUserByEmail(credentials.email);
+    const userExists = await UserModel.findOne({ email: credentials.email }).select("+password");
 
     if (userExists) {
       const validPassword = await bcrypt.compare(
