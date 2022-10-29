@@ -17,6 +17,7 @@ import ListCartItems from "./ListCartItems";
 import DeleteCartButton from "./DeleteCartButton";
 import axios from "axios";
 import { CartItem } from "@my-webshop/shared";
+import CartTable from "./CartTable";
 
 export function CartDrawer() {
   const [cartItems, setCartItems] = React.useState<CartItem | undefined>();
@@ -51,6 +52,26 @@ export function CartDrawer() {
       });
   }
 
+  const RenderCart = ({ cart, error }: { cart?: CartItem; error?: string }) => {
+    if (error) {
+      return <div>{error}</div>;
+    } else if (cart) {
+      return (
+        <CartTable
+          cartItem={cart}
+          cartIsUpdated={getCart}
+        />
+      );
+    } else {
+      return <div>Cart is empty</div>;
+    }
+  };
+
+  function openCart() { 
+    getCart()
+    onOpen()
+  }
+
   return (
     <div>
       <>
@@ -60,7 +81,7 @@ export function CartDrawer() {
           colorScheme="green"
           variant="outline"
           icon={<BsCart3 />}
-          onClick={onOpen}
+          onClick={openCart}
           ref={btnRef}
         />
         )}
@@ -77,7 +98,7 @@ export function CartDrawer() {
             <DrawerHeader>Your Cart</DrawerHeader>
 
             <DrawerBody>
-              <ListCartItems />
+              <RenderCart cart={cartItems} error={error}/>
             </DrawerBody>
 
             <DrawerFooter>

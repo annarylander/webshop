@@ -11,9 +11,7 @@ export default function BuyButton(props: { product: ProductItem }) {
   const token = localStorage.getItem("jwt");
 
   const handleAddToCart = async (product: ProductItem): Promise<void> => {
-    console.log(`adding ${product.title} to cart`);
-
-    const payload = {
+        const payload = {
       productId: product._id,
       title: product.title,
       price: product.price,
@@ -25,7 +23,8 @@ export default function BuyButton(props: { product: ProductItem }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
+      })
+      .then(response => {console.log('response from add to cart', response.data)}) 
     } catch (error) {
       console.error(error);
     }
