@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap");
 
  .App {
-  /*
+
   text-align: center;
-    */
+
   background-color: #ffffff;
   min-height: 100vh;
  
@@ -108,13 +108,24 @@
 
 .product-img {
 /*   float: left; */
-  height: 450px;
-  width: 327px;
+  max-height: 500px;
+  max-width: 427px;
+  display: flex;
+ /*  display: grid;
+  grid-template-areas: 'main main'
+  ''; */
 }
 
-.product-img img {
-  border-radius: 7px 0 0 7px;
-  height: inherit;
+.main-image {
+  max-height: 400px;
+  max-width: 327px;
+  margin-left: 10px;
+}
+
+.more-images {
+  height: 250;
+  width: 127;
+ 
 }
 
 .product-info {
