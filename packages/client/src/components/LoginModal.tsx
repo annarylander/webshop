@@ -46,7 +46,6 @@ export default function LoginModal() {
       .then((_response) => {
         setIsLoggedIn(true);
         setUser(_response.data);
-        console.log(_response.data);
       })
       .catch((error) => {
         console.log(error);

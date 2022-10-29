@@ -4,7 +4,6 @@ import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
-  Heading,
 } from "@chakra-ui/react";
 
 export default function Footer() {

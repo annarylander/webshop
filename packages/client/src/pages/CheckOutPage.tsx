@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import ListCartItems from "../components/ListCartItems";
 import UserContext from "../context/UserContext";
 import { Button, Box, Icon } from "@chakra-ui/react";

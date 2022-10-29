@@ -3,36 +3,33 @@ import { CartItem, ProductItem } from "@my-webshop/shared";
 import axios from "axios";
 import React from "react";
 
-
 export default function BuyButton(props: { product: ProductItem }) {
   const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
   const [error, setError] = React.useState<string | undefined>();
   axios.defaults.baseURL =
-process.env.REACT_APP_BASE_URL || "http://localhost:3002";
-const token = localStorage.getItem("jwt")
+    process.env.REACT_APP_BASE_URL || "http://localhost:3002";
+  const token = localStorage.getItem("jwt");
 
-const handleAddToCart = async (product: ProductItem): Promise<void> => {
-  console.log(`adding ${product.title} to cart`);
+  const handleAddToCart = async (product: ProductItem): Promise<void> => {
+    console.log(`adding ${product.title} to cart`);
 
-  const payload = 
-    {
+    const payload = {
       productId: product._id,
       title: product.title,
       price: product.price,
       quantity: 1,
-    }
-  
+    };
 
-  try {
-    await axios.post('/order/addtocart', payload, {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-  }
-}; 
+    try {
+      await axios.post("/order/addtocart", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -45,4 +42,3 @@ const handleAddToCart = async (product: ProductItem): Promise<void> => {
     </div>
   );
 }
-
