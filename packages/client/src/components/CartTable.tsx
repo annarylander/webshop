@@ -82,7 +82,7 @@ export default function CartTable(props: {
             {props.cartItem?.products.map((item: any) => (
               <Tr key={item._id}>
                 <Td>
-                  <Link href={`/product/${item.productId}`}>{item.title}</Link>
+                  <Link href={`/product/${item.productId}`}>{(item.title).substring(0, 25)}</Link>
                 </Td>
                 <Td>
                   <Button
@@ -101,7 +101,7 @@ export default function CartTable(props: {
                     <AddIcon w={2} h={2} />
                   </Button>
                 </Td>
-                <Td>{item.price}sek</Td>
+                <Td>{item.price} sek</Td>
                 <Td>
   
                 </Td>
@@ -110,9 +110,9 @@ export default function CartTable(props: {
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th>Total:</Th>
-              <Th>{props.cartItem?.bill}</Th>
               <Th></Th>
+              <Th>Total:</Th>
+              <Th>{props.cartItem?.bill} sek</Th>
             </Tr>
           </Tfoot>
         </Table>
