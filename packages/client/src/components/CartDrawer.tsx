@@ -21,6 +21,7 @@ import { CartItem } from "@my-webshop/shared";
 export function CartDrawer() {
   const [cartItems, setCartItems] = React.useState<CartItem | undefined>();
   const [error, setError] = React.useState<string | undefined>();
+  const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
   const token = localStorage.getItem("jwt");
 
   axios.defaults.baseURL =
@@ -40,9 +41,11 @@ export function CartDrawer() {
         },
       })
       .then((response) => {
+        setIsLoggedIn(true)
         setCartItems(response.data);
       })
       .catch((error) => {
+        setIsLoggedIn(false)
         setCartItems(undefined);
         setError("No products in cart");
       });
@@ -51,6 +54,7 @@ export function CartDrawer() {
   return (
     <div>
       <>
+      {isLoggedIn && (
         <IconButton
           aria-label="Search database"
           colorScheme="green"
@@ -59,6 +63,7 @@ export function CartDrawer() {
           onClick={onOpen}
           ref={btnRef}
         />
+        )}
         <Drawer
           isOpen={isOpen}
           placement="right"
