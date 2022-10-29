@@ -23,9 +23,7 @@ export const saveNewUser = async (user: UserItem): Promise<UserItem | null> => {
 };
 
 export const getUser = async (email: string | undefined): Promise<UserItem | null> => {
-  console.log(email, "email repo")
   const userInfo = await UserModel.findOne({ email: email }).select("-password");
-  console.log(userInfo, "repo")
   return userInfo
 };
 
