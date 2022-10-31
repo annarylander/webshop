@@ -14,10 +14,28 @@ import {
   PopoverBody,
 } from "@chakra-ui/react";
 import { FaCcMastercard, FaCcPaypal, FaCcVisa } from "react-icons/fa";
+import axios from "axios";
 
 export default function CheckOutPage() {
   const { user } = React.useContext(UserContext);
+
   console.log("current", user);
+
+  const token = localStorage.getItem("jwt");
+  const payload = { email: user?.email };
+
+  const handleCheckOut = async () => {
+    try {
+      await axios.post("order/checkout", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("checkout ok");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="checkout-page">
       <Box fontWeight="semibold">
@@ -31,7 +49,12 @@ export default function CheckOutPage() {
       {user ? (
         <Popover>
           <PopoverTrigger>
-            <Button bgColor="#447761" color="#fff" mt={4}>
+            <Button
+              bgColor="#447761"
+              color="#fff"
+              mt={4}
+              onClick={() => handleCheckOut()}
+            >
               Proceed to checkout
             </Button>
           </PopoverTrigger>
