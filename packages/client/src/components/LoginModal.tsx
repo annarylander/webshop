@@ -75,7 +75,7 @@ export default function LoginModal() {
   return (
     <>
       {!isLoggedIn && (
-        <Button onClick={onOpen} colorScheme="green">
+        <Button onClick={onOpen} bgColor="#447761" color="#fff">
           Login
         </Button>
       )}

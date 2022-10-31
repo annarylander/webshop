@@ -4,6 +4,7 @@ import {
   deleteCart,
   findCartbyUser,
   saveOrderItem,
+  checkoutCart,
 } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
@@ -80,7 +81,7 @@ const deleteCartItem = async (
 
 const deleteAllInCart = async (email: string): Promise<void> => {
   const cart = await findCartbyUser(email);
-  console.log('deleting cart', cart)
+  console.log("deleting cart", cart);
 
   if (!cart) {
     throw new Error("No cart found");
@@ -97,4 +98,24 @@ const loadCartbyUser = async (email: string): Promise<CartItem> => {
   return cart;
 };
 
-export { saveOrder, deleteCartItem, loadCartbyUser, deleteAllInCart };
+const checkoutCartItem = async (email: string): Promise<CartItem> => {
+  const cart = await findCartbyUser(email);
+  console.log("checking out cart", cart);
+
+  if (!cart) {
+    throw new Error("No cart found");
+  }
+  cart.isCheckedOut = true;
+  console.log("done", cart);
+
+  await checkoutCart(email);
+  return cart;
+};
+
+export {
+  saveOrder,
+  deleteCartItem,
+  loadCartbyUser,
+  deleteAllInCart,
+  checkoutCartItem,
+};

@@ -34,7 +34,8 @@ export default function BuyButton(props: { product: ProductItem }) {
   return (
     <div>
       <Button
-        colorScheme="green"
+        bgColor="#447761"
+        color="#fff"
         onClick={(e) => handleAddToCart(props.product)}
       >
         Add to cart

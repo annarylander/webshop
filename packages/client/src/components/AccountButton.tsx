@@ -8,7 +8,7 @@ export default function LogoutButton() {
   return (
     <>
       {user && (
-        <Button colorScheme="green">
+        <Button bgColor="#447761" color="#fff">
           <a href="/account">{user.full_name}</a>
         </Button>
       )}
