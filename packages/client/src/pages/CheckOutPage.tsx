@@ -1,12 +1,41 @@
 import React from "react";
 import ListCartItems from "../components/ListCartItems";
 import UserContext from "../context/UserContext";
-import { Button, Box, Icon } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  Icon,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+} from "@chakra-ui/react";
 import { FaCcMastercard, FaCcPaypal, FaCcVisa } from "react-icons/fa";
+import axios from "axios";
 
 export default function CheckOutPage() {
   const { user } = React.useContext(UserContext);
+
   console.log("current", user);
+
+  const token = localStorage.getItem("jwt");
+  const payload = { email: user?.email };
+
+  const handleCheckOut = async () => {
+    try {
+      await axios.post("order/checkout", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("checkout ok");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="checkout-page">
       <Box fontWeight="semibold">
@@ -18,9 +47,25 @@ export default function CheckOutPage() {
       </Box>
 
       {user ? (
-        <Button colorScheme="green" mt={4}>
-          Proceed to checkout
-        </Button>
+        <Popover>
+          <PopoverTrigger>
+            <Button
+              bgColor="#447761"
+              color="#fff"
+              mt={4}
+              onClick={() => handleCheckOut()}
+            >
+              Proceed to checkout
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent>
+            <PopoverArrow />
+            <PopoverCloseButton />
+            <PopoverHeader>Confirmation!</PopoverHeader>
+
+            <PopoverBody>You receipt will be sent to: {user.email}</PopoverBody>
+          </PopoverContent>
+        </Popover>
       ) : (
         <div> Log in to see products</div>
       )}

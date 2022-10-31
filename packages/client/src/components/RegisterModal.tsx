@@ -77,7 +77,7 @@ export default function RegisterModal() {
   return (
     <>
       {!isLoggedIn && (
-        <Button onClick={onOpen} colorScheme="green">
+        <Button onClick={onOpen} bgColor="#447761" color="#fff">
           Sign Up
         </Button>
       )}

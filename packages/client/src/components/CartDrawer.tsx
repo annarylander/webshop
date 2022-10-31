@@ -31,9 +31,9 @@ export function CartDrawer() {
   const btnRef = React.useRef<HTMLButtonElement>(null);
 
   React.useEffect(() => {
-    getCart()
-   }, []);
- 
+    getCart();
+  }, []);
+
   function getCart() {
     axios
       .get("/order/getcart", {
@@ -103,7 +103,10 @@ export function CartDrawer() {
 
             <DrawerFooter>
               <DeleteCartButton cartIsUpdated={getCart} />
-              <Button colorScheme="green"> <a href="/checkout">Go to checkout</a></Button>
+              <Button bgColor="#447761" color="#fff">
+                {" "}
+                <a href="/checkout">Go to checkout</a>
+              </Button>
             </DrawerFooter>
           </DrawerContent>
         </Drawer>

@@ -14,7 +14,7 @@ export default function LogoutButton() {
   return (
     <>
       {user && (
-        <Button onClick={logout} colorScheme="green">
+        <Button onClick={logout} bgColor="#447761" color="#fff">
           Logout
         </Button>
       )}
