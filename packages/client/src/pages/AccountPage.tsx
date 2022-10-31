@@ -3,6 +3,7 @@ import { Grid, GridItem, Image, Text, Box } from "@chakra-ui/react";
 import ListCartItems from "../components/ListCartItems";
 import UpdateUserModal from "../components/UpdateUserModal";
 import UserContext from "../context/UserContext";
+import PreviousOrders from "../components/PreviousOrders";
 
 export default function AccountPage() {
   const { user } = React.useContext(UserContext);
@@ -94,6 +95,7 @@ export default function AccountPage() {
         >
           <Text as="u" fontSize="2xl" color="black">
             Previous orders
+            <PreviousOrders />
           </Text>
         </GridItem>
       </Grid>
