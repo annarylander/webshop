@@ -24,6 +24,7 @@ orderRouter.post(
       products: products,
       bill: 0,
       isCheckedOut: false,
+      updatedAt: new Date(),
     };
 
     const productId = products.productId;
