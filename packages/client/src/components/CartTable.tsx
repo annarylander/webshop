@@ -15,6 +15,7 @@ import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
 import React from "react";
+import ProductDetailModal from "./ProductDetailModal";
 
 export default function CartTable(props: {
   cartItem: CartItem | undefined;
@@ -82,7 +83,7 @@ export default function CartTable(props: {
             {props.cartItem?.products.map((item: any) => (
               <Tr key={item._id}>
                 <Td>
-                  <Link href={`/product/${item.productId}`}>{item.title}</Link>
+                  {(item.title).substring(0, 25)}
                 </Td>
                 <Td>
                   <Button
@@ -101,7 +102,7 @@ export default function CartTable(props: {
                     <AddIcon w={2} h={2} />
                   </Button>
                 </Td>
-                <Td>{item.price}sek</Td>
+                <Td>{item.price} sek</Td>
                 <Td>
   
                 </Td>
@@ -110,9 +111,9 @@ export default function CartTable(props: {
           </Tbody>
           <Tfoot>
             <Tr>
-              <Th>Total:</Th>
-              <Th>{props.cartItem?.bill}</Th>
               <Th></Th>
+              <Th>Total:</Th>
+              <Th>{props.cartItem?.bill} sek</Th>
             </Tr>
           </Tfoot>
         </Table>
