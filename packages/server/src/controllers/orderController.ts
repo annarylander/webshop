@@ -5,6 +5,7 @@ import {
   findCartbyUser,
   saveOrderItem,
   checkoutCart,
+  findPreviousOrders,
 } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
@@ -112,10 +113,19 @@ const checkoutCartItem = async (email: string): Promise<CartItem> => {
   return cart;
 };
 
+const loadPreviousOrders = async (email: string): Promise<CartItem[]> => {
+  const orders = await findPreviousOrders(email);
+  if (!orders) {
+    throw new Error("No previous orders found");
+  }
+  return orders;
+};
+
 export {
   saveOrder,
   deleteCartItem,
   loadCartbyUser,
   deleteAllInCart,
   checkoutCartItem,
+  loadPreviousOrders,
 };

@@ -63,4 +63,16 @@ const checkoutCart = async (email: string) => {
   );
 };
 
-export { findCartbyUser, saveOrderItem, deleteCart, checkoutCart };
+const findPreviousOrders = async (
+  email: string
+): Promise<CartItem[] | null> => {
+  return await OrderModel.find({ user: email, isCheckedOut: true }).exec();
+};
+
+export {
+  findCartbyUser,
+  saveOrderItem,
+  deleteCart,
+  checkoutCart,
+  findPreviousOrders,
+};
