@@ -11,6 +11,9 @@ RUN npm ci -w packages/client
 COPY ./packages/client ./packages/client
 COPY ./packages/shared ./packages/shared
 
+ARG REACT_APP_URL
+ENV REACT_APP_BASE_URL=${REACT_APP_URL}
+
 RUN npm run build -w packages/client
 EXPOSE 3000
 
