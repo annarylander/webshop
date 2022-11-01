@@ -17,4 +17,4 @@ ENV REACT_APP_BASE_URL=${REACT_APP_URL}
 RUN npm run build -w packages/client
 EXPOSE 3000
 
-CMD [ "npx", "serve", "packages/client/build" ]
+CMD [ "npx", "serve", "-s", "packages/client/build" ]

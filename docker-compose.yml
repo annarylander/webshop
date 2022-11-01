@@ -3,6 +3,8 @@ services:
   server:
     build:
       dockerfile: Dockerfile.server
+      args:
+        TOKEN_SECRET: ${TOKEN_SECRET}
     ports:
       - "3002:3002"
     environment:
