@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, GridItem, Image, Text, Box } from "@chakra-ui/react";
+import { Grid, GridItem, Image, Text, Box, Link } from "@chakra-ui/react";
 import ListCartItems from "../components/ListCartItems";
 import UpdateUserModal from "../components/UpdateUserModal";
 import UserContext from "../context/UserContext";
@@ -9,6 +9,7 @@ export default function AccountPage() {
 
   return (
     <>
+    { user ?
       <Grid
         h="100vh"
         templateRows="repeat(6, 1fr)"
@@ -97,6 +98,12 @@ export default function AccountPage() {
           </Text>
         </GridItem>
       </Grid>
+      : <Text>
+      You are not logged in. {' '}
+      <Link color='teal.500' href='/'>
+        Click here to go to our startpage and log in or sign up
+      </Link>
+    </Text>}
     </>
   );
 }
