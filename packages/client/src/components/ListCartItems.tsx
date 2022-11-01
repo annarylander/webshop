@@ -13,35 +13,30 @@ export default function ListCartItems() {
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
 
   useEffect(() => {
-   getCart()
+    getCart();
   }, []);
 
   function getCart() {
     axios
-    .get("/order/getcart", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => {
-      setCartItems(response.data);
-    })
-    .catch((error) => {
-      setCartItems(undefined);
-      setError("No products in cart");
-    });
+      .get("/order/getcart", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setCartItems(response.data);
+      })
+      .catch((error) => {
+        setCartItems(undefined);
+        setError("No products in cart");
+      });
   }
- 
+
   const RenderCart = ({ cart, error }: { cart?: CartItem; error?: string }) => {
     if (error) {
       return <div>{error}</div>;
     } else if (cart) {
-      return (
-        <CartTable
-          cartItem={cart}
-          cartIsUpdated={getCart}
-        />
-      );
+      return <CartTable cartItem={cart} cartIsUpdated={getCart} />;
     } else {
       return <div>Cart is empty</div>;
     }

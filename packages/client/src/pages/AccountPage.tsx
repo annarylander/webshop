@@ -1,14 +1,16 @@
 import React from "react";
-import { Grid, GridItem, Image, Text, Box } from "@chakra-ui/react";
+import { Grid, GridItem, Image, Text, Box, Link } from "@chakra-ui/react";
 import ListCartItems from "../components/ListCartItems";
 import UpdateUserModal from "../components/UpdateUserModal";
 import UserContext from "../context/UserContext";
+import PreviousOrders from "../components/PreviousOrders";
 
 export default function AccountPage() {
   const { user } = React.useContext(UserContext);
 
   return (
     <>
+    { user ?
       <Grid
         h="100vh"
         templateRows="repeat(6, 1fr)"
@@ -94,9 +96,16 @@ export default function AccountPage() {
         >
           <Text as="u" fontSize="2xl" color="black">
             Previous orders
+            <PreviousOrders />
           </Text>
         </GridItem>
       </Grid>
+      : <Text>
+      You are not logged in. {' '}
+      <Link color='teal.500' href='/'>
+        Click here to go to our startpage and log in or sign up
+      </Link>
+    </Text>}
     </>
   );
 }
