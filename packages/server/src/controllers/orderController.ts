@@ -52,7 +52,6 @@ const deleteCartItem = async (
   try {
     const cart = await findCartbyUser(email);
     const product = await loadSingleProduct(productId);
-    console.log("see email", email, "see product", product);
     if (!product) {
       throw new Error("Product not found");
     }
