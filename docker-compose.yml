@@ -21,6 +21,9 @@ services:
     image: mongo:6.0.2
     ports:
       - "27017:27017"
-    container_name: db
+    container_name: db_plant_shop
     volumes:
       - /data/db
+      - ./initdb.js:/docker-entrypoint-initdb.d/initdb.js
+    environment:
+      - MONGO_INITDB_DATABASE=plantshop
