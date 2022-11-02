@@ -29,7 +29,7 @@ export default function LoginModal() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   const baseURL: string =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
@@ -43,9 +43,9 @@ export default function LoginModal() {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((_response) => {
+      .then((res) => {
         setIsLoggedIn(true);
-        setUser(_response.data);
+        setUser(res.data);
       })
       .catch((error) => {
         console.log(error);
