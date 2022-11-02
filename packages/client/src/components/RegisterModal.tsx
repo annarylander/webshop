@@ -16,7 +16,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import UserContext from "../context/UserContext";
 
 export default function RegisterModal() {
   const [name, setName] = useState<string>("");
@@ -26,6 +27,8 @@ export default function RegisterModal() {
   const [password, setPassword] = useState<string>("");
   const [errorText, setErrorText] = useState<string>("");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+
+  const { setUser } = useContext(UserContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [show, setShow] = React.useState(false);
@@ -44,8 +47,9 @@ export default function RegisterModal() {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((_response) => {
+      .then((res) => {
         setIsLoggedIn(true);
+        setUser(res.data);
       })
       .catch((error) => {
         setIsLoggedIn(false);
