@@ -10,9 +10,6 @@ RUN npm ci -w packages/server
 COPY ./packages/server ./packages/server
 COPY ./packages/shared ./packages/shared
 
-ENV TOKEN_SECRET=afow489hfsdkjfd2hd57el
-
-
 RUN npm run build -w packages/server
 
 EXPOSE 3002
