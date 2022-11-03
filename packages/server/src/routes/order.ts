@@ -27,8 +27,6 @@ orderRouter.post(
     };
 
     const productId = products.productId;
-    console.log("user:", user, "payload:", payload, "productID:", productId);
-
     const token = req.jwt;
     if (!token) {
       res.sendStatus(401);
