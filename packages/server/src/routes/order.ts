@@ -8,8 +8,10 @@ import {
   checkoutCartItem,
   loadPreviousOrders,
   getAllOrders,
+  getUpdateOrder,
 } from "../controllers/orderController";
 import { loadProductbyId } from "../controllers/productController";
+import { updateOrder } from "../models/orders-repository";
 import { authUser, JwtRequest } from "../services/auth";
 
 const orderRouter = express.Router();
@@ -25,6 +27,7 @@ orderRouter.post(
       products: products,
       bill: 0,
       isCheckedOut: false,
+      status: "pending",
     };
 
     const productId = products.productId;
@@ -123,5 +126,16 @@ orderRouter.get(
     }
   }
 );
+
+orderRouter.put("/:id", async (req: Request, res: Response) => {
+  const status = req.body.status;
+  const orderId = req.params.id;
+  console.log("update", req.body);
+  try {
+    res.send(await getUpdateOrder(orderId, status));
+  } catch (err) {
+    res.status(204).send("No orders");
+  }
+});
 
 export default orderRouter;

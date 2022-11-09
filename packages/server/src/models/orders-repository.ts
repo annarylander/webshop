@@ -26,6 +26,7 @@ const OrderSchema = new Schema(
       default: 0,
     },
     isCheckedOut: { type: Boolean, default: false },
+    status: { type: String, default: "pending" },
   },
   {
     timestamps: true,
@@ -73,6 +74,14 @@ const findAllOrders = async (email: string): Promise<CartItem[] | null> => {
   return await OrderModel.find({}).exec();
 };
 
+const updateOrder = async (orderId: string, status: any): Promise<any> => {
+  console.log("status", status);
+  return await OrderModel.findOneAndUpdate(
+    { _id: orderId },
+    { status: status }
+  );
+};
+
 export {
   findCartbyUser,
   saveOrderItem,
@@ -80,4 +89,5 @@ export {
   checkoutCart,
   findPreviousOrders,
   findAllOrders,
+  updateOrder,
 };
