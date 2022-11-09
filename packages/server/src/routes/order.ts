@@ -7,6 +7,7 @@ import {
   saveOrder,
   checkoutCartItem,
   loadPreviousOrders,
+  getAllOrders,
 } from "../controllers/orderController";
 import { loadProductbyId } from "../controllers/productController";
 import { authUser, JwtRequest } from "../services/auth";
@@ -105,6 +106,20 @@ orderRouter.get(
       res.send(await loadPreviousOrders(email as string));
     } catch (err) {
       res.status(204).send("No previous orders");
+    }
+  }
+);
+
+orderRouter.get(
+  "/all-orders",
+  authUser,
+  async (req: JwtRequest<CartItem>, res: Response) => {
+    const email = req.jwt?.email;
+    console.log("email in all orders route", email);
+    try {
+      res.send(await getAllOrders(email as string));
+    } catch (err) {
+      res.status(204).send("No orders");
     }
   }
 );

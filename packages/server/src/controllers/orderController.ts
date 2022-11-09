@@ -6,6 +6,7 @@ import {
   saveOrderItem,
   checkoutCart,
   findPreviousOrders,
+  findAllOrders,
 } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
@@ -120,6 +121,14 @@ const loadPreviousOrders = async (email: string): Promise<CartItem[]> => {
   return orders;
 };
 
+const getAllOrders = async (email: string): Promise<CartItem[]> => {
+  const allOrders = await findAllOrders(email);
+  if (!allOrders) {
+    throw new Error("No orders found");
+  }
+  return allOrders;
+};
+
 export {
   saveOrder,
   deleteCartItem,
@@ -127,4 +136,5 @@ export {
   deleteAllInCart,
   checkoutCartItem,
   loadPreviousOrders,
+  getAllOrders,
 };

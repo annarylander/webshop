@@ -69,10 +69,15 @@ const findPreviousOrders = async (
   return await OrderModel.find({ user: email, isCheckedOut: true }).exec();
 };
 
+const findAllOrders = async (email: string): Promise<CartItem[] | null> => {
+  return await OrderModel.find({}).exec();
+};
+
 export {
   findCartbyUser,
   saveOrderItem,
   deleteCart,
   checkoutCart,
   findPreviousOrders,
+  findAllOrders,
 };
