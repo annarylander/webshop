@@ -5,6 +5,7 @@ import user from "./routes/user";
 import order from "./routes/order";
 import dotenv from "dotenv";
 import { setupMongoDb } from "./models/common";
+const multer = require("multer");
 
 dotenv.config();
 
@@ -13,6 +14,22 @@ app.use(cors());
 app.use(json());
 
 const port: number = parseInt(process.env.SERVER_PORT || "3002");
+
+// image will upload to uploads folder locally, not to db
+const storage = multer.diskStorage({
+  destination: "uploads",
+  filename: (
+    req: any,
+    file: { originalname: any },
+    cb: (arg0: null, arg1: any) => void
+  ) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+app.use(upload.array("moreImages"));
+app.use("/uploads", express.static("./uploads"));
 
 app.use("/user", user);
 app.use("/product", product);
