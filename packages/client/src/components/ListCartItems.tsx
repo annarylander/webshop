@@ -1,5 +1,4 @@
 import { CartItem, ProductItem } from "@my-webshop/shared";
-import { type } from "@testing-library/user-event/dist/type";
 import axios from "axios";
 import React, { useEffect } from "react";
 import CartTable from "./CartTable";

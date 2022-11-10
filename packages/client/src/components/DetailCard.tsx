@@ -4,8 +4,6 @@ import BuyButton from "./BuyButton";
 import { Image, Box } from "@chakra-ui/react";
 
 export default function DetailCard(props: { product: ProductItem }) {
-  const ifNoImg =
-    "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHBsYW50c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=20";
 
   return (
     <div className="detailcontainer">
@@ -13,16 +11,8 @@ export default function DetailCard(props: { product: ProductItem }) {
         <div className="product-img">
           <div className="main-image">
             <img
-              src={
-                props.product.mainImage === undefined
-                  ? ifNoImg
-                  : props.product.mainImage.url
-              }
-              alt={
-                props.product.mainImage === undefined
-                  ? "Fikus"
-                  : props.product.mainImage.alt
-              }
+              src={props.product.mainImage?.url}
+              alt={props.product.mainImage?.alt}
             />
           </div>
           <div className="more-images">
