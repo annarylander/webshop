@@ -4,8 +4,6 @@ import axios from "axios";
 import React from "react";
 
 export default function BuyButton(props: { product: ProductItem }) {
-  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
-  const [error, setError] = React.useState<string | undefined>();
   axios.defaults.baseURL =
     process.env.REACT_APP_BASE_URL || "http://localhost:3002";
   const token = localStorage.getItem("jwt");

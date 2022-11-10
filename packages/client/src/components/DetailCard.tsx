@@ -7,18 +7,6 @@ export default function DetailCard(props: { product: ProductItem }) {
   const ifNoImg =
     "https://images.unsplash.com/photo-1501004318641-b39e6451bec6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fHBsYW50c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=300&q=20";
 
-  /*   const showMoreImages = ({images, error} : {images?: string; error?: string} ) => { 
-    if (props.product.moreImages?[0].url == '') {
-      <Box boxSize="130px">
-      {props.product.moreImages?.map((image) => (
-        <Image objectFit="cover" src={image.url} alt={image.alt} />
-      ))}
-    </Box>
-    } else {
-      null
-    }
-  } */
-
   return (
     <div className="detailcontainer">
       <div className="wrapper">
@@ -40,11 +28,7 @@ export default function DetailCard(props: { product: ProductItem }) {
           <div className="more-images">
             {props.product.moreImages?.map((image) =>
               image.url === "" ? null : (
-               
-               
-                    <Image objectFit="cover" src={image.url} alt={image.alt} />
-                 
-                
+                <Image objectFit="cover" src={image.url} alt={image.alt} />
               )
             )}
           </div>
