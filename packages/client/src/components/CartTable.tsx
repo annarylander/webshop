@@ -6,7 +6,6 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Link,
   Button,
@@ -15,7 +14,6 @@ import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
 import React from "react";
-import ProductDetailModal from "./ProductDetailModal";
 
 export default function CartTable(props: {
   cartItem: CartItem | undefined;

@@ -9,11 +9,9 @@ import {
   DrawerCloseButton,
   Button,
   useDisclosure,
-  Input,
   IconButton,
 } from "@chakra-ui/react";
 import { BsCart3 } from "react-icons/bs";
-import ListCartItems from "./ListCartItems";
 import DeleteCartButton from "./DeleteCartButton";
 import axios from "axios";
 import { CartItem } from "@my-webshop/shared";
