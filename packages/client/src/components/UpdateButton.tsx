@@ -64,12 +64,11 @@ export default function UpdateButton(props: { product: ProductItem }) {
     const payload = checkIfEmptyField();
 
     await axios
-      .put(`${baseURL}/user/update`, payload, {
+      .patch(`${baseURL}/product/${props.product._id}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res: any) => {
-        const token = res.data;
-        localStorage.setItem("jwt", token);
+        console.log(res.data);
         onClose();
         window.location.reload();
       })
@@ -112,8 +111,8 @@ export default function UpdateButton(props: { product: ProductItem }) {
               <Input
                 type="number"
                 focusBorderColor="white"
-                placeholder="Price"
-                // onChange={(e) => setPrice(e.target.value as number)}
+                placeholder="Just numbers"
+                onChange={(e) => setPrice(e.target.value as unknown as number)}
                 value={price}
               />
             </FormControl>
@@ -160,7 +159,12 @@ export default function UpdateButton(props: { product: ProductItem }) {
               />
             </FormControl>
 
-            <FormControl mt={4}>
+            {/*
+              We tried to add an image upload feature, but we couldn't get it to work.
+              We are using Multer in the backend to handle the image upload, but we are still trying to figure it out in TypeScript.
+             */}
+
+            {/* <FormControl mt={4}>
               <FormLabel>Image</FormLabel>
               <Input
                 focusBorderColor="white"
@@ -168,7 +172,7 @@ export default function UpdateButton(props: { product: ProductItem }) {
                 onChange={(e) => setMainImage(e.target.value)}
                 value={mainImage}
               />
-            </FormControl>
+            </FormControl> */}
           </ModalBody>
 
           <ModalFooter color="black">

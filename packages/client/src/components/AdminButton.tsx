@@ -9,7 +9,7 @@ export default function AdminButton() {
     <>
       {user?.role === "admin" && (
         <Button bgColor="#447761" color="#fff">
-          <a href="/admin">Administrator page</a>
+          <a href="/admin">Admin page</a>
         </Button>
       )}
     </>

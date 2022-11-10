@@ -29,7 +29,6 @@ export default function CartTable(props: {
   const token = localStorage.getItem("jwt");
 
   const handleAddOne = async (product: CartItem): Promise<void> => {
-    console.log(`adding ${product} to cart`);
 
     const payload = product;
     try {
@@ -50,7 +49,7 @@ export default function CartTable(props: {
 
   const handleDeleteOne = async (product: CartItem): Promise<void> => {
     const payload = {product : product};
-    console.log(`deleting ${product} from cart`);
+
     try {
       await axios
         .patch("order/delete-item", payload, {

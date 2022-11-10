@@ -1,18 +1,14 @@
-import { CartItem, ProductItem } from "@my-webshop/shared";
+import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
-  Link,
-  Button,
 } from "@chakra-ui/react";
 
 export default function PreviousOrders() {
@@ -60,6 +56,7 @@ export default function PreviousOrders() {
                 return (
                   <div>
                     <Td>{item.bill} sek</Td>
+                    <Td>Status: {item.status}</Td>
                   </div>
                 );
               })}

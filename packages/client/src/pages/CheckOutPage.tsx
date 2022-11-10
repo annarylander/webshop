@@ -19,8 +19,6 @@ import axios from "axios";
 export default function CheckOutPage() {
   const { user } = React.useContext(UserContext);
 
-  console.log("current", user);
-
   const token = localStorage.getItem("jwt");
   const payload = { email: user?.email };
 
@@ -31,7 +29,6 @@ export default function CheckOutPage() {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("checkout ok");
     } catch (error) {
       console.log(error);
     }

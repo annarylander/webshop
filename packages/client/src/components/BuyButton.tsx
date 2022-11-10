@@ -27,7 +27,7 @@ export default function BuyButton(props: { product: ProductItem }) {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => {console.log('response from add to cart', response.data)}) 
+      .then(response => {}) 
     } catch (error) {
       console.error(error);
     }

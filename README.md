@@ -21,3 +21,13 @@ JWT_SECRET = choose a secret token
 ```bash
 docker compose up --build
 ```
+
+
+### Create an Admin user
+
+In this webshop you can chose between roles "customer" or "admin". 
+To change between these two, follow these steps:
+
+1. Go into the database and pick one user.
+2. Change the role "customer" to "admin".
+3. Reload page.

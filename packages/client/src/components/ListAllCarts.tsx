@@ -8,10 +8,8 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer,
-  Button
+  TableContainer
 } from "@chakra-ui/react";
-import { EditIcon } from "@chakra-ui/icons";
 import ChangeStatus from "./ChangeStatus";
 
 export default function ListAllCarts() {
@@ -35,7 +33,6 @@ export default function ListAllCarts() {
       })
       .then((response) => {
         setCart(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         setCart(undefined);
@@ -58,11 +55,11 @@ export default function ListAllCarts() {
             {cartItems &&
               cartItems.map((item: any) => {
                 return (
-                  <div>
+                  <div key={item._id}>
                     <Td>Total: {item.bill} sek</Td>
                     <Td>Customer: {item.user}</Td>
                     <Td>Status: {item.status}       
-                      <ChangeStatus/>
+                      <ChangeStatus orderId={item._id}/>
                     </Td>
                   </div>
                 );

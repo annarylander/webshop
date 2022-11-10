@@ -12,13 +12,12 @@ import {
     FormControl,
     FormLabel,
     Input,
-    Text,
-    InputGroup,
+    Select
  } from '@chakra-ui/react'
 import axios from 'axios';
 import React, { useState } from 'react'
 
-export default function ChangeStatus() {
+export default function ChangeStatus(props: { orderId: string }) {
     const [status, setStatus] = useState<string>("");
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -33,12 +32,10 @@ export default function ChangeStatus() {
         const payload = { status: status }
     
         await axios
-          .put(`${baseURL}/user/update`, payload, {
+          .put(`${baseURL}/order/${props.orderId}`, payload, {
             headers: { Authorization: `Bearer ${token}` },
           })
           .then((res: any) => {
-            const token = res.data;
-            localStorage.setItem("jwt", token);
             onClose();
             window.location.reload();
           })
@@ -65,12 +62,10 @@ export default function ChangeStatus() {
           <ModalBody pb={6}>
             <FormControl mt={2}>
               <FormLabel>Status</FormLabel>
-              <Input
-                focusBorderColor="white"
-                placeholder="Full name"
-                onChange={(e) => setStatus(e.target.value)}
-                value={status}
-              />
+              <Select placeholder='Select option' onChange={(e) => setStatus(e.target.value)} color="black" bg="white">
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+              </Select>
             </FormControl>
           </ModalBody>
 
