@@ -5,6 +5,7 @@ import { RiPlantLine } from "react-icons/ri";
 import LoginModal from "./LoginModal";
 import LogoutButton from "./LogoutButton";
 import RegisterModal from "./RegisterModal";
+import AdminButton from "./AdminButton";
 
 export default function Navbar() {
   return (
@@ -31,6 +32,9 @@ export default function Navbar() {
             </div>
             <div>
               <AccountButton/>
+            </div>
+            <div>
+              <AdminButton/>
             </div>
             <div>
               <LogoutButton />
