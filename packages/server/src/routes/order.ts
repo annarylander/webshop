@@ -27,11 +27,7 @@ orderRouter.post(
       products: products,
       bill: 0,
       isCheckedOut: false,
-<<<<<<< HEAD
-      updatedAt: new Date(),
-=======
       status: "pending",
->>>>>>> main
     };
 
     const productId = products.productId;

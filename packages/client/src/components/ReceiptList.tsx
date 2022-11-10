@@ -1,4 +1,3 @@
-import moment from "moment";
 import { CartItem } from "@my-webshop/shared";
 import ReceiptTable from "./ReceiptTable";
 
@@ -11,10 +10,7 @@ export default function ReceiptList(props: {
         props.cartItems?.map((item) => {
           return (
             <>
-              <p>
-                Total: {item.bill} SEK,{" "}
-                {moment(item.updatedAt.toString()).format("L")}
-              </p>
+              <p>Total: {item.bill} SEK, </p>
               {item.products.map((product) => {
                 return <ReceiptTable product={product}></ReceiptTable>;
               })}
