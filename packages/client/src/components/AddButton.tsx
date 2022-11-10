@@ -66,8 +66,6 @@ export default function AddButton() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res: any) => {
-        const token = res.data;
-        localStorage.setItem("jwt", token);
         onClose();
         window.location.reload();
       })
@@ -80,7 +78,7 @@ export default function AddButton() {
     <>
       {user?.role === "admin" && (
         <>
-          <Button onClick={onOpen} bgColor="#447761" color="#fff">
+          <Button onClick={onOpen} bgColor="#447761" color="#fff" mt="10px">
             Add Product
           </Button>
 
@@ -113,8 +111,8 @@ export default function AddButton() {
                   <Input
                     type="number"
                     focusBorderColor="white"
-                    placeholder="Price"
-                    // onChange={(e) => setPrice(e.target.value as number)}
+                    placeholder="Just numbers"
+                    onChange={(e) => setPrice(e.target.value as unknown as number)}
                     value={price}
                   />
                 </FormControl>
@@ -145,7 +143,7 @@ export default function AddButton() {
                   <FormLabel>Weight</FormLabel>
                   <Input
                     focusBorderColor="white"
-                    placeholder="Weight"
+                    placeholder="Weight + grams/kilo afterwards"
                     onChange={(e) => setWeight(e.target.value)}
                     value={weight}
                   />
@@ -161,7 +159,12 @@ export default function AddButton() {
                   />
                 </FormControl>
 
-                <FormControl mt={4}>
+                {/*
+                  We tried to add an image upload feature, but we couldn't get it to work.
+                  We are using Multer in the backend to handle the image upload, but we are still trying to figure it out in TypeScript.
+                */}
+
+                {/* <FormControl mt={4}>
                   <FormLabel>Image</FormLabel>
                   <Input
                     focusBorderColor="white"
@@ -169,7 +172,7 @@ export default function AddButton() {
                     onChange={(e) => setMainImage(e.target.value)}
                     value={mainImage}
                   />
-                </FormControl>
+                </FormControl> */}
               </ModalBody>
 
               <ModalFooter color="black">

@@ -1,12 +1,10 @@
 import { Button } from "@chakra-ui/react";
-import { CartItem, ProductItem } from "@my-webshop/shared";
+import { ProductItem } from "@my-webshop/shared";
 import axios from "axios";
 import React from "react";
 import UserContext from "../context/UserContext";
 
 export default function BuyButton(props: { product: ProductItem }) {
-  const [cartItems, setCartItems] = React.useState<CartItem[]>([]);
-  const [error, setError] = React.useState<string | undefined>();
   const { user } = React.useContext(UserContext);
   
   axios.defaults.baseURL =

@@ -9,7 +9,6 @@ import {
   Th,
   Td,
   TableContainer,
-  Button,
 } from "@chakra-ui/react";
 import ChangeStatus from "./ChangeStatus";
 
@@ -60,7 +59,7 @@ export default function ListAllCarts() {
                     <Td>Customer: {item.user}</Td>
                     <Td>
                       Status: {item.status}
-                      <ChangeStatus />
+                      <ChangeStatus orderId={item._id}/>
                     </Td>
                   </div>
                 );

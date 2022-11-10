@@ -143,7 +143,7 @@ export default function UpdateButton(props: { product: ProductItem }) {
               <FormLabel>Weight</FormLabel>
               <Input
                 focusBorderColor="white"
-                placeholder="Weight"
+                placeholder="Weight + grams/kilo afterwards"
                 onChange={(e) => setWeight(e.target.value)}
                 value={weight}
               />
