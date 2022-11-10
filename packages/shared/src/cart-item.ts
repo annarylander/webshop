@@ -6,4 +6,5 @@ export interface CartItem {
   bill: number;
   isCheckedOut: boolean;
   updatedAt: Date;
+  status: string;
 }

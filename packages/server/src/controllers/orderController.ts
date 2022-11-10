@@ -6,6 +6,8 @@ import {
   saveOrderItem,
   checkoutCart,
   findPreviousOrders,
+  findAllOrders,
+  updateOrder,
 } from "../models/orders-repository";
 import { loadSingleProduct } from "../models/product-repository";
 
@@ -52,7 +54,6 @@ const deleteCartItem = async (
   try {
     const cart = await findCartbyUser(email);
     const product = await loadSingleProduct(productId);
-    console.log("see email", email, "see product", product);
     if (!product) {
       throw new Error("Product not found");
     }
@@ -121,6 +122,23 @@ const loadPreviousOrders = async (email: string): Promise<CartItem[]> => {
   return orders;
 };
 
+const getAllOrders = async (email: string): Promise<CartItem[]> => {
+  const allOrders = await findAllOrders(email);
+  if (!allOrders) {
+    throw new Error("No orders found");
+  }
+  return allOrders;
+};
+
+const getUpdateOrder = async (orderId: string, status: string) => {
+  const updatedOrder = await updateOrder(orderId, status);
+  console.log("updated order", updatedOrder);
+  if (!updatedOrder) {
+    throw new Error("No order found");
+  }
+  return updatedOrder;
+};
+
 export {
   saveOrder,
   deleteCartItem,
@@ -128,4 +146,6 @@ export {
   deleteAllInCart,
   checkoutCartItem,
   loadPreviousOrders,
+  getAllOrders,
+  getUpdateOrder,
 };

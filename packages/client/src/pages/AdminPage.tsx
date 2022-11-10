@@ -1,16 +1,15 @@
 import React from "react";
 import { Grid, GridItem, Image, Text, Box, Link } from "@chakra-ui/react";
-import ListCartItems from "../components/ListCartItems";
 import UpdateUserModal from "../components/UpdateUserModal";
 import UserContext from "../context/UserContext";
-import PreviousOrders from "../components/PreviousOrders";
+import ListAllCarts from "../components/ListAllCarts";
 
-export default function AccountPage() {
+export default function AdminPage() {
   const { user } = React.useContext(UserContext);
 
   return (
     <>
-    { user?.role === "customer" ?
+    { user?.role === "admin" ?
       <Grid
         h="100vh"
         templateRows="repeat(6, 1fr)"
@@ -69,38 +68,27 @@ export default function AccountPage() {
           borderRadius="lg"
           className="accountPageBanner"
         >
-          <Text fontSize="5xl">Account page</Text>
+          <Text fontSize="5xl">Admin page</Text>
         </GridItem>
 
         <GridItem
           boxShadow="2xl"
-          colSpan={2}
+          colSpan={4}
           rowSpan={4}
           borderRadius="lg"
           borderColor="green"
           bgColor="gray.300"
         >
           <Text as="u" fontSize="2xl" color="black">
-            Shopping cart
+            All orders
           </Text>
-          <ListCartItems />
+          <ListAllCarts />
         </GridItem>
 
-        <GridItem
-          boxShadow="2xl"
-          colSpan={2}
-          rowSpan={4}
-          borderRadius="lg"
-          borderColor="green"
-          bgColor="gray.300"
-        >
-          <Text as="u" fontSize="2xl" color="black">
-            Previous orders
-            <PreviousOrders />
-          </Text>
-        </GridItem>
       </Grid>
-      : <Text>
+
+
+    : <Text>
       You are not logged in. {' '}
       <Link color='teal.500' href='/'>
         Click here to go to our startpage and log in or sign up

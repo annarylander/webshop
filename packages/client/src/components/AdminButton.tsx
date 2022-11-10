@@ -2,14 +2,14 @@ import { Button } from "@chakra-ui/react";
 import React from "react";
 import UserContext from "../context/UserContext";
 
-export default function AccountButton() {
+export default function AdminButton() {
   const { user } = React.useContext(UserContext);
 
   return (
     <>
-      {user?.role === "customer" && (
+      {user?.role === "admin" && (
         <Button bgColor="#447761" color="#fff">
-          <a href="/account">{user.full_name}</a>
+          <a href="/admin">Administrator page</a>
         </Button>
       )}
     </>

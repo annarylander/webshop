@@ -1,9 +1,14 @@
 import { Image } from "@chakra-ui/react";
 import { ProductItem } from "@my-webshop/shared";
+import React from "react";
+import UserContext from "../context/UserContext";
 import BuyButton from "./BuyButton";
 import ProductDetailModal from "./ProductDetailModal";
+import UpdateButton from "./UpdateButton";
 
 export default function Card(props: { product: ProductItem; error?: string }) {
+  const { user } = React.useContext(UserContext);
+  
   return (
     <div className="product-card">
       <div>
@@ -32,6 +37,10 @@ export default function Card(props: { product: ProductItem; error?: string }) {
 
       <div className="buy-button">
         <BuyButton product={props.product} />
+      </div>
+      
+      <div className="buy-button">
+        <UpdateButton product={props.product} />
       </div>
     </div>
   );

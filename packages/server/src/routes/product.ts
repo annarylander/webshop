@@ -5,10 +5,16 @@ import {
   loadProducts,
   loadProductbyId,
   getSearchResult,
+  updateProductController,
 } from "../controllers/productController";
 import { searchProduct } from "../models/product-repository";
+import { authUser } from "../services/auth";
 
 const productRouter = express.Router();
+
+interface MulterRequest extends Request {
+  files: any;
+}
 
 productRouter.get("/", async (req: Request, res: Response) => {
   try {
@@ -20,6 +26,7 @@ productRouter.get("/", async (req: Request, res: Response) => {
 
 productRouter.post(
   "/",
+  authUser,
   async (req: Request<ProductItem>, res: Response<ProductItem[]>) => {
     try {
       res.send(await saveProduct(req.body));
@@ -44,5 +51,24 @@ productRouter.get("/search/:query", async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 });
+
+productRouter.patch(
+  "/:productId",
+  authUser,
+  async (req: Request, res: Response<ProductItem>) => {
+    const productId = req.params.productId;
+    const product = req.body;
+    product.moreImages = (req as MulterRequest).files || [];
+    console.log(product.moreImages);
+
+    console.log(product);
+    try {
+      await updateProductController(productId, product);
+      res.send(product).status(200);
+    } catch (e) {
+      res.sendStatus(400);
+    }
+  }
+);
 
 export default productRouter;

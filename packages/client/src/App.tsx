@@ -6,6 +6,7 @@ import CheckOutPage from "./pages/CheckOutPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { UserContextProvider } from "./context/UserContext";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<StartPage />} />
           <Route path="/account" element={<AccountPage />} />
+          <Route path="/admin" element={<AdminPage/>} />
           <Route path="/checkout" element={<CheckOutPage />} />
         </Routes>
         <Footer />

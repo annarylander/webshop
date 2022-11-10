@@ -7,8 +7,11 @@ import {
   saveOrder,
   checkoutCartItem,
   loadPreviousOrders,
+  getAllOrders,
+  getUpdateOrder,
 } from "../controllers/orderController";
 import { loadProductbyId } from "../controllers/productController";
+import { updateOrder } from "../models/orders-repository";
 import { authUser, JwtRequest } from "../services/auth";
 
 const orderRouter = express.Router();
@@ -24,12 +27,14 @@ orderRouter.post(
       products: products,
       bill: 0,
       isCheckedOut: false,
+<<<<<<< HEAD
       updatedAt: new Date(),
+=======
+      status: "pending",
+>>>>>>> main
     };
 
     const productId = products.productId;
-    console.log("user:", user, "payload:", payload, "productID:", productId);
-
     const token = req.jwt;
     if (!token) {
       res.sendStatus(401);
@@ -111,5 +116,30 @@ orderRouter.get(
     }
   }
 );
+
+orderRouter.get(
+  "/all-orders",
+  authUser,
+  async (req: JwtRequest<CartItem>, res: Response) => {
+    const email = req.jwt?.email;
+    console.log("email in all orders route", email);
+    try {
+      res.send(await getAllOrders(email as string));
+    } catch (err) {
+      res.status(204).send("No orders");
+    }
+  }
+);
+
+orderRouter.put("/:id", authUser, async (req: Request, res: Response) => {
+  const status = req.body.status;
+  const orderId = req.params.id;
+  console.log("update", req.body);
+  try {
+    res.send(await getUpdateOrder(orderId, status));
+  } catch (err) {
+    res.status(204).send("No orders");
+  }
+});
 
 export default orderRouter;

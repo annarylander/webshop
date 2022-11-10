@@ -23,23 +23,28 @@ export default function DeleteCartButton(props: { cartIsUpdated: () => void }) {
 
   const handleDeleteCart = async (): Promise<void> => {
     try {
-      await axios.delete("order/delete-cart", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios
+        .delete("order/delete-cart", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(response => console.log("cart deleted"));
     } catch (error) {
       setError("Something went wrong deleting cart");
     }
-    onClose();
     props.cartIsUpdated();
+    onClose();
+    
   };
 
   const token = localStorage.getItem("jwt");
 
   return (
     <div>
-      <Button onClick={onOpen} mr={10}>Delete Cart</Button>
+      <Button onClick={onOpen} mr={10}>
+        Delete Cart
+      </Button>
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
@@ -59,7 +64,11 @@ export default function DeleteCartButton(props: { cartIsUpdated: () => void }) {
             <Button ref={cancelRef} onClick={onClose}>
               No
             </Button>
-            <Button colorScheme="red" ml={3} onClick={() => handleDeleteCart()}>
+            <Button
+              colorScheme="red"
+              ml={3}
+              onClick={(e) => handleDeleteCart()}
+            >
               Yes
             </Button>
           </AlertDialogFooter>
