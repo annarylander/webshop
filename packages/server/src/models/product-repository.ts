@@ -29,6 +29,7 @@ const loadSingleProduct = async (
 
 const saveProductItem = async (product: ProductItem): Promise<ProductItem> => {
   const newProduct = new ProductModel(product);
+  console.log(newProduct);
   return await newProduct.save();
 };
 
@@ -47,9 +48,22 @@ const updateProduct = async (
   id: string,
   product: ProductItem
 ): Promise<ProductItem | null> => {
-  const updatedProduct = await ProductModel.findByIdAndUpdate(id, product, {
-    new: true,
-  });
+  const updatedProduct = await ProductModel.findByIdAndUpdate(
+    id,
+    {
+      title: product.title,
+      price: product.price,
+      description: product.description,
+      category: product.category,
+      weight: product.weight,
+      manufacturer: product.manufacturer,
+      mainImage: product.mainImage,
+      moreImages: product.moreImages,
+    },
+    {
+      new: true,
+    }
+  );
   return updatedProduct;
 };
 

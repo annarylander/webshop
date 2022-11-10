@@ -127,7 +127,7 @@ orderRouter.get(
   }
 );
 
-orderRouter.put("/:id", async (req: Request, res: Response) => {
+orderRouter.put("/:id", authUser, async (req: Request, res: Response) => {
   const status = req.body.status;
   const orderId = req.params.id;
   console.log("update", req.body);
