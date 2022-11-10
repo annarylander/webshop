@@ -2,6 +2,9 @@ import { Button } from "@chakra-ui/react";
 import { ProductItem } from "@my-webshop/shared";
 import BuyButton from "./BuyButton";
 import { Image, Box } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import AdminButton from "./AdminButton";
+import UpdateButton from "./UpdateButton";
 
 export default function DetailCard(props: { product: ProductItem }) {
   const ifNoImg =
@@ -67,6 +70,7 @@ export default function DetailCard(props: { product: ProductItem }) {
             </div>
             <div>
               <BuyButton product={props.product} />
+              <UpdateButton product={props.product} />
             </div>
           </div>
         </div>

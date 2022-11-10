@@ -18,11 +18,13 @@ import DeleteCartButton from "./DeleteCartButton";
 import axios from "axios";
 import { CartItem } from "@my-webshop/shared";
 import CartTable from "./CartTable";
+import UserContext from "../context/UserContext";
 
 export function CartDrawer() {
   const [cartItems, setCartItems] = React.useState<CartItem | undefined>();
   const [error, setError] = React.useState<string | undefined>();
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
+  const { user } = React.useContext(UserContext);
   const token = localStorage.getItem("jwt");
 
   axios.defaults.baseURL =
@@ -74,6 +76,7 @@ export function CartDrawer() {
 
   return (
     <div>
+      {user?.role === "customer" && (
       <>
       {isLoggedIn && (
         <IconButton
@@ -111,6 +114,7 @@ export function CartDrawer() {
           </DrawerContent>
         </Drawer>
       </>
+      )}
     </div>
   );
 }
