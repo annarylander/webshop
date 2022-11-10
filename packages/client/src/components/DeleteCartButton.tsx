@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@chakra-ui/react";
 import axios from "axios";
-import { CartItem } from "@my-webshop/shared";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -14,7 +13,6 @@ import {
 } from "@chakra-ui/react";
 
 export default function DeleteCartButton(props: { cartIsUpdated: () => void }) {
-  const [cartItems, setCartItems] = React.useState<CartItem>();
   const [error, setError] = React.useState<string | undefined>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef<HTMLButtonElement>(null);
@@ -29,7 +27,6 @@ export default function DeleteCartButton(props: { cartIsUpdated: () => void }) {
             Authorization: `Bearer ${token}`,
           },
         })
-        .then(response => console.log("cart deleted"));
     } catch (error) {
       setError("Something went wrong deleting cart");
     }
