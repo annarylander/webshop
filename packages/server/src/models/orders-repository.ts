@@ -1,8 +1,5 @@
 import { CartItem } from "@my-webshop/shared";
-import { createWriteStream } from "fs";
 import { model, Schema } from "mongoose";
-import { loadProductbyId } from "../controllers/productController";
-import { loadSingleProduct } from "./product-repository";
 
 const OrderSchema = new Schema(
   {
@@ -35,15 +32,7 @@ const OrderSchema = new Schema(
 );
 
 const OrderModel = model<CartItem>("Order", OrderSchema);
-/* 
-const loadAllOrders = async (): Promise<CartItem[]> => {
-  return await OrderModel.find({}).exec();
-}; */
 
-/* const loadSingleOrder = async (orderId: string): Promise<CartItem | null> => {
-  return await OrderModel.findById(orderId).exec();
-};
- */
 const findCartbyUser = async (email: string): Promise<CartItem | null> => {
   return await OrderModel.findOne({ user: email, isCheckedOut: false }).exec();
 };

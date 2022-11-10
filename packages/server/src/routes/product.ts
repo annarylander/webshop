@@ -5,6 +5,7 @@ import {
   loadProducts,
   loadProductbyId,
   getSearchResult,
+  updateProductController,
 } from "../controllers/productController";
 import { searchProduct } from "../models/product-repository";
 
@@ -44,5 +45,19 @@ productRouter.get("/search/:query", async (req: Request, res: Response) => {
     res.sendStatus(500);
   }
 });
+
+productRouter.patch(
+  "/:productId",
+  async (req: Request, res: Response<ProductItem>) => {
+    const productId = req.params.productId;
+    const product = req.body;
+    try {
+      await updateProductController(productId, product);
+      res.send(product).status(200);
+    } catch (e) {
+      res.sendStatus(400);
+    }
+  }
+);
 
 export default productRouter;
