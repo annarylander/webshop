@@ -9,7 +9,7 @@ import {
   Th,
   Td,
   TableContainer,
-  Button
+  Button,
 } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 import ChangeStatus from "./ChangeStatus";
@@ -35,14 +35,12 @@ export default function ListAllCarts() {
       })
       .then((response) => {
         setCart(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         setCart(undefined);
         setError("No products in cart");
       });
   }
-
 
   return (
     <div className="previous-orders">
@@ -61,8 +59,9 @@ export default function ListAllCarts() {
                   <div>
                     <Td>Total: {item.bill} sek</Td>
                     <Td>Customer: {item.user}</Td>
-                    <Td>Status: {item.status}       
-                      <ChangeStatus/>
+                    <Td>
+                      Status: {item.status}
+                      <ChangeStatus />
                     </Td>
                   </div>
                 );
@@ -73,4 +72,3 @@ export default function ListAllCarts() {
     </div>
   );
 }
-
