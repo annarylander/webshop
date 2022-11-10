@@ -19,5 +19,5 @@ JWT_SECRET = choose a secret token
 3. Use this command to run the project:
 
 ```bash
-docker compose --env-file packages/server/.env up --build
+docker compose up --build
 ```
