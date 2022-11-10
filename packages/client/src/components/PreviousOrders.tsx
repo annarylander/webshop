@@ -1,8 +1,8 @@
-import { CartItem, ProductItem } from "@my-webshop/shared";
+import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
 import ReceiptList from "./ReceiptList";
+
 
 export default function PreviousOrders() {
   const [cartItems, setCart] = React.useState<CartItem[] | undefined>([]);

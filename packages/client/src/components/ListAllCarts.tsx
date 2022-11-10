@@ -11,7 +11,6 @@ import {
   TableContainer,
   Button,
 } from "@chakra-ui/react";
-import { EditIcon } from "@chakra-ui/icons";
 import ChangeStatus from "./ChangeStatus";
 
 export default function ListAllCarts() {
@@ -56,7 +55,7 @@ export default function ListAllCarts() {
             {cartItems &&
               cartItems.map((item: any) => {
                 return (
-                  <div>
+                  <div key={item._id}>
                     <Td>Total: {item.bill} sek</Td>
                     <Td>Customer: {item.user}</Td>
                     <Td>

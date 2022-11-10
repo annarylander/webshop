@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 import { ProductItem } from "@my-webshop/shared";
 import BuyButton from "./BuyButton";
-import { Image, Box } from "@chakra-ui/react";
+import { Image, Box, Text } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import AdminButton from "./AdminButton";
 import UpdateButton from "./UpdateButton";
@@ -61,6 +61,14 @@ export default function DetailCard(props: { product: ProductItem }) {
             <p>{props.product.description}</p>
             <br />
             <h2>Weight: {props.product.weight}</h2>
+            <br />
+            <h2>Category: {props.product.category?.map((item: any) => {
+                return (
+                  <div key={item}>
+                    <Text fontSize='s' as='i' color="gray.400">{item} </Text>
+                  </div>
+                );
+              })}</h2>
           </div>
           <div className="product-price-btn">
             <div>

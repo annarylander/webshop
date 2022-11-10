@@ -7,7 +7,6 @@ import {
   getSearchResult,
   updateProductController,
 } from "../controllers/productController";
-import { searchProduct } from "../models/product-repository";
 import { authUser } from "../services/auth";
 
 const productRouter = express.Router();
