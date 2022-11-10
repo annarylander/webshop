@@ -57,10 +57,8 @@ orderRouter.patch(
   "/delete-item",
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
-    console.log("delete req", req.body);
     const email = req.jwt?.email;
     const productID = req.body.product;
-    console.log("delete item", productID, "email", email);
     try {
       res.status(201).send(await deleteCartItem(email as string, productID));
     } catch (err) {
@@ -73,9 +71,7 @@ orderRouter.delete(
   "/delete-cart",
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
-    console.log("delete req", req.body, "see jwt", req.jwt);
     const email = req.jwt?.email;
-    console.log("email", email);
     try {
       res.status(201).send(await deleteAllInCart(email as string));
     } catch (err) {
@@ -89,9 +85,6 @@ orderRouter.post(
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
     const email = req.jwt?.email;
-    console.log(email);
-    console.log("update", req.body);
-
     try {
       res.status(201).send(await checkoutCartItem(email as string));
     } catch (err) {
@@ -118,7 +111,6 @@ orderRouter.get(
   authUser,
   async (req: JwtRequest<CartItem>, res: Response) => {
     const email = req.jwt?.email;
-    console.log("email in all orders route", email);
     try {
       res.send(await getAllOrders(email as string));
     } catch (err) {
@@ -130,7 +122,6 @@ orderRouter.get(
 orderRouter.put("/:id", authUser, async (req: Request, res: Response) => {
   const status = req.body.status;
   const orderId = req.params.id;
-  console.log("update", req.body);
   try {
     res.send(await getUpdateOrder(orderId, status));
   } catch (err) {
