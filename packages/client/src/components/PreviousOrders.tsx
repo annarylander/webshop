@@ -1,23 +1,19 @@
-import { CartItem, ProductItem } from "@my-webshop/shared";
+import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
-  Link,
-  Button,
 } from "@chakra-ui/react";
 
 export default function PreviousOrders() {
-  const [cartItems, setCart] = React.useState<CartItem[] | undefined>([]);
-  const [error, setError] = React.useState<string | undefined>();
+  const [cartItems, setCart] = useState<CartItem[] | undefined>([]);
+  const [error, setError] = useState<string | undefined>();
   const token = localStorage.getItem("jwt");
 
   axios.defaults.baseURL =
@@ -36,11 +32,9 @@ export default function PreviousOrders() {
       })
       .then((response) => {
         setCart(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         setError("No previous orders");
-        console.log(error);
       });
   }
 
