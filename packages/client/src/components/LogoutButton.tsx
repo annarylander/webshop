@@ -8,7 +8,6 @@ export default function LogoutButton() {
   const logout = () => {
     localStorage.clear();
     window.location.reload();
-    console.log("user logged out");
   };
 
   return (
