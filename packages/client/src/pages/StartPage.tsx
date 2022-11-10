@@ -3,6 +3,7 @@ import Card from "../components/Card";
 import axios from "axios";
 import { ProductItem } from "@my-webshop/shared";
 import Header from "../components/Header";
+import AddButton from "../components/AddButton";
 
 export default function StartPage() {
   const [products, setProducts] = React.useState<ProductItem[]>([]);
@@ -63,7 +64,7 @@ export default function StartPage() {
           setQuery={setQuery}
         />
       </div>
-
+      <AddButton />
       <div>
         <ProductList products={products} error={error} />
       </div>

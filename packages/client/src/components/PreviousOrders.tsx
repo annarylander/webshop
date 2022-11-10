@@ -25,7 +25,6 @@ export default function PreviousOrders() {
       })
       .then((response) => {
         setCart(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         setError("No previous orders");
