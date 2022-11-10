@@ -8,7 +8,8 @@ import {
   Tr,
   Th,
   Td,
-  TableContainer
+  TableContainer,
+  Button,
 } from "@chakra-ui/react";
 import ChangeStatus from "./ChangeStatus";
 
@@ -40,7 +41,6 @@ export default function ListAllCarts() {
       });
   }
 
-
   return (
     <div className="previous-orders">
       <TableContainer>
@@ -58,8 +58,9 @@ export default function ListAllCarts() {
                   <div key={item._id}>
                     <Td>Total: {item.bill} sek</Td>
                     <Td>Customer: {item.user}</Td>
-                    <Td>Status: {item.status}       
-                      <ChangeStatus orderId={item._id}/>
+                    <Td>
+                      Status: {item.status}
+                      <ChangeStatus />
                     </Td>
                   </div>
                 );
@@ -70,4 +71,3 @@ export default function ListAllCarts() {
     </div>
   );
 }
-

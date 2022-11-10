@@ -61,7 +61,6 @@ const deleteCartItem = async (
 
     if (cart) {
       let itemIndex = cart.products.findIndex((p) => p.productId == productId);
-      console.log("see itemIndex", itemIndex);
       if (itemIndex > -1) {
         let productItem = cart.products[itemIndex];
         if (productItem.quantity > 1) {
@@ -83,8 +82,6 @@ const deleteCartItem = async (
 
 const deleteAllInCart = async (email: string): Promise<void> => {
   const cart = await findCartbyUser(email);
-  console.log("deleting cart", cart);
-
   if (!cart) {
     throw new Error("No cart found");
   }
@@ -93,7 +90,6 @@ const deleteAllInCart = async (email: string): Promise<void> => {
 
 const loadCartbyUser = async (email: string): Promise<CartItem> => {
   const cart = await findCartbyUser(email);
-
   if (!cart) {
     throw new Error("No cart found");
   }
@@ -102,14 +98,10 @@ const loadCartbyUser = async (email: string): Promise<CartItem> => {
 
 const checkoutCartItem = async (email: string): Promise<CartItem> => {
   const cart = await findCartbyUser(email);
-  console.log("checking out cart", cart);
-
   if (!cart) {
     throw new Error("No cart found");
   }
   cart.isCheckedOut = true;
-  console.log("done", cart);
-
   await checkoutCart(email);
   return cart;
 };
@@ -132,7 +124,6 @@ const getAllOrders = async (email: string): Promise<CartItem[]> => {
 
 const getUpdateOrder = async (orderId: string, status: string) => {
   const updatedOrder = await updateOrder(orderId, status);
-  console.log("updated order", updatedOrder);
   if (!updatedOrder) {
     throw new Error("No order found");
   }

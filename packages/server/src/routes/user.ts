@@ -22,9 +22,7 @@ userRouter.post(
       try {
         const newUser = await saveUser(req.body);
         if (newUser) {
-          console.log(newUser);
           const userInfo = await getUserByEmail(newUser.email);
-          console.log(userInfo);
           const token = await generateToken(newUser.email);
           res.status(200).send({ token, userInfo });
         } else {
@@ -94,7 +92,6 @@ userRouter.put(
     try {
       const newUser = await updateUser(userEmail, newUserInfo);
       const token = generateToken(newUser?.email);
-      console.log(token, "token");
       res.status(200).send(token);
     } catch (error) {
       res.status(403).send(error);

@@ -64,7 +64,6 @@ const findAllOrders = async (email: string): Promise<CartItem[] | null> => {
 };
 
 const updateOrder = async (orderId: string, status: any): Promise<any> => {
-  console.log("status", status);
   return await OrderModel.findOneAndUpdate(
     { _id: orderId },
     { status: status }

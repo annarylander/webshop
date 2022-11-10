@@ -15,7 +15,7 @@ app.use(json());
 
 const port: number = parseInt(process.env.SERVER_PORT || "3002");
 
-// image will upload to uploads folder locally, not to db
+// image will upload to uploads folder locally, not to db yet
 const storage = multer.diskStorage({
   destination: "uploads",
   filename: (

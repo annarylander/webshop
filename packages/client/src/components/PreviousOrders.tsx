@@ -1,15 +1,8 @@
 import { CartItem } from "@my-webshop/shared";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-} from "@chakra-ui/react";
+import ReceiptList from "./ReceiptList";
+
 
 export default function PreviousOrders() {
   const [cartItems, setCart] = React.useState<CartItem[] | undefined>([]);
@@ -32,7 +25,6 @@ export default function PreviousOrders() {
       })
       .then((response) => {
         setCart(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         setError("No previous orders");
@@ -42,27 +34,7 @@ export default function PreviousOrders() {
 
   return (
     <div className="previous-orders">
-      <TableContainer>
-        <Table variant="simple" size="sm">
-          <Thead>
-            <Tr>
-              <Th>Amount</Th>
-              <Th></Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {cartItems &&
-              cartItems.map((item) => {
-                return (
-                  <div>
-                    <Td>{item.bill} sek</Td>
-                    <Td>Status: {item.status}</Td>
-                  </div>
-                );
-              })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+      <ReceiptList cartItems={cartItems} />
     </div>
   );
 }
