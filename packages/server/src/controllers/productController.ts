@@ -4,6 +4,7 @@ import {
   saveProductItem,
   loadSingleProduct,
   searchProduct,
+  updateProduct,
 } from "../models/product-repository";
 
 const saveProduct = async (
@@ -35,4 +36,21 @@ const getSearchResult = async (query: string): Promise<ProductItem[]> => {
   return searchResult;
 };
 
-export { saveProduct, loadProducts, loadProductbyId, getSearchResult };
+const updateProductController = async (
+  id: string,
+  product: ProductItem
+): Promise<ProductItem> => {
+  const updatedProduct = await updateProduct(id, product);
+  if (!updatedProduct) {
+    throw new Error("Product not found");
+  }
+  return updatedProduct;
+};
+
+export {
+  saveProduct,
+  loadProducts,
+  loadProductbyId,
+  getSearchResult,
+  updateProductController,
+};

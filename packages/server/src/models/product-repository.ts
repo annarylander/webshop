@@ -43,4 +43,20 @@ const searchProduct = async (query: string): Promise<ProductItem[]> => {
   }).exec();
 };
 
-export { loadAllProducts, loadSingleProduct, saveProductItem, searchProduct };
+const updateProduct = async (
+  id: string,
+  product: ProductItem
+): Promise<ProductItem | null> => {
+  const updatedProduct = await ProductModel.findByIdAndUpdate(id, product, {
+    new: true,
+  });
+  return updatedProduct;
+};
+
+export {
+  loadAllProducts,
+  loadSingleProduct,
+  saveProductItem,
+  searchProduct,
+  updateProduct,
+};
