@@ -120,11 +120,12 @@
   height: 125px;
   width: 125px;
   object-fit: cover;
-  transition: transform 0.2s; /* Animation */
 }
+
 .more-images:hover {
   transform: scale(2);
 }
+
 
 .product-info {
   display: flex;
@@ -133,7 +134,9 @@
   width: 350px;
   border-radius: 0 7px 10px 7px;
   background-color: #ffffff;
+  transition: transform .2s; /* Animation */
 }
+
 
 .product-text h1 {
   text-align: center;
