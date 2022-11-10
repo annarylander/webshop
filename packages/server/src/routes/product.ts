@@ -59,9 +59,6 @@ productRouter.patch(
     const productId = req.params.productId;
     const product = req.body;
     product.moreImages = (req as MulterRequest).files || [];
-    console.log(product.moreImages);
-
-    console.log(product);
     try {
       await updateProductController(productId, product);
       res.send(product).status(200);

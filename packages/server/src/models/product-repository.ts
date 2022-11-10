@@ -29,7 +29,6 @@ const loadSingleProduct = async (
 
 const saveProductItem = async (product: ProductItem): Promise<ProductItem> => {
   const newProduct = new ProductModel(product);
-  console.log(newProduct);
   return await newProduct.save();
 };
 
