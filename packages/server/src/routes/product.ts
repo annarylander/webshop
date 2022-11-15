@@ -12,7 +12,7 @@ import { authUser } from "../services/auth";
 const productRouter = express.Router();
 
 interface MulterRequest extends Request {
-  files: any;
+  file: any;
 }
 
 productRouter.get("/", async (req: Request, res: Response) => {
@@ -26,8 +26,13 @@ productRouter.get("/", async (req: Request, res: Response) => {
 productRouter.post(
   "/",
   authUser,
-  async (req: Request<ProductItem>, res: Response<ProductItem[]>) => {
+  async (req: Request, res: Response<ProductItem[]>) => {
+    const product = req.body;
+    const imagesMulter = (req as MulterRequest).file;
     try {
+      product.mainImage = {
+        url: `http://localhost:3002/${imagesMulter.path}`,
+      };
       res.send(await saveProduct(req.body));
     } catch (e) {
       res.sendStatus(400);
@@ -57,8 +62,11 @@ productRouter.patch(
   async (req: Request, res: Response<ProductItem>) => {
     const productId = req.params.productId;
     const product = req.body;
-    product.moreImages = (req as MulterRequest).files || [];
+    const imagesMulter = (req as MulterRequest).file;
     try {
+      product.mainImage = {
+        url: `http://localhost:3002/${imagesMulter.path}`,
+      };
       await updateProductController(productId, product);
       res.send(product).status(200);
     } catch (e) {
