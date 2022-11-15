@@ -26,7 +26,7 @@ export default function AddButton() {
   const [category, setCategory] = useState<string[]>();
   const [weight, setWeight] = useState<string>("");
   const [manufacturer, setmMnufacturer] = useState<string>("");
-  const [mainImage, setMainImage] = useState<string>("");
+  const [mainImage, setMainImage] = useState<File | null>(null);
   const { user } = React.useContext(UserContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,7 +63,10 @@ export default function AddButton() {
 
     await axios
       .post(`${baseURL}/product/`, payload, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((res: any) => {
         onClose();
@@ -112,7 +115,9 @@ export default function AddButton() {
                     type="number"
                     focusBorderColor="white"
                     placeholder="Just numbers"
-                    onChange={(e) => setPrice(e.target.value as unknown as number)}
+                    onChange={(e) =>
+                      setPrice(e.target.value as unknown as number)
+                    }
                     value={price}
                   />
                 </FormControl>
@@ -159,20 +164,15 @@ export default function AddButton() {
                   />
                 </FormControl>
 
-                {/*
-                  We tried to add an image upload feature, but we couldn't get it to work.
-                  We are using Multer in the backend to handle the image upload, but we are still trying to figure it out in TypeScript.
-                */}
-
-                {/* <FormControl mt={4}>
+                <FormControl mt={4}>
                   <FormLabel>Image</FormLabel>
                   <Input
+                    type="file"
                     focusBorderColor="white"
                     placeholder="Image"
-                    onChange={(e) => setMainImage(e.target.value)}
-                    value={mainImage}
+                    onChange={(e) => setMainImage(e.target.files![0])}
                   />
-                </FormControl> */}
+                </FormControl>
               </ModalBody>
 
               <ModalFooter color="black">
